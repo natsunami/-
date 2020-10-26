@@ -14,11 +14,10 @@ author: Natsunami
 # --- List of links in the navigation bar --- #
 
 navbar-links:
+  Home: "index"
   About Me: "aboutme"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
-  Author's home: "https://deanattali.com"
+  Projects: "projects"
+  Blogs:
 
 # --- Logo --- #
 
