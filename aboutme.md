@@ -13,12 +13,5 @@ You will find on this website articles that i post on my linkedin but also all t
 If you wanna contact me for anything, feel free to send me a mail or a  message on linkdin ! :)
 
 
-![image alt ><](https://raw.githubusercontent.com/natsunami/website/master/assets/img/avatar-icon.png)
 
-img[alt$="><"] {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin: auto;
-  float: none!important;
-}
+
