@@ -1,7 +1,7 @@
 ---
 layout: page
-title: About me
-subtitle: Why you'd want to go on a date with me
+title: About Me
+subtitle: A quick presentation !
 ---
 Welcome to my website ! My name is Damien and i'm graduated in biomedical engineering for neurosciences from the [BME](https://www.bme-paris.com/) master. Here is my [CV] ! 
 
