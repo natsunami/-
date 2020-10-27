@@ -14,3 +14,11 @@ If you wanna contact me for anything, feel free to send me a mail or a  message 
 
 
 ![image alt ><](https://raw.githubusercontent.com/natsunami/website/master/assets/img/avatar-icon.png)
+
+img[alt$="><"] {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+  float: none!important;
+}
