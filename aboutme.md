@@ -12,6 +12,6 @@ You will find on this website articles that i post on my linkedin but also all t
 
 If you wanna contact me for anything, feel free to send me a mail or a  message on linkdin ! :)
 
-{:.center}
+
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/avatar-icon.png)
 
