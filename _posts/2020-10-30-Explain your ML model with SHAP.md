@@ -1,9 +1,9 @@
 ---
 layout: post
 title: Explain your ML model with SHAP
-subtitle: Give new insights to models
+subtitle: Predict is good, explain is better
 cover-img: /assets/img/network.jpeg
-thumbnail-img: /assets/img/sagemaker_pic.png
+thumbnail-img: /assets/img/shap_logo_white.png
 share-img: /assets/img/network.jpeg
 tags: [SHAP, Explainability]
 ---
