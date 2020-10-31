@@ -8,10 +8,13 @@ share-img:
 tags: [SHAP, Explainability]
 ---
 
+**Introduction**
+
 Avant de rentrer dans le vif du sujet, il me semble fondamental de s'interesser à la notion d'interpretabilité/explicabilité ( _Ces deux termes seront considérés comme synonymes dans cet article_) et ce qu'elle signifie lorsque l'on tend à l'appliquer au machine learning (*ML*). 
 
 Miller (2017) définit l'interprétabilité comme _la faculté grâce à laquelle un être humain peut comprendre la cause d'une décision_. Dès lors, si nous cherchons à appliquer cette définition au ML, l'interpretabilité d'un modèle consiste au niveau de compréhension qu'un individu peut avoir dans sa prédiction. Ainsi,  explicable  aboutitmeilleur  compréhension des données
 
+**Expliquer, quel est l'objectif ?**
 
 si le modèle n'est pas explicable alors il est considéré comme étant une boite-noire (black-box). Il parait evident de penser qu'à choisir entre un modele peu interpretable et un autre parfaitement compréhensible, il parait intuitif de choisir le modèle à au niveau d'explicabilité pour la simple est bonne raison que nous pouvons tirer parti de cette compréhension et obtenir des informations à haute valeur ajoutée. Pour étayer mes propos je vais utiliser l'exemple suivant: _Imaginons que l'on veuille prédire le prix d'un appartement parisien ? Quelles sont les features/caractéristiques permettant d'expliquer le prix prédit, et à quels sont leur importances dans la prédiction ? Par exemple, nous pourrions apprendre que l'arrondissement dans lequel se situe l'appartement est un critère determinant dans la prédiction du modèle (e.g: Un appartement dans le 16e sera prédit plus cher qu'un appartement dans le 20e par exemple). De meme, nous pourrions constater que la présence d'un balcon ou non influe également sur la prédiction. 
 
@@ -21,14 +24,19 @@ L'exemple que nous venons juste de developper qui nous ammène  a considerer l'a
 >La personne concernée a le droit de ne pas faire l'objet d'une décision fondée exclusivement sur un traitement automatisé, y compris le profilage, produisant des effets juridiques la concernant ou l'affectant de manière significative de façon similaire.
 Dès lors, Les modèles sans explication risquent d’entraîner une sanction qui peut s’élever à 20 000 000 d’euros ou, dans le cas d’une entreprise, à 4% du chiffre d’affaires mondial total de l’exercice précédent (le montant le plus élevé étant retenu).
 
-Je pense que vous comprenez désormais l'importance de pouvoir expliquer un modèle de ML et les enjeux associés. Cependant, à ce stade nous ne savons toujours pas comment interepreter notre modèle...Pas de panique , c'est ce que nous allons voir juste à présent grâce à la librairie [SHAP](https://shap.readthedocs.io/en/latest/index.html) (SHapley Additive exPlanations)! 
+Je pense que vous comprenez désormais l'importance de pouvoir expliquer un modèle de ML et les enjeux associés. Cependant, à ce stade nous ne savons toujours pas comment interepreter notre modèle...Pas de panique , c'est ce que nous allons voir juste à présent grâce à la librairie [SHAP](https://shap.readthedocs.io/en/latest/index.html)! 
 
+**SHAP (SHapley Additive exPlanations)**
+
+***Qu'est ce que c'est ?***
 
 Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chaque prédiction d'un modèle de ML. Pour cela, SHAP s'appuie sur la theorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley).
 
 L'idée est la suivante: Pour chaque feature de chaque exemple du jeu de données va etre calculé les valeurs de Shapley correspondantes. En calculant ces valeurs nous allons pouvoir expliquer la prédiction dans la mesure où si l'on somme toutes les valeurs de shapley pour un exemple donné à la prédiction moyenne (de tout les examples), nous obtenons bien la sorti du modèle pour cet exemple. Ce qu'il faut retenir et comprendre c'est que les valeurs de shapley vont permettre de determiner l'effet de chaque variable dans la prédiction. Plus la valeur de shapley est elevée ( en valeur absolue), plus l'effet de la variable est important.
 
-Si ce que je viens de dire n'est pas clair, alors peut etre qu'avec cet exemple ca le sera ! Reprenons notre exemple  un de prédiction immobilière. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m*2, possède un **balcon** et est situé dans le 16e **arrondissement**. Par ailleurs, il a été calculé que le prix moyen d'un logement est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit et l'objectif est d'expliquer cette différence. Et bien il est tout a fait probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_)
+Si ce que je viens de dire n'est pas clair, alors peut etre qu'avec cet exemple ca le sera ! Reprenons notre exemple  un de prédiction immobilière. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m*2, possède un **balcon** et est situé dans le 16e **arrondissement**. Par ailleurs, il a été calculé que le prix moyen d'un logement est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit et l'objectif est d'expliquer cette différence. Et bien il est tout a fait probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_).
+
+***Comment calculer une valeur de shapley ?***
 
 
 
