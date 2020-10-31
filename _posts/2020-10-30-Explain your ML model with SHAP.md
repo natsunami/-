@@ -36,13 +36,15 @@ L'idée est la suivante: Pour chaque feature de chaque exemple du dataset vont �
 
 ![](https://raw.githubusercontent.com/natsunami/website/3adf860daf5e4ccba3983e8f131bcf9a78c53bf1/assets/img/shap_value_formula.svg)
 
-Avec M, le nombre de variables, S est un sous-ensemble de variables, x est le vecteur des valeurs des features de l'example à expliquer. f(x) est la prédiction utilisant les valeurs des features dans l'ensemble S qui sont marginalisées par rapport aux features qui ne sont pas inclus dans l'ensemble S :
+_Avec M, le nombre de variables, S est un sous-ensemble de variables, x est le vecteur des valeurs des features de l'example à expliquer. f(x) est la prédiction utilisant les valeurs des features dans l'ensemble S qui sont marginalisées par rapport aux features qui ne sont pas inclus dans l'ensemble S._
 
-Chacune des prédictions pour chaque example peut s'écrire comme la somme des valeurs de shapley ajoutée à la prédiction moyenne notée  \varphi_0 (valeur de base), nous obtenons bien la sorti du modèle pour cet exemple:
+Chacune des prédictions pour chaque example peut s'écrire comme la somme des valeurs de shapley ajoutée à la prédiction moyenne notée  \varphi_0 (valeur de base):
 
 ![](https://raw.githubusercontent.com/natsunami/website/b4b8d28c5e11b6286e65cf91cdd69abd020ef2af/assets/img/shap_value_additivity_1.svg)
 
-Ce qu'il faut retenir et comprendre c'est que les valeurs de shapley vont permettre de determiner l'effet de chaque variable dans la prédiction. Plus la valeur de shapley est elevée ( en valeur absolue), plus l'effet de la variable est important.
+Avec, y_{pred} la valeur prédite du modèle pour cette exemple, \varphi_0 la valeur de base du model, z'\in \{0,1\}^M quand la variable est observée z'_i=1 ou inconnue z'_i=0.
+
+Ce qu'il faut retenir et comprendre c'est que les valeurs de shapley représentent l'effet de chaque variable dans la prédiction. Plus la valeur de shapley est elevée (en valeur absolue), plus elle est importante dans la prédiction.
 
 ![](https://github.com/natsunami/website/blob/master/assets/img/shap_value_additivity2.png)
 
