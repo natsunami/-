@@ -26,6 +26,13 @@ Je pense que vous comprenez désormais l'importance de pouvoir expliquer un mod�
 
 Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chaque prédiction d'un modèle de ML. Pour cela, SHAP s'appuie sur la theorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley).
 
+L'idée est la suivante: Pour chaque feature de chaque exemple du jeu de données va etre calculé les valeurs de Shapley correspondantes. En calculant ces valeurs nous allons pouvoir expliquer la prédiction dans la mesure où si l'on somme toutes les valeurs de shapley pour un exemple donné à la prédiction moyenne (de tout les examples), nous obtenons bien la sorti du modèle pour cet exemple. Ce qu'il faut retenir et comprendre c'est que les valeurs de shapley vont permettre de determiner l'effet de chaque variable dans la prédiction. Plus la valeur de shapley est elevée ( en valeur absolue), plus l'effet de la variable est important.
+
+Si ce que je viens de dire n'est pas clair, alors peut etre qu'avec cet exemple ca le sera ! Reprenons notre exemple  un de prédiction immobilière. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m*2, possède un **balcon** et est situé dans le 16e **arrondissement**. Par ailleurs, il a été calculé que le prix moyen d'un logement est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit et l'objectif est d'expliquer cette différence. Et bien il est tout a fait probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_)
+
+
+
+
 
 
 
