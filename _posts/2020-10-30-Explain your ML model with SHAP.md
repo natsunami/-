@@ -30,13 +30,14 @@ Je pense que vous comprenez désormais l'importance de pouvoir expliquer un mod�
 
 ### Qu'est ce que c'est ? ###
 
-Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chaque prédiction d'un modèle de ML. Pour cela, SHAP s'appuie sur la theorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley).
+Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chaque prédiction d'un modèle de ML. Pour cela, SHAP s'appuie sur la theorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley)
 
-L'idée est la suivante: Pour chaque feature de chaque exemple du jeu de données va etre calculé les valeurs de Shapley correspondantes:
+L'idée est la suivante: Pour chaque feature de chaque exemple du dataset vont être calculé les valeurs de Shapley \varphi_i:
 
 ![](https://raw.githubusercontent.com/natsunami/website/3adf860daf5e4ccba3983e8f131bcf9a78c53bf1/assets/img/shap_value_formula.svg)
+Avec M, le nombre de variables, S est un sous-ensemble de variables, x est le vecteur des valeurs des features de l'example à expliquer. f(x) est la prédiction utilisant les valeurs des features dans l'ensemble S qui sont marginalisées par rapport aux features qui ne sont pas inclus dans l'ensemble S :
 
-En calculant ces valeurs nous allons pouvoir expliquer la prédiction dans la mesure où si l'on somme toutes les valeurs de shapley pour un exemple donné à la prédiction moyenne (de tout les examples), nous obtenons bien la sorti du modèle pour cet exemple:
+En calculant ces valeurs nous pouvons determiner chacune des prédictions dans la mesure où ces dernières représentent la somme des valeurs de shapley pour un exemple ajoutée à la prédiction moyenne notée  \varphi_0 (valeur de base), nous obtenons bien la sorti du modèle pour cet exemple:
 
 ![](https://raw.githubusercontent.com/natsunami/website/b4b8d28c5e11b6286e65cf91cdd69abd020ef2af/assets/img/shap_value_additivity_1.svg)
 
