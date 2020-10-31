@@ -36,12 +36,17 @@ L'idée est la suivante: Pour chaque feature de chaque exemple du jeu de donnée
 
 Si ce que je viens de dire n'est pas clair, alors peut etre qu'avec cet exemple ca le sera ! Reprenons notre exemple  un de prédiction immobilière. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m*2, possède un **balcon** et est situé dans le 16e **arrondissement**. Par ailleurs, il a été calculé que le prix moyen d'un logement est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit et l'objectif est d'expliquer cette différence. Et bien il est tout a fait probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_).
 
+The contribution ϕj of the j-th feature on the prediction ^f(x) is:
+
+ϕj(^f)=βjxj−E(βjXj)=βjxj−βjE(Xj)
+
 ### Comment calculer une valeur de shapley ? ###
 
+S'il faudrait retenir une chose, ca serait la suivante: La veleur de shapley est la contribution marginale moyenne d'un feature dans toutes les coalitions possibles.
+
+Pour comprendre la définition citée précédemment nous allons chercher à évaluer la contribution de l'arrondissement lorsqu'elle est ajoutée à la coalition 'superficie - balcon'. Dans l'exemple précedent nous avions prédit le prix d'un appartement en considérement sa superficie, la présence d'un balcon ou non et son arrondissement (16eme). Nous avons prédit un prix de 530 000€. Si on enlève **arrondissement** de la coalition en remplacant la valeur '16eme' par une valeur aléatoire de ce meme feature (par exemple 13eme), nous prédirons un prix de 490 000€. L'arrondissement du 16eme contribue donc à hauteur de 40 000€ (530 000€ - 490 000€).
+Ainsi nous venons donc de calculer la contribution d'une valeur d'un feature dans **une seule** coalition. Maintenant l'opération doit etre répétée pour toutes les combinaisons de coalitions possibles afin de dterminer la contribution marginale moyenne (_Note: Le temps pour calculer les valeurs de shapley augmente de facon exponentielle en fonction du nombre de features).
+
+En conclusion, on calcule pour chaque coalition le prix de l'appartement avec et sans la valeur '16eme' du feature **arrondissement** pour determiner la moyenne des differences (contribution marginale moyenne). Ce processus
 
 
-
-
-
-
-    
