@@ -61,11 +61,11 @@ Ainsi nous venons donc de calculer la contribution d'une valeur d'un feature dan
 
 En conclusion, on calcule pour chaque coalition le prix de l'appartement avec et sans la valeur '16eme' du feature **arrondissement** pour determiner la moyenne des differences (contribution marginale moyenne). Ce processus
 
-##SHAP en exemple##
+## SHAP en exemple ##
 
 Maintenant que nous sommes familier avec SHAP et les valeurs de shapley, nous allons pouvoir etudier un cas concret d'explicabilité de modèle. L'exemple que nous allons prendre s'appuie sur le dataset [Health Insurance Cross Sell Prediction](https://www.kaggle.com/anmolkumar/health-insurance-cross-sell-prediction).
 
-###Descriptif###
+### Descriptif ###
 Travaillant pour le compte d'une entreprise d'assurance, notre objectif est de déterminer si ses clients seraient potentiellement intéréssés pour souscrire à une assurance auto. Pour cela nous allons construire un modèle classifiant si oui ou non le client serait intéréssé avec à notre disposition des informations sur le client (genre, age, sexe, région), le vehicule (age du véhicule,présence de dommages) et le contrat d'assurance (somme versée par le client, moyen de contact du client). Pour finir (la partie qui nous interesse), nous voulons expliquer les prédictions du modèle (e.g: Pourquoi ce client a été classifié comme susceptible de souscrire à l'assurance auto ?).
 
 Dans cet article nous allons directement à la partie explicabilité avec SHAP, mais je vous invite également à consulter le notebook complet [ici]().
