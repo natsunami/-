@@ -44,11 +44,13 @@ Chacune des prédictions pour chaque example peut s'écrire comme la somme des v
 
 Avec, _y_pred_ la valeur prédite du modèle pour cette exemple, \varphi_0 la valeur de base du model, z'\in \{0,1\}^M quand la variable est observée z'_i=1 ou inconnue z'_i=0.
 
-Ce qu'il faut retenir et comprendre c'est que les valeurs de shapley représentent l'effet de chaque variable dans la prédiction. Plus la valeur de shapley est elevée (en valeur absolue), plus elle est importante dans la prédiction.
+Au final, Ce qui est important de retenir c'est que les valeurs de shapley représentent l'effet de chaque variable dans la prédiction (voir Fig.1). Plus la valeur de shapley est elevée (en valeur absolue), plus elle est importante dans la prédiction.
 
 ![](https://github.com/natsunami/website/blob/master/assets/img/shap_value_additivity2.png)
 
-Si ce que je viens de dire n'est pas clair, alors peut etre qu'avec cet exemple ca le sera ! Reprenons notre exemple  un de prédiction immobilière. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m*2, possède un **balcon** et est situé dans le 16e **arrondissement**. Par ailleurs, il a été calculé que le prix moyen d'un logement est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit et l'objectif est d'expliquer cette différence. Et bien il est tout a fait probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_).
+Figure 1: Additivité des valeurs de shapley (La somme des valeurs de shapley ajoutée à la valeur de base est égale à la prédiction)
+
+Pour finir cette partie, quoi de mieux qu'un exemple pour illustrer mes propos! Pour cela, reprenons l'exemple de la prédiction immobilière. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m*2, possède un **balcon** et est situé dans le 16e **arrondissement**. Par ailleurs, il a été calculé que le prix moyen d'un logement est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit et l'objectif est d'expliquer cette différence. Et bien il est tout a fait probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_).
 
 ### Comment calculer une valeur de shapley ? ###
 
@@ -59,4 +61,13 @@ Ainsi nous venons donc de calculer la contribution d'une valeur d'un feature dan
 
 En conclusion, on calcule pour chaque coalition le prix de l'appartement avec et sans la valeur '16eme' du feature **arrondissement** pour determiner la moyenne des differences (contribution marginale moyenne). Ce processus
 
+##SHAP en exemple##
 
+Maintenant que nous sommes familier avec SHAP et les valeurs de shapley, nous allons pouvoir etudier un cas concret d'explicabilité de modèle. L'exemple que nous allons prendre s'appuie sur le dataset [Health Insurance Cross Sell Prediction](https://www.kaggle.com/anmolkumar/health-insurance-cross-sell-prediction).
+
+###Descriptif###
+Travaillant pour le compte d'une entreprise d'assurance, notre objectif est de déterminer si ses clients seraient potentiellement intéréssés pour souscrire à une assurance auto. Pour cela nous allons construire un modèle classifiant si oui ou non le client serait intéréssé avec à notre disposition des informations sur le client (genre, age, sexe, région), le vehicule (age du véhicule,présence de dommages) et le contrat d'assurance (somme versée par le client, moyen de contact du client). Pour finir (la partie qui nous interesse), nous voulons expliquer les prédictions du modèle (e.g: Pourquoi ce client a été classifié comme susceptible de souscrire à l'assurance auto ?).
+
+Dans cet article nous allons directement à la partie explicabilité avec SHAP, mais je vous invite également à consulter le notebook complet [ici]().
+
+Au préalable les données ont été procéssées
