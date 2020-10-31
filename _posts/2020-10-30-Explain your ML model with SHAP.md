@@ -33,6 +33,7 @@ Je pense que vous comprenez désormais l'importance de pouvoir expliquer un mod�
 Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chaque prédiction d'un modèle de ML. Pour cela, SHAP s'appuie sur la theorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley).
 
 L'idée est la suivante: Pour chaque feature de chaque exemple du jeu de données va etre calculé les valeurs de Shapley correspondantes:
+
 ![](https://raw.githubusercontent.com/natsunami/website/3adf860daf5e4ccba3983e8f131bcf9a78c53bf1/assets/img/shap_value_formula.svg)
 
 En calculant ces valeurs nous allons pouvoir expliquer la prédiction dans la mesure où si l'on somme toutes les valeurs de shapley pour un exemple donné à la prédiction moyenne (de tout les examples), nous obtenons bien la sorti du modèle pour cet exemple. Ce qu'il faut retenir et comprendre c'est que les valeurs de shapley vont permettre de determiner l'effet de chaque variable dans la prédiction. Plus la valeur de shapley est elevée ( en valeur absolue), plus l'effet de la variable est important.
