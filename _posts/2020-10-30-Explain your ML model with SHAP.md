@@ -42,7 +42,7 @@ Chacune des prédictions pour chaque example peut s'écrire comme la somme des v
 
 ![](https://raw.githubusercontent.com/natsunami/website/b4b8d28c5e11b6286e65cf91cdd69abd020ef2af/assets/img/shap_value_additivity_1.svg)
 
-Avec, y_{pred} la valeur prédite du modèle pour cette exemple, \varphi_0 la valeur de base du model, z'\in \{0,1\}^M quand la variable est observée z'_i=1 ou inconnue z'_i=0.
+Avec, _y_pred_ la valeur prédite du modèle pour cette exemple, \varphi_0 la valeur de base du model, z'\in \{0,1\}^M quand la variable est observée z'_i=1 ou inconnue z'_i=0.
 
 Ce qu'il faut retenir et comprendre c'est que les valeurs de shapley représentent l'effet de chaque variable dans la prédiction. Plus la valeur de shapley est elevée (en valeur absolue), plus elle est importante dans la prédiction.
 
