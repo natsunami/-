@@ -66,8 +66,21 @@ En conclusion, on calcule pour chaque coalition le prix de l'appartement avec et
 Maintenant que nous sommes familier avec SHAP et les valeurs de shapley, nous allons pouvoir etudier un cas concret d'explicabilité de modèle. L'exemple que nous allons prendre s'appuie sur le dataset [Health Insurance Cross Sell Prediction](https://www.kaggle.com/anmolkumar/health-insurance-cross-sell-prediction).
 
 ### Descriptif ###
+
 Travaillant pour le compte d'une entreprise d'assurance, notre objectif est de déterminer si ses clients seraient potentiellement intéréssés pour souscrire à une assurance auto. Pour cela nous allons construire un modèle classifiant si oui ou non le client serait intéréssé avec à notre disposition des informations sur le client (genre, age, sexe, région), le vehicule (age du véhicule,présence de dommages) et le contrat d'assurance (somme versée par le client, moyen de contact du client). Pour finir (la partie qui nous interesse), nous voulons expliquer les prédictions du modèle (e.g: Pourquoi ce client a été classifié comme susceptible de souscrire à l'assurance auto ?).
 
-Dans cet article nous allons directement à la partie explicabilité avec SHAP, mais je vous invite également à consulter le notebook complet [ici]().
+Dans cet article nous allons directement à la partie explicabilité avec SHAP, mais je vous invite également à consulter le notebook complet [ici](https://natsunami.github.io/website/Portfolio/Insurance-cost-sell-prediction/insurance_cross_sell_prediction.html).
 
+### SHAP feature importance ###
 
+Quand on parle de feature importance, on peut penser à plusieurs choses :
+- Aux poids (_weights_) dans le cadre d'une régression linéaire. En effet, les variables ayant un poids elevé sont plus importantes dans le modèle (_Notes: Uniquement si les variables sont à la même échelle_).
+- Le gain d'information (_information gain_) pour les modèles arborescents (les features qui réduisent davantage l'impurity  sont plus importantes).
+
+SHAP peut être utilisé pour obtenir l'importance des features sur la base des valeurs de Shapley. Plus les features ont une moyenne des |valeurs de Shapley|(|| pour valeur absolue) élevée, plus elles contribuent aux prédictions.
+
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_feature_importance.png)
+
+En s'interessant de plus près au feature importance plot, nous comprenons que les caractéristiques _Previously_insured_, _Vehicle_damage_ et _Policy_sales_channel_ sont les trois variables qui contribuent le plus aux prédictions.
+
+(_Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des |valeurs de Shapley|_).
