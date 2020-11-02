@@ -10,9 +10,12 @@ tags: [SHAP, Explainability]
 
 ## Introduction ##
 
-Avant de rentrer dans le vif du sujet, il me semble fondamental de s'interesser à la notion d'interpretabilité/explicabilité ( _Ces deux termes seront considérés comme synonymes dans cet article_) et ce qu'elle signifie lorsque l'on tend à l'appliquer au machine learning (*ML*). 
+Qu'est ce que la notion d'interpretabilité, explicabilité ? Que signifie t'elle lorsqu'elle est appliquée au machine learning (**ML**) ? 
+Dans l'optique d'une meilleure compréhension de notre sujet nous pouvons apporter une brève réponse à ces questions avant de rentrer dans le vif du sujet.
 
-Miller (2017) définit l'interprétabilité comme _la faculté grâce à laquelle un être humain peut comprendre la cause d'une décision_. Dès lors, si nous cherchons à appliquer cette définition au ML, l'interpretabilité d'un modèle consiste au niveau de compréhension qu'un individu peut avoir dans sa prédiction. Ainsi,  explicable  aboutitmeilleur  compréhension des données
+En effet, selon Miller (2017) l'interprétabilité  est, je cite:
+>la faculté grâce à laquelle un être humain peut comprendre la cause d'une décision.
+Dès lors, si nous cherchons à appliquer cette définition au ML, l'interpretabilité d'un modèle consiste au niveau de compréhension qu'un individu peut avoir dans sa prédiction.
 
 ## Expliquer, à quelle finalité ? ##
 
