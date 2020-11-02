@@ -43,7 +43,9 @@ _Avec M, le nombre de variables, S est un sous-ensemble de variables, x est le v
 
 L'une des propriété de SHAP est l'**additivité**. Cela signifie que chacune des prédictions pour chaque observation peut s'écrire comme la somme des valeurs de shapley ajoutée à la prédiction moyenne notée ![](http://latex.codecogs.com/svg.latex?\varphi_0) (valeur de base):
 
+
 ![](https://raw.githubusercontent.com/natsunami/website/b4b8d28c5e11b6286e65cf91cdd69abd020ef2af/assets/img/shap_value_additivity_1.svg)
+
 
 _Avec, y_pred la valeur prédite du modèle pour cette exemple, ![](http://latex.codecogs.com/svg.latex?\varphi_0) la valeur de base du model, ![](http://latex.codecogs.com/svg.latex?z'\in&space;\{0,1\}^M) quand la variable est observée ![](http://latex.codecogs.com/svg.latex?z'_i)=1 ou inconnue ![](http://latex.codecogs.com/svg.latex?z'_i)=0._
 
@@ -85,7 +87,7 @@ Figure 2: SHAP feature importance
 
 En s'intéressant de plus près au feature importance plot (voir Fig.2), nous comprenons que les variables **Previously_insured**, **Vehicle_damage** et **Policy_sales_channel** sont les trois variables qui contribuent le plus aux prédictions.
 
-(_Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des valeurs de Shapley).
+(Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des valeurs de Shapley).
 
 ### SHAP summary plot ###
 
