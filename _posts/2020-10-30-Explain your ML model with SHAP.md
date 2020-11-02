@@ -148,7 +148,11 @@ En conclusion, SHAP peut être utilisé pour :
 - Comparer deux observations
 - Créer des clusters d'observations par similarité des effets de variables
 
+## Aller plus loin ##
 
+- [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
+- [](https://bjlkeng.github.io/posts/model-explanability-with-shapley-additive-explanations-shap/)
+- [SHAP Docs](https://shap.readthedocs.io/en/latest/example_notebooks/general/Explainable%20AI%20with%20Shapley%20Values.html)
 
 
 
