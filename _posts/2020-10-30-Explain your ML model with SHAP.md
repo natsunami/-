@@ -35,7 +35,7 @@ Je pense que vous comprenez désormais l'importance de l'explicabilité de modè
 
 Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chacune des prédictions d'un modèle. SHAP s'appuie sur la théorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley).
 
-L'idée est la suivante: pour chaque feature de chaque exemple du dataset vont être calculé les valeurs de Shapley [](http://latex.codecogs.com/svg.latex?\varphi_i):
+L'idée est la suivante: pour chaque feature de chaque exemple du dataset vont être calculé les valeurs de Shapley ![](http://latex.codecogs.com/svg.latex?\varphi_i):
 
 ![](https://raw.githubusercontent.com/natsunami/website/3adf860daf5e4ccba3983e8f131bcf9a78c53bf1/assets/img/shap_value_formula.svg)
 
