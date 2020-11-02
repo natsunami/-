@@ -45,60 +45,58 @@ L'une des propriété de SHAP est l'**additivité**. Cela signifie que chacune d
 
 ![](https://raw.githubusercontent.com/natsunami/website/b4b8d28c5e11b6286e65cf91cdd69abd020ef2af/assets/img/shap_value_additivity_1.svg)
 
-_Avec, y_pred_ la valeur prédite du modèle pour cette exemple, ![](http://latex.codecogs.com/svg.latex?\varphi_0) la valeur de base du model, ![](http://latex.codecogs.com/svg.latex?z'\in&space;\{0,1\}^M) quand la variable est observée ![](http://latex.codecogs.com/svg.latex?z'_i)=1 ou inconnue ![](http://latex.codecogs.com/svg.latex?z'_i)=0.
-
-Au final, Ce qui est important de retenir c'est que les valeurs de shapley représentent l'effet de chaque variable dans la prédiction (voir Fig.1). Plus la valeur de shapley est elevée (en valeur absolue), plus elle est importante dans la prédiction.
+_Avec, y_pred la valeur prédite du modèle pour cette exemple, ![](http://latex.codecogs.com/svg.latex?\varphi_0) la valeur de base du model, ![](http://latex.codecogs.com/svg.latex?z'\in&space;\{0,1\}^M) quand la variable est observée ![](http://latex.codecogs.com/svg.latex?z'_i)=1 ou inconnue ![](http://latex.codecogs.com/svg.latex?z'_i)=0.
 
 ![](https://github.com/natsunami/website/blob/master/assets/img/shap_value_additivity2.png)
 
 Figure 1: Additivité des valeurs de shapley (La somme des valeurs de shapley ajoutée à la valeur de base est égale à la prédiction)
 
-Pour finir cette partie, quoi de mieux qu'un exemple pour illustrer mes propos! Pour cela, reprenons l'exemple de la prédiction immobilière. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m*2, possède un **balcon** et est situé dans le 16e **arrondissement**. Par ailleurs, il a été calculé que le prix moyen d'un logement est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit et l'objectif est d'expliquer cette différence. Et bien il est tout a fait probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_).
+Pour finir cette partie, quoi de mieux qu'un exemple pour illustrer ! Pour cela, reprenons notre example fétiche. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m², possède un **balcon** et est situé dans le 16e **arrondissement** (_dans la réalité l'appartement serait bien plus cher..._). Par ailleurs, le prix moyen d'un logement sur Paris est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit. L'objectif est donc d'expliquer cette différence. Dans notre example, il est probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_).
 
 ### Comment calculer une valeur de shapley ? ###
 
-S'il faudrait retenir une chose, ca serait la suivante: La veleur de shapley est la contribution marginale moyenne d'un feature dans toutes les coalitions possibles.
+S'il faudrait retenir une chose, ca serait la suivante: La valeur de shapley est la contribution marginale moyenne de la valeur d'un feature à travers de toutes les coalitions possibles.
 
-Pour comprendre la définition citée précédemment nous allons chercher à évaluer la contribution de l'arrondissement lorsqu'elle est ajoutée à la coalition 'superficie - balcon'. Dans l'exemple précedent nous avions prédit le prix d'un appartement en considérement sa superficie, la présence d'un balcon ou non et son arrondissement (16eme). Nous avons prédit un prix de 530 000€. Si on enlève **arrondissement** de la coalition en remplacant la valeur '16eme' par une valeur aléatoire de ce meme feature (par exemple 13eme), nous prédirons un prix de 490 000€. L'arrondissement du 16eme contribue donc à hauteur de 40 000€ (530 000€ - 490 000€).
-Ainsi nous venons donc de calculer la contribution d'une valeur d'un feature dans **une seule** coalition. Maintenant l'opération doit etre répétée pour toutes les combinaisons de coalitions possibles afin de dterminer la contribution marginale moyenne (_Note: Le temps pour calculer les valeurs de shapley augmente de facon exponentielle en fonction du nombre de features).
+Pour comprendre cette définition nous allons chercher à évaluer la contribution de l'arrondissement lorsqu'elle est ajoutée à la coalition (_combinaison de features_) **superficie - balcon**. Dans l'exemple précedent nous avions prédit le prix d'un appartement en considérement sa superficie, la présence d'un balcon ou non et son arrondissement (16ème). Nous avons prédit un prix de 530 000€. Si on enlève **arrondissement** de la coalition en remplacant la valeur '16eme' par une valeur aléatoire de ce meme feature (par exemple 13ème), on prédit un prix de 490 000€. L'arrondissement du 16eme contribue donc à hauteur de 40 000€ (530 000€ - 490 000€).
+Ainsi nous venons donc de calculer la contribution d'une valeur d'un feature (16ème) dans **une seule** coalition. Maintenant l'opération doit etre répétée pour toutes les combinaisons de coalitions possibles afin de déterminer la contribution marginale moyenne.
 
-En conclusion, on calcule pour chaque coalition le prix de l'appartement avec et sans la valeur '16eme' du feature **arrondissement** pour determiner la moyenne des differences (contribution marginale moyenne). Ce processus
+En conclusion, on calcule pour chaque coalition le prix de l'appartement avec et sans la valeur '16eme' du feature **arrondissement** pour determiner la moyenne des différences (contribution marginale moyenne) dans toutes les coalitions. 
 
 ## SHAP en exemple ##
 
-Maintenant que nous sommes familier avec SHAP et les valeurs de shapley, nous allons pouvoir etudier un cas concret d'explicabilité de modèle. L'exemple que nous allons prendre s'appuie sur le dataset [Health Insurance Cross Sell Prediction](https://www.kaggle.com/anmolkumar/health-insurance-cross-sell-prediction).
+Maintenant que nous sommes familier avec SHAP et les valeurs de shapley, nous allons pouvoir étudier un cas concret d'explicabilité de modèle. L'exemple que nous allons prendre s'appuie sur le dataset [Health Insurance Cross Sell Prediction](https://www.kaggle.com/anmolkumar/health-insurance-cross-sell-prediction).
 
 ### Descriptif ###
 
-Travaillant pour le compte d'une entreprise d'assurance, notre objectif est de déterminer si les clients seraient potentiellement intéréssés à la souscription d'une assurance auto. Pour mener à bien cette tâche nous allons construire un modèle classifiant si oui ou non le client serait intéréssé. A notre disposition nous avons des informations sur les clients (_Ex: genre, age, sexe, région_), l'etat de leur vehicule (_Ex:age du véhicule,présence de dommages_) et leur contrat d'assurance (_Ex:somme versée par le client, moyen de contact du client_). Bien entendu, nous expliquerons les prédictions du modèle (_Ex: Pourquoi ce client a été classifié comme susceptible de souscrire à l'assurance auto ?_).
+L'objectif via ce jeu de données est de déterminer si les clients d'une compagnie d'assurance seraient potentiellement intéressés pour souscrire à une assurance auto. Pour mener à bien cette tâche nous avons construit un modèle classifiant si oui ou non le client serait intéressé avec à notre disposition des informations relatives aux clients (_Ex: genre, âge, sexe, région_), l'état de leur véhicule (_Ex: âge du véhicule,présence de dommages_) et leur contrat d'assurance (_Ex: somme versée par le client, moyen de contact du client_). Bien entendu, nous cherchons à expliquer les prédictions du modèle (_Ex: pourquoi ce client a été classifié comme susceptible de souscrire à l'assurance auto ?_).
 
-Dans cet article nous allons directement traiter de l'explicabilité avec SHAP. Si cela vous interesse, je vous invite à consulter le notebook complet [ici](https://natsunami.github.io/website/Portfolio/Insurance-cost-sell-prediction/insurance_cross_sell_prediction.html) avec les plots interactifs.
+Dans cet article nous allons directement traiter de l'explicabilité avec SHAP. Si cela vous interesse, je vous invite à consulter le notebook complet [ici](https://natsunami.github.io/website/Portfolio/Insurance-cost-sell-prediction/insurance_cross_sell_prediction.html) avec les plots SHAP interactifs.
 
 ### SHAP feature importance ###
 
 Quand on parle de feature importance, on peut penser à plusieurs choses:
-- Aux poids (_weights_) dans le cadre d'une régression linéaire. En effet, les variables ayant un poids elevé sont plus importantes dans le modèle (_Notes: Uniquement si les variables sont à la même échelle_).
+- Aux poids (_weights_) dans le cadre d'une régression linéaire. En effet, les variables ayant un poids élevé sont plus importantes dans le modèle (_Notes: Uniquement si les variables sont à la même échelle_).
 - Le gain d'information (_information gain_) pour les modèles arborescents (les features qui réduisent davantage l'impurity sont plus importants).
 
-SHAP peut être utilisé pour obtenir l'importance des features sur la base des valeurs de Shapley. Plus les features ont une moyenne de |valeurs de Shapley| (_en valeur absolue_) élevée, plus elles contribuent aux prédictions.
+SHAP peut être utilisé pour obtenir l'importance des features sur la base des valeurs de Shapley. Plus les features ont une moyenne de valeurs de Shapley (_en valeur absolue_) élevée, plus elles contribuent aux prédictions.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_feature_importance.png)
 
-En s'interessant de plus près au feature importance plot, nous comprenons que les caractéristiques **Previously_insured**, **Vehicle_damage** et **Policy_sales_channel** sont les trois variables qui contribuent le plus aux prédictions.
+En s'intéressant de plus près au feature importance plot, nous comprenons que les variables **Previously_insured**, **Vehicle_damage** et **Policy_sales_channel** sont les trois variables qui contribuent le plus aux prédictions.
 
-(_Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des |valeurs de Shapley|_).
+(_Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des valeurs de Shapley|).
 
 ### SHAP summary plot ###
 
 Le SHAP summary plot fournit des informations sur l'importance des features et leurs effets.
 
-Chaque point du graphique est une valeur de Shapley pour chaque feature de chaque observation. La position est définie par la valeur de Shapley sur l'axe des x et les caractéristiques sur l'axe des y. Sur la droite, la barre de couleur représente la valeur du feature, de faible (_Bleu_) à élevée (_Rouge_).
+Chaque point du graphique est une valeur de Shapley pour chaque feature de chaque observation. La position est définie par la valeur de Shapley sur l'axe des x et les features sur l'axe des y. Sur la droite, la barre de couleur représente la valeur du feature, de faible (_Bleu_) à élevée (_Rouge_).
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_summary_plot.png)
 
 Ici, une faible valeur de **Previously_insured** (_0 : non assuré_) signifie une valeur SHAP négative qui diminue la probabilité d'être intéressé par une assurance automobile (_Rappel: la prédiction est représentée comme la somme des valeurs SHAP_). Au contraire, une valeur élevée de **Previously_insured** (_1 : assuré_) signifie une valeur SHAP positive qui augmente la probabilité d'être intéressé par une assurance automobile.
 
-Néanmoins, nous pouvons voir que certains effets de caractéristiques sont difficiles à interpréter sur ce graphique, car nous avons effectué une mise à l'échelle sur certaines variables données. Pour une meilleure compréhension, il pourrait être utile d'explorer les effets au niveau individuel.
+Néanmoins, nous pouvons voir que certains effets sont difficiles à interpréter sur ce graphique car nous avons effectué une mise à l'échelle sur certaines variables. Pour une meilleure compréhension, il pourrait être utile d'explorer les effets au niveau individuel.
 
 ### SHAP individual observation ###
 
@@ -108,7 +106,7 @@ Le force plot fournit par SHAP permet de comprendre les effets de chaque feature
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1.png)
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1_shap_force_plot.png)
 
-Pour ce client, nous constatons que le modèle prédit une probabilité de 0.61 qu'il soit interéssé par l'assurance et, par conséquent, qu'il soit classifié comme tel (1). En examinant le force plot, nous constatons que **Age**, **Policy_Sales_Channel**, **Vehicule_Damage** et **Previously_Insured** sont les principales variables qui augmentent la probabilité.
+Pour ce client, nous constatons que le modèle prédit une probabilité de 0.61 qu'il soit interéssé par l'assurance et, par conséquent, qu'il soit classifié comme tel (**1**). En examinant le force plot, nous constatons que **Age**, **Policy_Sales_Channel**, **Vehicule_Damage** et **Previously_Insured** sont les principales variables qui augmentent la probabilité.
 
 Comment cela peut-il être interprété ?
 Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que son véhicule n'ait pas été endommagé et qu'il ait été contacté par la chaîne en utilisant le code 152, augmente la probabilité (_Rouge_) d'être intéressé par une assurance automobile.
@@ -119,13 +117,13 @@ Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2.png)
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2_shap_force_plot.png)
 
-En ce qui concerne ce client, le modèle prévoit une probabilité proche de zéro d'etre interéssé par l'assurance auto et est donc classé comme non intéressé (0).En effet, nous voyons que les effets des features les plus importants tendent à reduire la probabilité (_Bleu_).
+En ce qui concerne ce client, le modèle prévoit une probabilité proche de zéro d'etre interéssé par l'assurance auto et est donc classé comme non intéressé (**0**).En effet, nous voyons que les effets des features les plus importants tendent à reduire la probabilité (_Bleu_).
 
-Ce client n'a jamais été assuré auparavant, son véhicule n'a subi aucun dommage et a été contacté par un canal utilisant le code 26, ce qui réduit la probabilité d'être intéressé par l'assurance.
+Ce client n'ayant jamais été assuré auparavant, son véhicule n'ayant subi aucun dommage et ayant été contacté par un canal utilisant le code 26, cela réduit la probabilité d'être intéressé par l'assurance.
 
 ### SHAP multiple observations ###
 
-Si nous souhaitons examiner plusieurs observations, nous pouvons simplement superposer les force plots pour plusieurs observations (_Dans l'exemple suivant, 1000 force plots sont superposés_). Les force plots sont pivotés verticalement et plaçés côte à côte en fonction de la similarité des effets des variables.
+Si nous souhaitons examiner plusieurs observations, nous pouvons simplement superposer des force plots (_dans l'exemple suivant, 1000 force plots ont été superposés_). Les force plots sont pivotés verticalement et placés côte à côte en fonction de la similarité des effets des variables.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/multiple_force_plot.png)
 
@@ -135,7 +133,7 @@ Nous pouvons distinguer très clairement 2 types de cluster. Ces derniers ont é
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_multiple_force_plot_age.png)
 
-Un force plot superposé peut également être utilisé pour observer l'effet de chaque feature. En prenant l'exemple de la variable **Age**, nous déduisons que le fait d'être âgé de 24 à 48 ans augmente la probabilité (_Rouge_), tandis que le fait de vieillir la réduit (_Bleu_) (_Dans la mesure où nous avons utilisé l'age standard scalé pour le modèle, le plot utilise ces valeurs. Cependant il suffit simplement d'effectuer la transformation inverse pour obtenir l'age réel_).
+Un force plot superposé peut également être utilisé pour observer l'effet de chaque feature. En prenant l'exemple de la variable **Age**, nous déduisons qu'être âgé de 24 à 48 ans augmente la probabilité (_Rouge_), tandis que le fait de vieillir la réduit (_Bleu_) (_Dans la mesure où nous avons utilisé l'age standard scalé pour le modèle, le plot utilise ces valeurs. Cependant il suffit simplement d'effectuer la transformation inverse pour obtenir l'age réel_).
 
 ## Conclusion ##
 
