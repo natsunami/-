@@ -10,7 +10,7 @@ tags: [SHAP, Explainability]
 
 ## Introduction ##
 
-Si vous êtes familier avec le machine learning (**ML**) il est fort probable que la question de l'explicabilité, interpretabilité d'un modèle ne vous soit pas étrangère. En effet, créer un modèle de ML pour prédire est une chose, comprendre comment, sur quelles décisions le modèle prédit, en est un autre. 
+Si vous êtes familier avec le machine learning (**ML**) il est fort probable que la question de l'explicabilité ou de  l'interpretabilité d'un modèle ne vous soit pas étrangère. En effet, créer un modèle de ML pour prédire est une chose, comprendre comment, sur quelles décisions le modèle prédit, en est un autre. 
 
 Selon Miller (2017) l'interprétabilité est, je cite:
 >la faculté grâce à laquelle un être humain peut comprendre la cause d'une décision.
@@ -19,11 +19,11 @@ Dès lors, appliquer la définition de Miller au ML consiste à caractériser l'
 
 ## Expliquer, à quelle finalité ? ##
 
-Un modèle peu, voire pas du tout explicable est catégorisé comme étant une boîte noire (_Black box_) et inversement, un modèle explicable est appelé une boîte blanche (_White box_). À  choisir entre une boîte noire et une boîte blanche, notre dévolu se porterait sur cette dernière dans la mesure où comprendre les prédictions permettrait a posteriori d'ajuster au mieux nos propres décisions. Pour étayer mes propos je vais utiliser le secteur immobilier. Imaginez que l'on veuille prédire le prix d'un appartement sur Paris. Il serait intéressant de savoir quelles sont variables/features contribuant le plus à la prédiction. De même, connaitre dans quelle mesure la prédiction varie en fonction de l'arrondissement serait une information intéressante (_Ex: un appartement dans le 16e sera prédit plus cher qu'un appartement dans le 20e par exemple_).
+Un modèle peu voire pas du tout explicable est catégorisé comme étant une boîte noire (_Black box_) et inversement, un modèle explicable est appelé une boîte blanche (_White box_). À  choisir entre une boîte noire et une boîte blanche, notre dévolu se porterait sur cette dernière dans la mesure où comprendre les prédictions permettrait a posteriori d'ajuster au mieux nos propres décisions. Pour étayer mes propos je vais utiliser le secteur immobilier. Imaginez que l'on veuille prédire le prix d'un appartement sur Paris. Il serait intéressant de savoir quelles sont les variables/features contribuant le plus à la prédiction. De même, connaitre dans quelle mesure la prédiction varie en fonction de l'arrondissement serait une information intéressante (_Ex: un appartement dans le 16e sera prédit plus cher qu'un appartement dans le 20e par exemple_).
 
-L'exemple que j'ai choisi est relativement basique, mais il se pourrait que dans certaines situations soient essentielles, voire obligatoires. En effet, imaginez un conseiller immobilier faisant une estimation de bien en s'appuyant sur la décision d'un modèle. Ce dernier devrait être capable de justifier aux propriétaires les raisons de cette estimation sans quoi cette dernière pourrait s'avérer caduque. 
+L'exemple que j'ai choisi est relativement basique, mais il se pourrait que dans certaines situations les informations issues de l'explicabilité du modèle soient essentielles, voire obligatoires. En effet, imaginez un conseiller immobilier faisant une estimation de bien en s'appuyant sur la décision d'un modèle, il devrait être capable de justifier aux propriétaires les raisons de cette estimation sans quoi cette dernière pourrait s'avérer infondé. 
 
-Allant plus loin, l'exemple que nous venons tout juste de développer nous amène à prendre en considération les aspects légaux de l'explicabilité. Ainsi, l’[article 22](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article22) du RGPD prévoit des règles pour éviter que l’homme ne subisse des décisions émanant uniquement de machines:
+En allant plus loin, l'exemple que nous venons de développer nous amène à prendre en considération les aspects légaux de l'explicabilité. Ainsi, l’[article 22](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article22) du RGPD prévoit des règles pour éviter que l’homme ne subisse des décisions émanant uniquement de machines:
 >La personne concernée a le droit de ne pas faire l'objet d'une décision fondée exclusivement sur un traitement automatisé, y compris le profilage, produisant des effets juridiques la concernant ou l'affectant de manière significative de façon similaire.
 Dès lors, les modèles sans explication risquent d’entraîner une sanction qui peut s’élever à 20 000 000 d’euros ou, dans le cas d’une entreprise, à 4% du chiffre d’affaires mondial total de l’exercice précédent (le montant le plus élevé étant retenu).
 
@@ -35,36 +35,36 @@ Je pense que vous comprenez désormais l'importance de l'explicabilité de modè
 
 Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chacune des prédictions d'un modèle. SHAP s'appuie sur la théorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley).
 
-L'idée est la suivante, pour chaque feature de chaque exemple du dataset vont être calculé les valeurs de Shapley ![](http://latex.codecogs.com/svg.latex?\varphi_i):
+L'idée est la suivante, pour chaque feature de chaque exemple du dataset vont être calculées les valeurs de Shapley ![](http://latex.codecogs.com/svg.latex?\varphi_i):
 
 ![](https://raw.githubusercontent.com/natsunami/website/3adf860daf5e4ccba3983e8f131bcf9a78c53bf1/assets/img/shap_value_formula.svg)
 
-_Avec M, le nombre de variables, S est un sous-ensemble de variables, x est le vecteur des valeurs des features de l'example à expliquer. f(x) est la prédiction utilisant les valeurs des features dans l'ensemble S qui sont marginalisées par rapport aux features qui ne sont pas inclus dans l'ensemble S (Si la formule n'est pas claire, pas de soucis, nous detaillerons le calcul de la valeur de Shapley dans la section suivante)_
+_Avec M, le nombre de variables, S est un sous-ensemble de variables, x est le vecteur des valeurs des features de l'exemple à expliquer. f(x) est la prédiction utilisant les valeurs des features dans l'ensemble S qui sont marginalisées par rapport aux features qui ne sont pas inclues dans l'ensemble S (Si la formule n'est pas claire, pas de soucis, nous detaillerons le calcul de la valeur de Shapley dans la section suivante)_
 
 L'une des propriété de SHAP est l'**additivité**. Cela signifie que chacune des prédictions pour chaque observation peut s'écrire comme la somme des valeurs de shapley ajoutée à la prédiction moyenne notée ![](http://latex.codecogs.com/svg.latex?\varphi_0) (valeur de base)(Voir Fig.1):
 
 ![](https://raw.githubusercontent.com/natsunami/website/b4b8d28c5e11b6286e65cf91cdd69abd020ef2af/assets/img/shap_value_additivity_1.svg)
 
-Avec, y_pred la valeur prédite du modèle pour cette exemple, ![](http://latex.codecogs.com/svg.latex?\varphi_0) la valeur de base du model, ![](http://latex.codecogs.com/svg.latex?z'\in&space;\{0,1\}^M) quand la variable est observée ![](http://latex.codecogs.com/svg.latex?z'_i)=1 ou inconnue ![](http://latex.codecogs.com/svg.latex?z'_i)=0.
+Avec, y_pred la valeur prédite du modèle pour cet exemple, ![](http://latex.codecogs.com/svg.latex?\varphi_0) la valeur de base du modèle, ![](http://latex.codecogs.com/svg.latex?z'\in&space;\{0,1\}^M) quand la variable est observée ![](http://latex.codecogs.com/svg.latex?z'_i)=1 ou inconnue ![](http://latex.codecogs.com/svg.latex?z'_i)=0.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_value_additivity2.png)
 
 Figure 1: Additivité des valeurs de shapley (La somme des valeurs de shapley ajoutée à la valeur de base est égale à la prédiction)
 
-Pour finir cette partie, quoi de mieux qu'un exemple pour illustrer ! Pour cela, reprenons notre example fétiche. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m², possède un **balcon** et est situé dans le 16e **arrondissement** (_dans la réalité l'appartement serait bien plus cher..._). Par ailleurs, le prix moyen d'un logement sur Paris est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit. L'objectif est donc d'expliquer cette différence. Dans notre example, il est probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_).
+Pour finir cette partie, quoi de mieux qu'un exemple pour illustrer ! Pour cela, reprenons notre example fétiche. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m², possède un **balcon** et est situé dans le 16e **arrondissement** (_dans la réalité l'appartement serait bien plus cher..._). Par ailleurs, le prix moyen d'un logement sur Paris est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit. L'objectif est donc d'expliquer cette différence. Dans notre exemple, il est probable que la superficie contribue à hauteur de 15 000€, la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_).
 
 ### Comment calculer une valeur de shapley ? ###
 
-S'il faudrait retenir une chose, ca serait la suivante: La valeur de shapley est la contribution marginale moyenne de la valeur d'un feature à travers de toutes les coalitions possibles.
+S'il fallait retenir une chose, ca serait la suivante: La valeur de shapley est la contribution marginale moyenne de la valeur d'un feature au travers de toutes les coalitions possibles.
 
-Pour comprendre cette définition nous allons chercher à évaluer la contribution de l'arrondissement lorsqu'elle est ajoutée à la coalition (_combinaison de features_) **superficie - balcon**. Dans l'exemple précedent nous avions prédit le prix d'un appartement en considérement sa superficie, la présence d'un balcon ou non et son arrondissement (16ème). Nous avons prédit un prix de 530 000€. Si on enlève **arrondissement** de la coalition en remplacant la valeur '16eme' par une valeur aléatoire de ce meme feature (par exemple 13ème), on prédit un prix de 490 000€. L'arrondissement du 16eme contribue donc à hauteur de 40 000€ (530 000€ - 490 000€).
+Pour comprendre cette définition nous allons chercher à évaluer la contribution de l'arrondissement lorsqu'elle est ajoutée à la coalition (_combinaison de features_) **superficie - balcon**. Dans l'exemple précedent nous avions prédit le prix d'un appartement en considérant sa superficie, la présence d'un balcon ou non et son arrondissement (16ème). Nous avons prédit un prix de 530 000€. Si on enlève **arrondissement** de la coalition en remplaçant la valeur '16eme' par une valeur aléatoire de ce même feature (par exemple 13ème), on prédit un prix de 490 000€. L'arrondissement du 16eme contribue donc à hauteur de 40 000€ (530 000€ - 490 000€).
 Ainsi nous venons donc de calculer la contribution d'une valeur d'un feature (16ème) dans **une seule** coalition. Maintenant l'opération doit etre répétée pour toutes les combinaisons de coalitions possibles afin de déterminer la contribution marginale moyenne.
 
 En conclusion, on calcule pour chaque coalition le prix de l'appartement avec et sans la valeur '16eme' du feature **arrondissement** pour determiner la moyenne des différences (contribution marginale moyenne) dans toutes les coalitions. 
 
 ## SHAP en exemple ##
 
-Maintenant que nous sommes familier avec SHAP et les valeurs de shapley, nous allons pouvoir étudier un cas concret d'explicabilité de modèle. L'exemple que nous allons prendre s'appuie sur le dataset [Health Insurance Cross Sell Prediction](https://www.kaggle.com/anmolkumar/health-insurance-cross-sell-prediction).
+Maintenant que nous sommes familiers avec SHAP et les valeurs de shapley, nous allons pouvoir étudier un cas concret d'explicabilité de modèle. L'exemple que nous allons prendre s'appuie sur le dataset [Health Insurance Cross Sell Prediction](https://www.kaggle.com/anmolkumar/health-insurance-cross-sell-prediction).
 
 ### Descriptif ###
 
