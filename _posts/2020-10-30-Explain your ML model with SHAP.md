@@ -85,7 +85,7 @@ Figure 2: SHAP feature importance
 
 En s'intéressant de plus près au feature importance plot (voir Fig.2), nous comprenons que les variables **Previously_insured**, **Vehicle_damage** et **Policy_sales_channel** sont les trois variables qui contribuent le plus aux prédictions.
 
-(_Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des valeurs de Shapley|).
+(_Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des valeurs de Shapley).
 
 ### SHAP summary plot ###
 
