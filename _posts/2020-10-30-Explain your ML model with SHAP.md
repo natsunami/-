@@ -138,6 +138,21 @@ Nous pouvons distinguer très clairement 2 types de cluster. Ces derniers ont é
 
 Un force plot superposé peut également être utilisé pour observer l'effet de chaque feature. En prenant l'exemple de la variable **Age**, nous déduisons que le fait d'être âgé de 24 à 48 ans augmente la probabilité (_Rouge_), tandis que le fait de vieillir la réduit (_Bleu_) (_Dans la mesure où nous avons utilisé l'age standard scalé pour le modèle, le plot utilise ces valeurs. Cependant il suffit simplement d'effectuer la transformation inverse pour obtenir l'age réel_).
 
+## Conclusion ##
+
+L'objectif de ce projet était de démontrer comment SHAP pouvait être utilisé pour expliquer les modèles de ML (_dans notre cas, un modèle à arborescences = Tree-based model_) et dans la continuité, apporter de nouvelles connaissances à forte valeur ajoutée. S'appuyant sur la théorie des jeux grâce aux valeurs de Shapley, SHAP dispose d'une base théorique solide, ce qui est en fait un atout considérable pour l'explicabilité.
+
+En prenant un exemple dans le domaine de l'assurance, nous avons mis en évidence comment SHAP pouvait servir à calculer l'importance et les effets des caractéristiques à échelle globale, mais aussi pour chaque observation d'un dataset.
+
+Zn conclusion, SHAP peut être utilisé pour :
+
+- Comprendre l'importance globale et locale des features
+- Expliquer les prédictions d'un modèle de ML
+- Comparer deux observations
+- Créer des clusters d'observations par similarité des effets de variables
+
+
+
 
 
 
