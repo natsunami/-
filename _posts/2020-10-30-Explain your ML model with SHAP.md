@@ -45,7 +45,7 @@ L'une des propriété de SHAP est l'**additivité**. Cela signifie que chacune d
 
 ![](https://raw.githubusercontent.com/natsunami/website/b4b8d28c5e11b6286e65cf91cdd69abd020ef2af/assets/img/shap_value_additivity_1.svg)
 
-_Avec, y_pred la valeur prédite du modèle pour cette exemple, ![](http://latex.codecogs.com/svg.latex?\varphi_0) la valeur de base du model, ![](http://latex.codecogs.com/svg.latex?z'\in&space;\{0,1\}^M) quand la variable est observée ![](http://latex.codecogs.com/svg.latex?z'_i)=1 ou inconnue ![](http://latex.codecogs.com/svg.latex?z'_i)=0._
+Avec, y_pred la valeur prédite du modèle pour cette exemple, ![](http://latex.codecogs.com/svg.latex?\varphi_0) la valeur de base du model, ![](http://latex.codecogs.com/svg.latex?z'\in&space;\{0,1\}^M) quand la variable est observée ![](http://latex.codecogs.com/svg.latex?z'_i)=1 ou inconnue ![](http://latex.codecogs.com/svg.latex?z'_i)=0.
 
 
 ![](https://github.com/natsunami/website/blob/master/assets/img/shap_value_additivity2.png)
