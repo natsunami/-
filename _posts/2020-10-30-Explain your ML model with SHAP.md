@@ -67,20 +67,20 @@ Maintenant que nous sommes familier avec SHAP et les valeurs de shapley, nous al
 
 ### Descriptif ###
 
-Travaillant pour le compte d'une entreprise d'assurance, notre objectif est de déterminer si ses clients seraient potentiellement intéréssés pour souscrire à une assurance auto. Pour cela nous allons construire un modèle classifiant si oui ou non le client serait intéréssé avec à notre disposition des informations sur le client (genre, age, sexe, région), le vehicule (age du véhicule,présence de dommages) et le contrat d'assurance (somme versée par le client, moyen de contact du client). Pour finir (la partie qui nous interesse), nous voulons expliquer les prédictions du modèle (e.g: Pourquoi ce client a été classifié comme susceptible de souscrire à l'assurance auto ?).
+Travaillant pour le compte d'une entreprise d'assurance, notre objectif est de déterminer si les clients seraient potentiellement intéréssés à la souscription d'une assurance auto. Pour mener à bien cette tâche nous allons construire un modèle classifiant si oui ou non le client serait intéréssé. A notre disposition nous avons des informations sur les clients (_Ex: genre, age, sexe, région_), l'etat de leur vehicule (_Ex:age du véhicule,présence de dommages_) et leur contrat d'assurance (_Ex:somme versée par le client, moyen de contact du client_). Bien entendu, nous expliquerons les prédictions du modèle (_Ex: Pourquoi ce client a été classifié comme susceptible de souscrire à l'assurance auto ?_).
 
-Dans cet article nous allons directement à la partie explicabilité avec SHAP, mais je vous invite également à consulter le notebook complet [ici](https://natsunami.github.io/website/Portfolio/Insurance-cost-sell-prediction/insurance_cross_sell_prediction.html).
+Dans cet article nous allons directement traiter de l'explicabilité avec SHAP. Si cela vous interesse, je vous invite à consulter le notebook complet [ici](https://natsunami.github.io/website/Portfolio/Insurance-cost-sell-prediction/insurance_cross_sell_prediction.html) avec les plots interactifs.
 
 ### SHAP feature importance ###
 
-Quand on parle de feature importance, on peut penser à plusieurs choses :
+Quand on parle de feature importance, on peut penser à plusieurs choses:
 - Aux poids (_weights_) dans le cadre d'une régression linéaire. En effet, les variables ayant un poids elevé sont plus importantes dans le modèle (_Notes: Uniquement si les variables sont à la même échelle_).
-- Le gain d'information (_information gain_) pour les modèles arborescents (les features qui réduisent davantage l'impurity  sont plus importantes).
+- Le gain d'information (_information gain_) pour les modèles arborescents (les features qui réduisent davantage l'impurity sont plus importants).
 
-SHAP peut être utilisé pour obtenir l'importance des features sur la base des valeurs de Shapley. Plus les features ont une moyenne des |valeurs de Shapley|(|| pour valeur absolue) élevée, plus elles contribuent aux prédictions.
+SHAP peut être utilisé pour obtenir l'importance des features sur la base des valeurs de Shapley. Plus les features ont une moyenne de |valeurs de Shapley| (_en valeur absolue_) élevée, plus elles contribuent aux prédictions.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_feature_importance.png)
 
-En s'interessant de plus près au feature importance plot, nous comprenons que les caractéristiques _Previously_insured_, _Vehicle_damage_ et _Policy_sales_channel_ sont les trois variables qui contribuent le plus aux prédictions.
+En s'interessant de plus près au feature importance plot, nous comprenons que les caractéristiques **Previously_insured**, **Vehicle_damage** et **Policy_sales_channel** sont les trois variables qui contribuent le plus aux prédictions.
 
 (_Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des |valeurs de Shapley|_).
