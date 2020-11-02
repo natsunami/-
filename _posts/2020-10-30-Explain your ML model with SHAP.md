@@ -70,4 +70,4 @@ Travaillant pour le compte d'une entreprise d'assurance, notre objectif est de d
 
 Dans cet article nous allons directement à la partie explicabilité avec SHAP, mais je vous invite également à consulter le notebook complet [ici]().
 
-Au préalable les données ont été procéssées
+
