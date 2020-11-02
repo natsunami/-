@@ -89,6 +89,19 @@ En s'interessant de plus près au feature importance plot, nous comprenons que l
 
 Le SHAP summary plot fournit des informations sur l'importance des features et leurs effets.
 
-Chaque point du graphique est une valeur de Shapley pour chaque feature de chaque observation. La position est définie par la valeur de Shapley sur l'axe des x et les caractéristiques sur l'axe des y. Sur la droite, la barre de couleur représente la valeur du feature, de faible (bleu) à élevée (rouge).
+Chaque point du graphique est une valeur de Shapley pour chaque feature de chaque observation. La position est définie par la valeur de Shapley sur l'axe des x et les caractéristiques sur l'axe des y. Sur la droite, la barre de couleur représente la valeur du feature, de faible (_Bleu_) à élevée (_Rouge_).
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_summary_plot.png)
+
+Ici, une faible valeur de **Previously_insured** (_0 : non assuré_) signifie une valeur SHAP négative qui diminue la probabilité d'être intéressé par une assurance automobile (_Rappel: la prédiction est représentée comme la somme des valeurs SHAP_). Au contraire, une valeur élevée de **Previously_insured** (_1 : assuré_) signifie une valeur SHAP positive qui augmente la probabilité d'être intéressé par une assurance automobile.
+
+Néanmoins, nous pouvons voir que certains effets de caractéristiques sont difficiles à interpréter sur ce graphique, car nous avons effectué une mise à l'échelle sur certaines variables données. Pour une meilleure compréhension, il pourrait être utile d'explorer les effets au niveau individuel.
+
+### SHAP individual observation ###
+
+Le force plot fournit par SHAP permet de comprendre les effets de chaque feature pour chaque observation. Nous allons voir directement comment cela se présente en étudiant 2 observations.
+
+#### Client 1 ####
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1.png)
+
+
