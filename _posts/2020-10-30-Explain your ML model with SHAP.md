@@ -35,17 +35,17 @@ Je pense que vous comprenez désormais l'importance de l'explicabilité de modè
 
 Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chacune des prédictions d'un modèle. SHAP s'appuie sur la théorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley).
 
-L'idée est la suivante: pour chaque feature de chaque exemple du dataset vont être calculé les valeurs de Shapley ![](http://latex.codecogs.com/svg.latex?\varphi_i):
+L'idée est la suivante, pour chaque feature de chaque exemple du dataset vont être calculé les valeurs de Shapley ![](http://latex.codecogs.com/svg.latex?\varphi_i):
 
 ![](https://raw.githubusercontent.com/natsunami/website/3adf860daf5e4ccba3983e8f131bcf9a78c53bf1/assets/img/shap_value_formula.svg)
 
-_Avec M, le nombre de variables, S est un sous-ensemble de variables, x est le vecteur des valeurs des features de l'example à expliquer. f(x) est la prédiction utilisant les valeurs des features dans l'ensemble S qui sont marginalisées par rapport aux features qui ne sont pas inclus dans l'ensemble S._
+_Avec M, le nombre de variables, S est un sous-ensemble de variables, x est le vecteur des valeurs des features de l'example à expliquer. f(x) est la prédiction utilisant les valeurs des features dans l'ensemble S qui sont marginalisées par rapport aux features qui ne sont pas inclus dans l'ensemble S (Si la formule n'est pas claire, pas de soucis, nous detaillerons le calcul de la valeur de Shapley dans la section suivante)_
 
-Chacune des prédictions pour chaque example peut s'écrire comme la somme des valeurs de shapley ajoutée à la prédiction moyenne notée  \varphi_0 (valeur de base):
+L'une des propriété de SHAP est l'**additivité**. Cela signifie que chacune des prédictions pour chaque observation peut s'écrire comme la somme des valeurs de shapley ajoutée à la prédiction moyenne notée ![](http://latex.codecogs.com/svg.latex?\varphi_0) (valeur de base):
 
 ![](https://raw.githubusercontent.com/natsunami/website/b4b8d28c5e11b6286e65cf91cdd69abd020ef2af/assets/img/shap_value_additivity_1.svg)
 
-Avec, _y_pred_ la valeur prédite du modèle pour cette exemple, \varphi_0 la valeur de base du model, z'\in \{0,1\}^M quand la variable est observée z'_i=1 ou inconnue z'_i=0.
+_Avec, y_pred_ la valeur prédite du modèle pour cette exemple, ![](http://latex.codecogs.com/svg.latex?\varphi_0) la valeur de base du model, ![](http://latex.codecogs.com/svg.latex?z'\in&space;\{0,1\}^M) quand la variable est observée ![](http://latex.codecogs.com/svg.latex?z'_i)=1 ou inconnue ![](http://latex.codecogs.com/svg.latex?z'_i)=0.
 
 Au final, Ce qui est important de retenir c'est que les valeurs de shapley représentent l'effet de chaque variable dans la prédiction (voir Fig.1). Plus la valeur de shapley est elevée (en valeur absolue), plus elle est importante dans la prédiction.
 
