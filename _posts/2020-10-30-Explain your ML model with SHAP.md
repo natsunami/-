@@ -84,3 +84,11 @@ SHAP peut être utilisé pour obtenir l'importance des features sur la base des 
 En s'interessant de plus près au feature importance plot, nous comprenons que les caractéristiques **Previously_insured**, **Vehicle_damage** et **Policy_sales_channel** sont les trois variables qui contribuent le plus aux prédictions.
 
 (_Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des |valeurs de Shapley|_).
+
+### SHAP summary plot ###
+
+Le SHAP summary plot fournit des informations sur l'importance des features et leurs effets.
+
+Chaque point du graphique est une valeur de Shapley pour chaque feature de chaque observation. La position est définie par la valeur de Shapley sur l'axe des x et les caractéristiques sur l'axe des y. Sur la droite, la barre de couleur représente la valeur du feature, de faible (bleu) à élevée (rouge).
+
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_summary_plot.png)
