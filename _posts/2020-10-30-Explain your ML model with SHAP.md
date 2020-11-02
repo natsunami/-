@@ -103,5 +103,5 @@ Le force plot fournit par SHAP permet de comprendre les effets de chaque feature
 
 #### Client 1 ####
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1.png)
-
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1_shap_force_plot.png)
 
