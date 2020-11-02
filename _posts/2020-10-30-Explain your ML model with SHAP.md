@@ -112,7 +112,7 @@ Le force plot fournit par SHAP permet de comprendre les effets de chaque feature
 Pour ce client, nous constatons que le modèle prédit une probabilité de 0.61 qu'il soit interéssé par l'assurance et, par conséquent, qu'il soit classifié comme tel (1). En examinant le force plot, nous constatons que **Age**, **Policy_Sales_Channel**, **Vehicule_Damage** et **Previously_Insured** sont les principales variables qui augmentent la probabilité.
 
 Comment cela peut-il être interprété ?
-Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que son véhicule n'ait pas été endommagé et qu'il ait été contacté par la chaîne en utilisant le code 152, augmente la probabilité d'être intéressé par une assurance automobile.
+Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que son véhicule n'ait pas été endommagé et qu'il ait été contacté par la chaîne en utilisant le code 152, augmente la probabilité (_Rouge_) d'être intéressé par une assurance automobile.
 
 (_Notes:Les valeurs continues sur le diagramme de force sont mises à l'échelle_)
 
@@ -120,9 +120,9 @@ Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2.png)
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2_shap_force_plot.png)
 
-En ce qui concerne ce client, le modèle prévoit une probabilité proche de zéro d'etre interéssé par l'assurance auto et est donc classé comme non intéressé (0).
+En ce qui concerne ce client, le modèle prévoit une probabilité proche de zéro d'etre interéssé par l'assurance auto et est donc classé comme non intéressé (0).En effet, nous voyons que les effets des features les plus importants tendent à reduire la probabilité (_Bleu_).
 
-Ce client n'a jamais été assuré auparavant, son véhicule n'a subi aucun dommage et a été contacté par un canal utilisant le code 26, ce qui a permis de réduire la probabilité d'être intéressé par l'assurance par rapport à la valeur de base.
+Ce client n'a jamais été assuré auparavant, son véhicule n'a subi aucun dommage et a été contacté par un canal utilisant le code 26, ce qui réduit la probabilité d'être intéressé par l'assurance.
 
 ### SHAP multiple observations ###
 
@@ -132,7 +132,14 @@ Si nous souhaitons examiner plusieurs observations, nous pouvons simplement supe
 
 Nous pouvons distinguer très clairement 2 types de cluster. Ces derniers ont été crées essentiellement par similarité des effets des features les plus importants, soit **Previously_Insured**, **Vehciule_Damage** et **Policy_Sales_Channel** : 
 - Les clients non intéressés (_large portion bleue = réduit la probabilité_).
-- Les clients intéressés (_large portion rouge = augmente la probabilité).
+- Les clients intéressés (_large portion rouge = augmente la probabilité_).
+
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_multiple_force_plot_age.png)
+
+Un force plot superposé peut également être utilisé pour observer l'effet de chaque feature. En prenant l'exemple de la variable **Age**, nous déduisons que le fait d'être âgé de 24 à 48 ans augmente la probabilité (_Rouge_), tandis que le fait de vieillir la réduit (_Bleu_) (_Dans la mesure où nous avons utilisé l'age standard scalé pour le modèle, le plot utilise ces valeurs. Cependant il suffit simplement d'effectuer la transformation inverse pour obtenir l'age réel_).
+
+
+
 
 
 
