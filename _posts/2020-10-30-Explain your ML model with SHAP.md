@@ -139,7 +139,7 @@ Un force plot superposé peut également être utilisé pour observer l'effet de
 
 L'objectif de ce projet était de démontrer comment SHAP pouvait être utilisé pour expliquer les modèles de ML (_dans notre cas, un modèle à arborescences = Tree-based model_) et dans la continuité, apporter de nouvelles connaissances à forte valeur ajoutée. S'appuyant sur la théorie des jeux grâce aux valeurs de Shapley, SHAP dispose d'une base théorique solide, ce qui est en fait un atout considérable pour l'explicabilité.
 
-En prenant un exemple dans le domaine de l'assurance, nous avons mis en évidence comment SHAP pouvait servir à calculer l'importance et les effets des caractéristiques à échelle globale, mais aussi pour chaque observation d'un dataset.
+En prenant un exemple dans le domaine de l'assurance, nous avons mis en évidence comment SHAP pouvait servir à calculer l'importance et les effets des features à échelle globale, mais aussi pour chaque observation d'un dataset.
 
 En conclusion, SHAP peut être utilisé pour :
 
