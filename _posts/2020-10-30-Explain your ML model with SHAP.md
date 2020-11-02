@@ -126,13 +126,15 @@ Ce client n'a jamais été assuré auparavant, son véhicule n'a subi aucun domm
 
 ### SHAP multiple observations ###
 
-Si nous souhaitons examiner plusieurs observations, nous pouvons simplement tracer un diagramme de force superposé. Le tracé se compose de plusieurs diagrammes de force, dont chacun explique la prédiction d'une instance. Nous faisons pivoter les diagrammes de force verticalement et les plaçons côte à côte en fonction de leur similarité de regroupement.
+Si nous souhaitons examiner plusieurs observations, nous pouvons simplement superposer les force plots pour plusieurs observations (_Dans l'exemple suivant, 1000 force plots sont superposés_). Les force plots sont pivotés verticalement et plaçés côte à côte en fonction de la similarité des effets des variables.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/multiple_force_plot.png)
 
-Nous voyons distinguer 2 clusters. On constate qu'ils ont été formé par similarité des effets des features les plus importants, soit **Previously_Insured**, **Vehciule_Damage** et **Policy_Sales_Channel** : 
+Nous pouvons distinguer très clairement 2 types de cluster. Ces derniers ont été crées essentiellement par similarité des effets des features les plus importants, soit **Previously_Insured**, **Vehciule_Damage** et **Policy_Sales_Channel** : 
 - Les clients non intéressés (_large portion bleue = réduit la probabilité_).
 - Les clients intéressés (_large portion rouge = augmente la probabilité).
+
+
 
 
 
