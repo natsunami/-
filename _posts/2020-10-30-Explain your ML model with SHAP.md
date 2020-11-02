@@ -81,6 +81,7 @@ Quand on parle de feature importance, on peut penser à plusieurs choses:
 SHAP peut être utilisé pour obtenir l'importance des features sur la base des valeurs de Shapley. Plus les features ont une moyenne de valeurs de Shapley (_en valeur absolue_) élevée, plus elles contribuent aux prédictions.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_feature_importance.png)
+
 Figure 2: SHAP feature importance
 
 En s'intéressant de plus près au feature importance plot (voir Fig.2), nous comprenons que les variables **Previously_insured**, **Vehicle_damage** et **Policy_sales_channel** sont les trois variables qui contribuent le plus aux prédictions.
