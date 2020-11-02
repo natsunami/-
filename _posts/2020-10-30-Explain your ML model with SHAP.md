@@ -99,9 +99,20 @@ Néanmoins, nous pouvons voir que certains effets de caractéristiques sont diff
 
 ### SHAP individual observation ###
 
-Le force plot fournit par SHAP permet de comprendre les effets de chaque feature pour chaque observation. Nous allons voir directement comment cela se présente en étudiant 2 observations.
+Le force plot fournit par SHAP permet de comprendre les effets de chaque feature pour chaque observation. Nous allons voir directement comment cela se présente en étudiant le cas de deux clients.
 
 #### Client 1 ####
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1.png)
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1_shap_force_plot.png)
+
+Pour ce client, nous constatons que le modèle prédit une probabilité de 0,61 qu'il soit interéssé par l'assurance et, par conséquent, qu'il soit classifié comme tel. En examinant le force plot, nous constatons que **Age**, **Policy_Sales_Channel**, **Vehicule_Damage** et **Previously_Insured** sont les principales variables qui augmentent la probabilité.
+
+Comment cela peut-il être interprété ?
+Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que son véhicule n'ait pas été endommagé et qu'il ait été contacté par la chaîne en utilisant le code 152, augmente la probabilité d'être intéressé par une assurance automobile.
+
+(_Notes:Les valeurs continues sur le diagramme de force sont mises à l'échelle_)
+
+#### Client 2 ####
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2.png)
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2_shap_force_plot.png)
 
