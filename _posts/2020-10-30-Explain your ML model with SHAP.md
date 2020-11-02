@@ -109,7 +109,7 @@ Le force plot fournit par SHAP permet de comprendre les effets de chaque feature
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1.png)
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1_shap_force_plot.png)
 
-Pour ce client, nous constatons que le modèle prédit une probabilité de 0,61 qu'il soit interéssé par l'assurance et, par conséquent, qu'il soit classifié comme tel. En examinant le force plot, nous constatons que **Age**, **Policy_Sales_Channel**, **Vehicule_Damage** et **Previously_Insured** sont les principales variables qui augmentent la probabilité.
+Pour ce client, nous constatons que le modèle prédit une probabilité de 0.61 qu'il soit interéssé par l'assurance et, par conséquent, qu'il soit classifié comme tel (1). En examinant le force plot, nous constatons que **Age**, **Policy_Sales_Channel**, **Vehicule_Damage** et **Previously_Insured** sont les principales variables qui augmentent la probabilité.
 
 Comment cela peut-il être interprété ?
 Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que son véhicule n'ait pas été endommagé et qu'il ait été contacté par la chaîne en utilisant le code 152, augmente la probabilité d'être intéressé par une assurance automobile.
@@ -119,4 +119,20 @@ Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que 
 #### Client 2 ####
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2.png)
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2_shap_force_plot.png)
+
+En ce qui concerne ce client, le modèle prévoit une probabilité proche de zéro d'etre interéssé par l'assurance auto et est donc classé comme non intéressé (0).
+
+Ce client n'a jamais été assuré auparavant, son véhicule n'a subi aucun dommage et a été contacté par un canal utilisant le code 26, ce qui a permis de réduire la probabilité d'être intéressé par l'assurance par rapport à la valeur de base.
+
+### SHAP multiple observations ###
+
+Si nous souhaitons examiner plusieurs observations, nous pouvons simplement tracer un diagramme de force superposé. Le tracé se compose de plusieurs diagrammes de force, dont chacun explique la prédiction d'une instance. Nous faisons pivoter les diagrammes de force verticalement et les plaçons côte à côte en fonction de leur similarité de regroupement.
+
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/multiple_force_plot.png)
+
+Nous voyons distinguer 2 clusters. On constate qu'ils ont été formé par similarité des effets des features les plus importants, soit **Previously_Insured**, **Vehciule_Damage** et **Policy_Sales_Channel** : 
+- Les clients non intéressés (_large portion bleue = réduit la probabilité_).
+- Les clients intéressés (_large portion rouge = augmente la probabilité).
+
+
 
