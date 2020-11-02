@@ -15,3 +15,7 @@ Le lien pour télégarger le dataset est fourni dans le notebook.
 -----
 
 - [Airbnb price prediction](https://natsunami.github.io/website/Portfolio/Airbnb/Airbnb-paris-Price-Prediction.html)
+
+-----
+
+- [Insurance_cross_sell_prediction](https://natsunami.github.io/website/Portfolio/Insurance-cost-sell-prediction/insurance_cross_sell_prediction.html)
