@@ -10,7 +10,7 @@ tags: [SHAP, Explainability]
 
 ## Introduction ##
 
-Si vous êtes familier avec le machine learning (**ML**) il est fort probable que la question de l'explicabilité, interpretabilité d'un modèle ne vous soit pas étrangère. En effet, créer un modèle de ML pour prédire est une chose. Comprendre comment, sur quelles décisions, le modèle prédit, en est un autre. 
+Si vous êtes familier avec le machine learning (**ML**) il est fort probable que la question de l'explicabilité, interpretabilité d'un modèle ne vous soit pas étrangère. En effet, créer un modèle de ML pour prédire est une chose, comprendre comment, sur quelles décisions le modèle prédit, en est un autre. 
 
 Selon Miller (2017) l'interprétabilité est, je cite:
 >la faculté grâce à laquelle un être humain peut comprendre la cause d'une décision.
@@ -19,23 +19,23 @@ Dès lors, appliquer la définition de Miller au ML consiste à caractériser l'
 
 ## Expliquer, à quelle finalité ? ##
 
-Un modèle peu, voir pas du tout explicable est catégorisé comme étant une boite noire (_Black box_) et inversement, un modèle explicable est appelé une boite blanche (_White box_). A choisir entre un modèle peu interpretable et un autre parfaitement explicable, notre dévolu se porterait sur ce dernier dans la mesure où cela donne sens aux prédictions. Au final, une meilleure compréhension permettrait de mieux ajuster nos propres décisions. Pour étayer mes propos je vais utiliser le secteur immobilier comme example. Imaginons que l'on veuille prédire le prix d'un appartement parisien, il serait interessant de savoir quels sont les features contribuant le plus à la prédiction. De meme, connaitre dans quelle mesure la prédiction varie en fonction de l'arrondissement dans lequel l'appartement se situe, est une information importante (e.g: Un appartement dans le 16e sera prédit plus cher qu'un appartement dans le 20e par exemple).
+Un modèle peu, voire pas du tout explicable est catégorisé comme étant une boîte noire (_Black box_) et inversement, un modèle explicable est appelé une boîte blanche (_White box_). À  choisir entre une boîte noire et une boîte blanche, notre dévolu se porterait sur cette dernière dans la mesure où comprendre les prédictions permettrait a posteriori d'ajuster au mieux nos propres décisions. Pour étayer mes propos je vais utiliser le secteur immobilier. Imaginez que l'on veuille prédire le prix d'un appartement sur Paris. Il serait intéressant de savoir quelles sont variables/features contribuant le plus à la prédiction. De même, connaitre dans quelle mesure la prédiction varie en fonction de l'arrondissement serait une information intéressante (_Ex: un appartement dans le 16e sera prédit plus cher qu'un appartement dans le 20e par exemple_).
 
-Je vous accorde que l'exemple choisi peut paraitre intuitif et basique. Toutefois, malgré mais cela ne veut pas dire pour autant que ces décisions prisent par le modèle ne doivent pas etre expliquées. Mais il se pourrait que dans certaines situations, ces informations soit essentielles, voir obligatoires. Imaginons un conseiller faisant une estimation de bien en s'appuyant sur la décision d'un modèle de ML. Et bien ce dernier doit  etre capable de justifier aux propriétaires les raisons de cette estimation sans quoi cette dernière pourrait s'averer caduque. 
+L'exemple que j'ai choisi est relativement basique, mais il se pourrait que dans certaines situations soient essentielles, voire obligatoires. En effet, imaginez un conseiller immobilier faisant une estimation de bien en s'appuyant sur la décision d'un modèle. Ce dernier devrait être capable de justifier aux propriétaires les raisons de cette estimation sans quoi cette dernière pourrait s'avérer caduque. 
 
-L'exemple que nous venons juste de developper qui nous ammène  a considerer l'aspect légal. En effet, l’[article 22](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article22) du RGPD prévoit des règles pour éviter que l’homme ne subisse des décisions émanant uniquement de machines:
+Allant plus loin, l'exemple que nous venons tout juste de développer nous amène à prendre en considération les aspects légaux de l'explicabilité. Ainsi, l’[article 22](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article22) du RGPD prévoit des règles pour éviter que l’homme ne subisse des décisions émanant uniquement de machines:
 >La personne concernée a le droit de ne pas faire l'objet d'une décision fondée exclusivement sur un traitement automatisé, y compris le profilage, produisant des effets juridiques la concernant ou l'affectant de manière significative de façon similaire.
-Dès lors, Les modèles sans explication risquent d’entraîner une sanction qui peut s’élever à 20 000 000 d’euros ou, dans le cas d’une entreprise, à 4% du chiffre d’affaires mondial total de l’exercice précédent (le montant le plus élevé étant retenu).
+Dès lors, les modèles sans explication risquent d’entraîner une sanction qui peut s’élever à 20 000 000 d’euros ou, dans le cas d’une entreprise, à 4% du chiffre d’affaires mondial total de l’exercice précédent (le montant le plus élevé étant retenu).
 
-Je pense que vous comprenez désormais l'importance de pouvoir expliquer un modèle de ML et les enjeux associés. Cependant, à ce stade nous ne savons toujours pas comment interepreter notre modèle...Pas de panique , c'est ce que nous allons voir juste à présent grâce à la librairie [SHAP](https://shap.readthedocs.io/en/latest/index.html)! 
+Je pense que vous comprenez désormais l'importance de l'explicabilité de modèle en ML et les enjeux associés. Dans la partie suivante nous allons justement voir comment interpréter un modèle avec la librairie [SHAP](https://shap.readthedocs.io/en/latest/index.html)! 
 
 ## SHAP (SHapley Additive exPlanations) ##
 
 ### Qu'est ce que c'est ? ###
 
-Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chaque prédiction d'un modèle de ML. Pour cela, SHAP s'appuie sur la theorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley)
+Développé par [Lundberg and Lee (2016)](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions.pdf), SHAP est une librairie permettant d'expliquer chacune des prédictions d'un modèle. SHAP s'appuie sur la théorie des jeux en utilisant le concept de [valeur de Shapley](https://fr.wikipedia.org/wiki/Valeur_de_Shapley).
 
-L'idée est la suivante: Pour chaque feature de chaque exemple du dataset vont être calculé les valeurs de Shapley \varphi_i:
+L'idée est la suivante: pour chaque feature de chaque exemple du dataset vont être calculé les valeurs de Shapley \varphi:
 
 ![](https://raw.githubusercontent.com/natsunami/website/3adf860daf5e4ccba3983e8f131bcf9a78c53bf1/assets/img/shap_value_formula.svg)
 
