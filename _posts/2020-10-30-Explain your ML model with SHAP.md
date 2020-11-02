@@ -81,8 +81,9 @@ Quand on parle de feature importance, on peut penser à plusieurs choses:
 SHAP peut être utilisé pour obtenir l'importance des features sur la base des valeurs de Shapley. Plus les features ont une moyenne de valeurs de Shapley (_en valeur absolue_) élevée, plus elles contribuent aux prédictions.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_feature_importance.png)
+Figure 2: SHAP feature importance
 
-En s'intéressant de plus près au feature importance plot, nous comprenons que les variables **Previously_insured**, **Vehicle_damage** et **Policy_sales_channel** sont les trois variables qui contribuent le plus aux prédictions.
+En s'intéressant de plus près au feature importance plot (voir Fig.2), nous comprenons que les variables **Previously_insured**, **Vehicle_damage** et **Policy_sales_channel** sont les trois variables qui contribuent le plus aux prédictions.
 
 (_Notes: L'utilisation de l'importance de la caractéristique SHAP dans un cas de haute dimensionnalité pourrait être une bonne idée pour réduire la dimensionnalité en supprimant les caractéristiques ayant une faible  moyenne des valeurs de Shapley|).
 
@@ -93,8 +94,9 @@ Le SHAP summary plot fournit des informations sur l'importance des features et l
 Chaque point du graphique est une valeur de Shapley pour chaque feature de chaque observation. La position est définie par la valeur de Shapley sur l'axe des x et les features sur l'axe des y. Sur la droite, la barre de couleur représente la valeur du feature, de faible (_Bleu_) à élevée (_Rouge_).
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_summary_plot.png)
+Figure 3: SHAP summary plot
 
-Ici, une faible valeur de **Previously_insured** (_0 : non assuré_) signifie une valeur SHAP négative qui diminue la probabilité d'être intéressé par une assurance automobile (_Rappel: la prédiction est représentée comme la somme des valeurs SHAP_). Au contraire, une valeur élevée de **Previously_insured** (_1 : assuré_) signifie une valeur SHAP positive qui augmente la probabilité d'être intéressé par une assurance automobile.
+Ici, une faible valeur de **Previously_insured** (_0 : non assuré_) signifie une valeur SHAP négative qui diminue la probabilité d'être intéressé par une assurance automobile (_Rappel: la prédiction est représentée comme la somme des valeurs SHAP_). Au contraire, une valeur élevée de **Previously_insured** (_1 : assuré_) signifie une valeur SHAP positive qui augmente la probabilité d'être intéressé par une assurance automobile (Voir Fig.3).
 
 Néanmoins, nous pouvons voir que certains effets sont difficiles à interpréter sur ce graphique car nous avons effectué une mise à l'échelle sur certaines variables. Pour une meilleure compréhension, il pourrait être utile d'explorer les effets au niveau individuel.
 
@@ -105,8 +107,9 @@ Le force plot fournit par SHAP permet de comprendre les effets de chaque feature
 #### Client 1 ####
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1.png)
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client1_shap_force_plot.png)
+Figure 4: SHAP force plot client 1
 
-Pour ce client, nous constatons que le modèle prédit une probabilité de 0.61 qu'il soit interéssé par l'assurance et, par conséquent, qu'il soit classifié comme tel (**1**). En examinant le force plot, nous constatons que **Age**, **Policy_Sales_Channel**, **Vehicule_Damage** et **Previously_Insured** sont les principales variables qui augmentent la probabilité.
+Pour ce client (Voir Fig.4), nous constatons que le modèle prédit une probabilité de 0.61 qu'il soit interéssé par l'assurance et, par conséquent, qu'il soit classifié comme tel (**1**). En examinant le force plot, nous constatons que **Age**, **Policy_Sales_Channel**, **Vehicule_Damage** et **Previously_Insured** sont les principales variables qui augmentent la probabilité.
 
 Comment cela peut-il être interprété ?
 Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que son véhicule n'ait pas été endommagé et qu'il ait été contacté par la chaîne en utilisant le code 152, augmente la probabilité (_Rouge_) d'être intéressé par une assurance automobile.
@@ -116,8 +119,9 @@ Le fait que ce client soit âgé de 21 ans, qu'il ait déjà été assuré, que 
 #### Client 2 ####
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2.png)
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/client2_shap_force_plot.png)
+Figure 5: SHAP force plot client 2
 
-En ce qui concerne ce client, le modèle prévoit une probabilité proche de zéro d'etre interéssé par l'assurance auto et est donc classé comme non intéressé (**0**).En effet, nous voyons que les effets des features les plus importants tendent à reduire la probabilité (_Bleu_).
+En ce qui concerne cet autre client (Voir Fig.5), le modèle prévoit une probabilité proche de zéro d'etre interéssé par l'assurance auto et est donc classé comme non intéressé (**0**).En effet, nous voyons que les effets des features les plus importants tendent à reduire la probabilité (_Bleu_).
 
 Ce client n'ayant jamais été assuré auparavant, son véhicule n'ayant subi aucun dommage et ayant été contacté par un canal utilisant le code 26, cela réduit la probabilité d'être intéressé par l'assurance.
 
@@ -126,14 +130,16 @@ Ce client n'ayant jamais été assuré auparavant, son véhicule n'ayant subi au
 Si nous souhaitons examiner plusieurs observations, nous pouvons simplement superposer des force plots (_dans l'exemple suivant, 1000 force plots ont été superposés_). Les force plots sont pivotés verticalement et placés côte à côte en fonction de la similarité des effets des variables.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/multiple_force_plot.png)
+Figure 6: SHAP multiple force plot
 
-Nous pouvons distinguer très clairement 2 types de cluster. Ces derniers ont été crées essentiellement par similarité des effets des features les plus importants, soit **Previously_Insured**, **Vehciule_Damage** et **Policy_Sales_Channel** : 
+Nous pouvons distinguer très clairement 2 types de cluster (voir Fig.6). Ces derniers ont été crées essentiellement par similarité des effets des features les plus importants, soit **Previously_Insured**, **Vehciule_Damage** et **Policy_Sales_Channel** : 
 - Les clients non intéressés (_large portion bleue = réduit la probabilité_).
 - Les clients intéressés (_large portion rouge = augmente la probabilité_).
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/shap_plot/shap_multiple_force_plot_age.png)
+Figure 7: SHAP Age effect
 
-Un force plot superposé peut également être utilisé pour observer l'effet de chaque feature. En prenant l'exemple de la variable **Age**, nous déduisons qu'être âgé de 24 à 48 ans augmente la probabilité (_Rouge_), tandis que le fait de vieillir la réduit (_Bleu_) (_Dans la mesure où nous avons utilisé l'age standard scalé pour le modèle, le plot utilise ces valeurs. Cependant il suffit simplement d'effectuer la transformation inverse pour obtenir l'age réel_).
+Un force plot superposé peut également être utilisé pour observer l'effet de chaque feature. En prenant l'exemple de la variable **Age** (Voir Fig.7), nous déduisons qu'être âgé de 24 à 48 ans augmente la probabilité (_Rouge_), tandis que le fait de vieillir la réduit (_Bleu_) (_Dans la mesure où nous avons utilisé l'age standard scalé pour le modèle, le plot utilise ces valeurs. Cependant il suffit simplement d'effectuer la transformation inverse pour obtenir l'age réel_).
 
 ## Conclusion ##
 
