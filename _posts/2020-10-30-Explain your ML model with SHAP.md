@@ -10,13 +10,12 @@ tags: [SHAP, Explainability]
 
 ## Introduction ##
 
-Qu'est ce que la notion d'interpretabilité, explicabilité ? Que signifie t'elle lorsqu'elle est appliquée au machine learning (**ML**) ? 
-Dans l'optique d'une meilleure compréhension de notre sujet nous pouvons apporter une brève réponse à ces questions avant de rentrer dans le vif du sujet.
+Si vous êtes familier avec le machine learning (**ML**) il est fort probable que la question de l'explicabilité, interpretabilité d'un modèle ne vous soit pas étrangère. En effet, créer un modèle de ML pour prédire est une chose. Comprendre comment, sur quelles décisions, le modèle prédit, en est un autre. 
 
-En effet, selon Miller (2017) l'interprétabilité  est, je cite:
+Selon Miller (2017) l'interprétabilité est, je cite:
 >la faculté grâce à laquelle un être humain peut comprendre la cause d'une décision.
 
-Dès lors, si nous cherchons à appliquer la définition de Miller au ML, l'interpretabilité d'un modèle consiste au niveau de compréhension qu'un individu peut avoir dans sa prédiction.
+Dès lors, appliquer la définition de Miller au ML consiste à caractériser l'interpretabilité d'un modèle comme niveau de compréhension qu'un individu peut avoir dans sa prédiction.
 
 ## Expliquer, à quelle finalité ? ##
 
@@ -144,7 +143,7 @@ L'objectif de ce projet était de démontrer comment SHAP pouvait être utilisé
 
 En prenant un exemple dans le domaine de l'assurance, nous avons mis en évidence comment SHAP pouvait servir à calculer l'importance et les effets des caractéristiques à échelle globale, mais aussi pour chaque observation d'un dataset.
 
-Zn conclusion, SHAP peut être utilisé pour :
+En conclusion, SHAP peut être utilisé pour :
 
 - Comprendre l'importance globale et locale des features
 - Expliquer les prédictions d'un modèle de ML
