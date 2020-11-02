@@ -41,15 +41,14 @@ L'idée est la suivante, pour chaque feature de chaque exemple du dataset vont �
 
 _Avec M, le nombre de variables, S est un sous-ensemble de variables, x est le vecteur des valeurs des features de l'example à expliquer. f(x) est la prédiction utilisant les valeurs des features dans l'ensemble S qui sont marginalisées par rapport aux features qui ne sont pas inclus dans l'ensemble S (Si la formule n'est pas claire, pas de soucis, nous detaillerons le calcul de la valeur de Shapley dans la section suivante)_
 
-L'une des propriété de SHAP est l'**additivité**. Cela signifie que chacune des prédictions pour chaque observation peut s'écrire comme la somme des valeurs de shapley ajoutée à la prédiction moyenne notée ![](http://latex.codecogs.com/svg.latex?\varphi_0) (valeur de base):
+L'une des propriété de SHAP est l'**additivité**. Cela signifie que chacune des prédictions pour chaque observation peut s'écrire comme la somme des valeurs de shapley ajoutée à la prédiction moyenne notée ![](http://latex.codecogs.com/svg.latex?\varphi_0) (valeur de base)(Voir Fig.1):
 
 ![](https://raw.githubusercontent.com/natsunami/website/b4b8d28c5e11b6286e65cf91cdd69abd020ef2af/assets/img/shap_value_additivity_1.svg)
 
-
 _Avec, y_pred la valeur prédite du modèle pour cette exemple, ![](http://latex.codecogs.com/svg.latex?\varphi_0) la valeur de base du model, ![](http://latex.codecogs.com/svg.latex?z'\in&space;\{0,1\}^M) quand la variable est observée ![](http://latex.codecogs.com/svg.latex?z'_i)=1 ou inconnue ![](http://latex.codecogs.com/svg.latex?z'_i)=0._
 
-![](https://github.com/natsunami/website/blob/master/assets/img/shap_value_additivity2.png)
 
+![](https://github.com/natsunami/website/blob/master/assets/img/shap_value_additivity2.png)
 Figure 1: Additivité des valeurs de shapley (La somme des valeurs de shapley ajoutée à la valeur de base est égale à la prédiction)
 
 Pour finir cette partie, quoi de mieux qu'un exemple pour illustrer ! Pour cela, reprenons notre example fétiche. Imaginez un appartement dont la valeur est prédite à 530 000 €. L'appartement à une **superficie** de 75m², possède un **balcon** et est situé dans le 16e **arrondissement** (_dans la réalité l'appartement serait bien plus cher..._). Par ailleurs, le prix moyen d'un logement sur Paris est de 500 000€. Notre appartement est donc 30 000€ plus cher que le prix moyen prédit. L'objectif est donc d'expliquer cette différence. Dans notre example, il est probable que la superficie contribue à hauteur de 15 000€ , la présence d'un balcon de 5 000€ et l'arrondissement à 10 000€. Ces valeurs sont les valeurs de shapley.(_Note: Dans le cadre d'une classification les valeurs de shapley augmentent/diminuent la probabilité moyenne prédite_).
