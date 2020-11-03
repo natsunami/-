@@ -23,9 +23,9 @@ Un modèle peu voire pas du tout explicable est catégorisé comme étant une bo
 
 L'exemple que j'ai choisi est relativement basique, mais il se pourrait que dans certaines situations les informations issues de l'explicabilité du modèle soient essentielles, voire obligatoires. En effet, imaginez un conseiller immobilier faisant une estimation de bien en s'appuyant sur la décision d'un modèle, il devrait être capable de justifier aux propriétaires les raisons de cette estimation sans quoi cette dernière pourrait s'avérer infondé. 
 
-En allant plus loin, l'exemple que nous venons de développer nous amène à prendre en considération les aspects légaux de l'explicabilité. Ainsi, l’[article 22](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article22) du RGPD prévoit des règles pour éviter que l’homme ne subisse des décisions émanant uniquement de machines:
+En allant plus loin, l'exemple que nous venons de développer nous amène à prendre en considération les aspects légaux de l'explicabilité. Ainsi, l’[article 22](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article22) du RGPD prévoit des dispositions visant à protéger les êtres humains contre des décisions prises exclusivement par des machines:
 >La personne concernée a le droit de ne pas faire l'objet d'une décision fondée exclusivement sur un traitement automatisé, y compris le profilage, produisant des effets juridiques la concernant ou l'affectant de manière significative de façon similaire.
-Dès lors, les modèles sans explication risquent d’entraîner une sanction qui peut s’élever à 20 000 000 d’euros ou, dans le cas d’une entreprise, à 4% du chiffre d’affaires mondial total de l’exercice précédent (le montant le plus élevé étant retenu).
+Dès lors, les modèles sans explication risquent d’entraîner une sanction qui peut s’élever à 20 000 000€ ou, dans le cas d’une entreprise, à 4% du chiffre d’affaires mondial total de l’exercice fiscale précédent.
 
 Je pense que vous comprenez désormais l'importance de l'explicabilité de modèle en ML et les enjeux associés. Dans la partie suivante nous allons justement voir comment interpréter un modèle avec la librairie [SHAP](https://shap.readthedocs.io/en/latest/index.html)! 
 
