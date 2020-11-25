@@ -49,29 +49,38 @@ Après cette rapide présentation, nous allons nous interesser plus en détail a
 Si l'on regarde la 2020 Developer Survey de Stack Overflow, on peut constater que Python est l'un des languages de programmation les plus utilisé dans le monde chez les developpeurs (44.1 %) juste derriere JavaScript (Web), HTML/CSS (Web) et SQL (base de données), ce qui en fait le language dominant en matière de programmation générale et à destination de la data.
 
 
+
 [voir graph most used programming language]
 
 Il est évident que la simplicité de sa syntaxe et le développement de nombreuses librairies (Numpy, Pandas, Matplotlib, Scikit-learn, Tensorflow/ Keras) en parallèle de l'engouement massif pour la data/machine learning/ A.I,  ont contribué à sa popularité. Si l'on travaille avec un volume de donnée "convenable", utiliser ces librairies ne pose aucun problème. Mais vient tot ou tard le moment où l'on cherche à travailler dans un environnement Big Data, la, ca ne fonctionne plus. La raison est que ces librairies n'ont pas été crée initialement pour etre scalable (i.e. Appliquer à une large quantité de données). La solution serait donc d'utiliser les frameworks (e.g Spark) pour réaliser du calcul distribué, mais cela implique au préalable de connaitre son fonctionnement, l'API et il se peut qu'il faille réecrire le code dans un autre language. Par exemple, si l'on veut tirer pleine performances de Spark il faudeait que le code soit écrit en Scala et non pas en python dans la mesure où Scala est 10x plus rapide que python pour le traitement et l'analyse de données. Ce processus pouvant etre fastidieux et frustrant, il serait préférable de travailler avec les librairies scalées propres à python. Et c'est exactement ce que nous permet Dask.
 
 Dask va donc scaler entre autre numpy, pandas, sckikit-learn et cloner leur API afin de fournir un environment familier et réduire au maximum la réecriture du code ( Notes: Il est important de noter que meme si Dask copie les API des librairies data les plus connues de python, il n'implémente pas encore aujourd'hui tous leurs contenus, ce qui nécessite parfois de faire davantage "from scratch").
 
-Pour faire face 
-
-
+Enfin, Dask propose 2 grandes facons de réaliser du calcul distribué. La première étant bien entendu de scaler le travail entre plusieurs machines, mais Dask permet également de distribuer les computations à l'echelle d'une seule machine. En effet, avec Dask il est tout à fait possible de scaler les taches entre les coeurs du processeur. Il est important de comprendre qu' un cluster de machines n'est pas forcément la meilleur décision pour travailler dans un envirnement Big Data. d'une part, les ordinateurs utilisant Dask et ayant des composants relativement récents ( CPU multi-coeurs dernière génération, GPU, RAM allant de 16 à 64gb, SSD) permettent de travailler avec des jeux de données de plus de 100gb sans grande difficulté. D'autre part, travailler en local évite bon nombre de contraintes telles que le fait d'etre limité par la bande passante ( dans un cluster les données doivent circuler dans le réseau), mais aussi le fait de devoir gérer des images docker plutot que de travailler avec un software environment local par exemple.
 
 
 ## Comment Dask fonctionne ? ##
 
-Après avoir présenté Dask et abordé son interet, nous allons voir plus en détails certains aspects techniques afin de comprendre son fonctionnement.
+Après avoir présenté Dask je pense que vous comprenez désormais son interet. Au sein de cette partie nous allons voir plus en détails le fonctionnement interne de Dask.
 
-Avant toute chose, il est important de définir 3 concepts fondamentaux:
-a) Le client:
-b) Le Scheduler:
-c) Le/Les Workers:
+Tout d'abord,il faut savoir de quoi est constitué un réseau distribué Dask. En effet, ce dernier repose sur 3 concepts fondamentaux:
+a) Le scheduler:
 
+The schedulers assimilates these tasks into its graph of all tasks to track, and as their dependencies become available it asks workers to run each of these tasks in turn.
+
+b) Le client:
+
+The Client is a primary entry point for users of dask.distributed.
+
+After we setup a cluster, we initialize a Client by pointing it to the address of a Scheduler. The Client registers itself as the default Dask scheduler, and so runs all dask collections like dask.array, dask.bag, dask.dataframe and dask.delayed
+c) Les Workers:
+
+The worker receives information about how to run the task, communicates with its peer workers to collect data dependencies, and then runs the relevant function on the appropriate data. It reports back to the scheduler that it has finished, keeping the result stored in the worker where it was computed.
+
+A dask.distributed network consists of one dask-scheduler process and several dask-worker processes that connect to that scheduler. These are normal Python processes that can be executed from the command line. We launch the dask-scheduler executable in one process and the dask-worker executable in several processes, possibly on different machines.
 
 -Graph worker/ ( client/ workers/scheduler)
--creat a cluster (local and 
+-creat a cluster distribué (local and 
 -ex avec dashboard
 -Chunks/partitions
 
