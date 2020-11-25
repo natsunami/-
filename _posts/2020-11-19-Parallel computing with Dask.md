@@ -209,7 +209,7 @@ Si vous etes familier avec Numpy vous aurez constaté que la seule différence r
 
 Les Dask dataframes permettent de coordonner plusieurs dataframe Pandas partitionnés selon l'index. De meme que l'API Dask.arrays, l'API Dask.dataframes possèdent une grande partie des fonctionnalités de l'API Pandas.
 
-![](https://raw.githubusercontent.com/natsunami/website/9a0d72b882e33755b4b1de778588e746b7c8da3b/assets/img/dask/dask_dataframe.jpeg)
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dataframe.jpg)
 
 Dask Dataframes coordinate many Pandas dataframes, partitioned along an index. They support a large subset of the Pandas API.
 
