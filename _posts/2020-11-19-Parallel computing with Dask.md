@@ -195,6 +195,7 @@ y = x.mean()
 ```py
 x
 ``` 
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_array.png)
 
 ```py
 y.compute()
