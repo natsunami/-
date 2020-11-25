@@ -164,13 +164,40 @@ Pour comprendre plus en détail les différents éléments du dashboard, je vous
 
 [![](http://img.youtube.com/vi/nTMGbkS761Q/0.jpg)](http://www.youtube.com/watch?v=nTMGbkS761Q "Dask Dashboard")
 
+Dans la section suivante nous allons nous interesser aux API de Dask, avec un focus sur Dask.arrays et Dask.dataframes.
+
 ### Dask API ###
 
+Dask est composé de plusieurs API:
+- Arrays (S'appuye sur NumPy)
+- DataFrames (Repose sur Pandas)
+- Bag (Suit map/filter/groupby/reduce)
+- Dask-ML (Suit entre autre Scikit-Learn)
+- Delayed (Couvre de manière générale Python)
+- Futures follows concurrent.futures from the standard library for real-time computation.
 
+Nous allons voir plus en détails comment Dask.arrays et Dask.dataframes fonctionnent puisque ce sont les 2 API que nous sommes le plus susceptibles d'utiliser dans un contexte d'analyse de données.
+
+#### Dask arrays ####
+
+```py
+import dask.array as da
+
+x = da.random.randint(1, 100, size=(20000, 20000),   # 400 million element array 
+                              chunks=(1000, 1000))   # Cut into 1000x1000 sized chunks
+y = x.mean()
+```
+
+```py
+x
+```
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_array.png) 
+
+#### Dask dataframes #####
 
 
 -Chunks/partitions
-
+Dask est
 -array
 -dataframe
 -machine learning
