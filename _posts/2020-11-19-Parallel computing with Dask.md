@@ -61,7 +61,7 @@ Tout d'abord,il faut savoir de quoi est constitué un réseau distribué Dask. E
 
 - Le scheduler: 
 
-Comme son nom l'indique, le rôle du scheduler est de planifier les taches de facon distribué. Ce dernier assimile les taches à effectuer sous la forme de graph (Task graph) crée par Dask au préalable, et va  demander ensuite aux workers de realiser ces taches.
+Comme son nom l'indique, le rôle du scheduler est de planifier les taches de facon distribué. Ce dernier assimile les tâches à effectuer sous la forme de graph (Task graph) crée par Dask au préalable, et va  demander ensuite aux workers de realiser ces taches.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/scheduler.png)
 
@@ -75,11 +75,17 @@ Si l'on décide d'utiliser dask sur une seule machine, les workers sont les coeu
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/parallel_computing_graph.png)
 
+Maintenant que nous sommes familier avec les concepts de base, nous allons voir comment implémenter un réseau distribué avec Dask. Comme nous l'avons énoncé précédemment, nous avons la possibilité de créer un réséau distribué en local ( une seule machine) et en cluster (plusieurs machines). Nous  allons voir brièvement les deux cas de figure:
+
 - Dask Distributed Local:
 
 ```py
 from dask.distributed import Client
-client = Client(cluster)
+
+client = Client()
+# or
+client = Client(processes=False)
+
 print('Dashboard:', client.dashboard_link)
 ```
 ```py
@@ -95,11 +101,16 @@ Cluster
     Cores: 8
     Memory: 16.51 GB
 ```
+Ici, nous venons tout simplement d'initialiser le client sans paramètres pour lui indiquer que l'on veut se connecter à un réseau distribué local. Dask renvoit par ailleurs l'adresse du scheduler ainsi que les caractéristiques du cluster (celles de ma machine)(Notes: Il est tout à fait possible de faire varier le nombre de workers).
 
 - Dask Distributed cluster: 
 
 ```py
+# We have to creat a software environment that's gonna be run as a docker image on all workers in the cloud
+# Workers and Client NEED to have same packages versions
+
 import coiled
+
 coiled.create_software_environment(
     name="ml-env",
     conda="environment.yml",
@@ -112,10 +123,13 @@ coiled.create_cluster_configuration(
 )
 ```
 ```py
+#Using our previous software environment on a docker image, we creat a cluster with 10 workers and initialize the client
+
 cluster = coiled.Cluster(n_workers=10,
                          software="new_ml_env")
 
 from dask.distributed import Client
+
 client = Client(cluster)
 print('Dashboard:', client.dashboard_link)
 ```
@@ -132,7 +146,7 @@ Cluster
     Cores: 40
     Memory: 171.80 GB
 ```
-
+Le code présenté ci-dessus permet de créer
 
 -Graph worker/ ( client/ workers/scheduler)
 -creat a cluster distribué (local and 
