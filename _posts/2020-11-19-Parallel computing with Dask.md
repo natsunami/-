@@ -57,6 +57,7 @@ Enfin, Dask propose 2 grandes facons de réaliser du calcul distribué. La premi
 
 Après avoir présenté Dask je pense que vous comprenez désormais son interet. Au sein de cette partie nous allons voir plus en détails le fonctionnement interne de Dask.
 
+### Concepts ###
 Tout d'abord,il faut savoir de quoi est constitué un réseau distribué Dask. En effet, ce dernier repose sur 3 concepts fondamentaux:
 
 - Le scheduler: 
@@ -75,6 +76,7 @@ Si l'on décide d'utiliser dask sur une seule machine, les workers sont les coeu
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/parallel_computing_graph.png)
 
+### Créer un un réseau distribué ###
 Maintenant que nous sommes familier avec les concepts de base, nous allons voir comment implémenter un réseau distribué avec Dask. Comme nous l'avons énoncé précédemment, nous avons la possibilité de créer un réséau distribué en local ( une seule machine) et en cluster (plusieurs machines). Nous  allons voir brièvement les deux cas de figure:
 
 - Dask Distributed Local:
@@ -146,7 +148,10 @@ Cluster
     Cores: 40
     Memory: 171.80 GB
 ```
-Le code présenté ci-dessus permet de créer un cluster dans le cloud (via AWS). Pour etre plus précis nous avons utilisé [Coiled Cloud](https://docs.coiled.io/user_guide/getting_started.html) qui permet de scaler très simplement dans le cloud. Dans un premier temps il est nécessaire de creer une image docker qui contient l'ensemble des packages nécessaires qui sera ensuite runner sur chaque workers ( Chaque workers, ainsi que le client doivent posséder les memes dépendances sous risque de poser des problèmes par la suite). Une fois le software environment crée, on peut créer le cluster et initialiser le client avec. Comme indiqué précedemment, Dask renvoit l'adresse du scheduler ainsi que les caractéristiques du cluster.  Vous l'aurez sous doute vu, Dask renvoit également l'adresse de ce qu'il appelle le dashboard. 
+Le code présenté ci-dessus permet de créer un cluster dans le cloud (via AWS). Pour etre plus précis nous avons utilisé [Coiled Cloud](https://docs.coiled.io/user_guide/getting_started.html) qui permet de scaler très simplement dans le cloud. 
+Dans un premier temps il est nécessaire de creer une image docker qui contient l'ensemble des packages nécessaires qui sera ensuite runner sur chaque workers ( Chaque workers, ainsi que le client doivent posséder les memes dépendances sous risque de poser des problèmes par la suite). Une fois le software environment crée, on peut créer le cluster et initialiser le client avec. Comme indiqué précedemment, Dask renvoit l'adresse du scheduler ainsi que les caractéristiques du cluster.  
+
+Vous l'aurez sous doute remarqué, Dask renvoit également l'adresse de ce qu'il appelle le dashboard. Le dashboard est un outil très utile puisqu'il permet notamment de comprendre et suivre comment Dask processe les tâches à réaliser, comment elles sont réparties, les capacités utilisées de chaque workers, et permet également d'avoir accès aux logs.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dashboard.png)
 
@@ -154,9 +159,11 @@ Pour comprendre plus en détail les différents éléments du dashboard, je vous
 
 [![](http://img.youtube.com/vi/nTMGbkS761Q/0.jpg)](http://www.youtube.com/watch?v=nTMGbkS761Q "Dask Dashboard")
 
--Graph worker/ ( client/ workers/scheduler)
--creat a cluster distribué (local and 
--ex avec dashboard
+### Dask API ###
+
+
+
+
 -Chunks/partitions
 
 -array
