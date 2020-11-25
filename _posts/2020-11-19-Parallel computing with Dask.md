@@ -223,7 +223,7 @@ import dask.dataframe as dd
 df = dask.datasets.timeseries()
 df
 ```
-![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dataframe_lazy.png)
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_lazy_dataframe.png)
 
 ```py
 df.head()
