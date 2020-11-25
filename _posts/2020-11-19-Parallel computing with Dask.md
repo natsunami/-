@@ -148,7 +148,11 @@ Cluster
 ```
 Le code présenté ci-dessus permet de créer un cluster dans le cloud (via AWS). Pour etre plus précis nous avons utilisé [Coiled Cloud](https://docs.coiled.io/user_guide/getting_started.html) qui permet de scaler très simplement dans le cloud. Dans un premier temps il est nécessaire de creer une image docker qui contient l'ensemble des packages nécessaires qui sera ensuite runner sur chaque workers ( Chaque workers, ainsi que le client doivent posséder les memes dépendances sous risque de poser des problèmes par la suite). Une fois le software environment crée, on peut créer le cluster et initialiser le client avec. Comme indiqué précedemment, Dask renvoit l'adresse du scheduler ainsi que les caractéristiques du cluster.  Vous l'aurez sous doute vu, Dask renvoit également l'adresse de ce qu'il appelle le dashboard. 
 
-![](https://www.youtube.com/watch?v=nTMGbkS761Q&feature=youtu.be)
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dashboard.png)
+
+Pour comprendre plus en détail les différents éléments du dashboard, je vous invite à consulter la vidéo ci-dessous:
+
+[![](http://img.youtube.com/vi/nTMGbkS761Q/0.jpg)](http://www.youtube.com/watch?v=nTMGbkS761Q "Dask Dashboard")
 
 -Graph worker/ ( client/ workers/scheduler)
 -creat a cluster distribué (local and 
