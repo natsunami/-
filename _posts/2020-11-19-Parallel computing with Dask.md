@@ -82,11 +82,12 @@ Si l'on décide d'utiliser dask sur une seule machine, les workers sont les coeu
 [photo dask distributed graph]
 
 - Dask Distributed Local:
-'''py
+
+```py
 from dask.distributed import Client
 client = Client(cluster)
 print('Dashboard:', client.dashboard_link)
-'''py
+```
 
 - Dask Distributed cluster: 
 
