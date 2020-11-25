@@ -90,6 +90,7 @@ client = Client(processes=False)
 
 print('Dashboard:', client.dashboard_link)
 ```
+
 ```
 Client
 
@@ -103,6 +104,7 @@ Cluster
     Cores: 8
     Memory: 16.51 GB
 ```
+
 Ici, nous venons tout simplement d'initialiser le client sans paramètres pour lui indiquer que l'on veut se connecter à un réseau distribué local. Dask renvoit par ailleurs l'adresse du scheduler ainsi que les caractéristiques du cluster (celles de ma machine)(Notes: Il est tout à fait possible de faire varier le nombre de workers).
 
 - Dask Distributed cluster: 
@@ -124,6 +126,7 @@ coiled.create_cluster_configuration(
     # there are other inputs here you can also adjust
 )
 ```
+
 ```py
 #Using our previous software environment on a docker image, we creat a cluster with 10 workers and initialize the client
 
@@ -135,6 +138,7 @@ from dask.distributed import Client
 client = Client(cluster)
 print('Dashboard:', client.dashboard_link)
 ```
+
 ```
 Client
 
@@ -148,6 +152,7 @@ Cluster
     Cores: 40
     Memory: 171.80 GB
 ```
+
 Le code présenté ci-dessus permet de créer un cluster dans le cloud (via AWS). Pour etre plus précis nous avons utilisé [Coiled Cloud](https://docs.coiled.io/user_guide/getting_started.html) qui permet de scaler très simplement dans le cloud. 
 Dans un premier temps il est nécessaire de creer une image docker qui contient l'ensemble des packages nécessaires qui sera ensuite runner sur chaque workers ( Chaque workers, ainsi que le client doivent posséder les memes dépendances sous risque de poser des problèmes par la suite). Une fois le software environment crée, on peut créer le cluster et initialiser le client avec. Comme indiqué précedemment, Dask renvoit l'adresse du scheduler ainsi que les caractéristiques du cluster.  
 
