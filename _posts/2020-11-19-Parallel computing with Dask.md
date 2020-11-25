@@ -193,6 +193,13 @@ x
 ```
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_array.png) 
 
+```py
+y.compute()
+```
+```
+49.99919512
+```
+
 #### Dask dataframes #####
 
 
