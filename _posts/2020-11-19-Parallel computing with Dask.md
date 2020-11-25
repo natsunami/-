@@ -180,6 +180,10 @@ Nous allons voir plus en détails comment Dask.arrays et Dask.dataframes fonctio
 
 #### Dask arrays ####
 
+Les Dask arrays coordonnent de nombreux Numpy arrays, disposés en "chunks" (morceaux) à l'intérieur d'une grille. L'API de Dask prend en charge un large partie de l'API Numpy.
+
+![](https://raw.githubusercontent.com/natsunami/website/9a0d72b882e33755b4b1de778588e746b7c8da3b/assets/img/dask/dask-array-1.svg)
+
 ```py
 import dask.array as da
 
@@ -199,21 +203,21 @@ y.compute()
 ```
 49.99919512
 ```
+Si vous etes familier avec Numpy vous aurez constaté que la seule différence réside uniquement dans le fait d'importer dask.array (da) plutot que Numpy (np). Si l'on cherche à afficher l'objet x on peut voir cependant qu'il n'apparait pas comme si l'on utilisait Numpy mais au lieu de ca, affiche les propriétés de l'objet. L'explication est la suivante, Dask ne réalise pas la computation tant qu'elle n'est pas explicitement demandé via la méthode .compute(). En effet, Dask est par défault "Lazy" (Notes: Utiliser la methode .compute() va stocker la computation en mémoire. La méthode doit donc etre appelée uniquement si la computation à suffisemment de place sous peine de voir l'erreur *KilledWorker*).
+
 
 #### Dask dataframes #####
 
+Les Dask dataframes permettent de coordonner plusieurs dataframe Pandas partitionnés selon l'index. De meme que l'API Dask.arrays, l'API Dask.dataframes possèdent une grande partie des fonctionnalités de l'API Pandas.
 
--Chunks/partitions
-Dask est
--array
--dataframe
--machine learning
+![](https://raw.githubusercontent.com/natsunami/website/9a0d72b882e33755b4b1de778588e746b7c8da3b/assets/img/dask/dask-dataframe.svg)
+
+Dask Dataframes coordinate many Pandas dataframes, partitioned along an index. They support a large subset of the Pandas API.
 
 
-## Difference avec Spark ?
-Spark: Spark is a newer project, initially developed in 2012, at the AMPLab at UC Berkeley. It’s a top-level Apache project focused on processing data in parallel across a cluster, but the biggest difference is that it works in memor
 
-Whereas Hadoop reads and writes files to HDFS, Spark processes data in RAM using a concept known as an RDD, Resilient Distributed Dataset
+
+## Difference avec Spark ? ##
 
 ## Dask en exemples ##
 
