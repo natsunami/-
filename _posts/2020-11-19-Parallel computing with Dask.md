@@ -64,20 +64,31 @@ Enfin, Dask propose 2 grandes facons de réaliser du calcul distribué. La premi
 Après avoir présenté Dask je pense que vous comprenez désormais son interet. Au sein de cette partie nous allons voir plus en détails le fonctionnement interne de Dask.
 
 Tout d'abord,il faut savoir de quoi est constitué un réseau distribué Dask. En effet, ce dernier repose sur 3 concepts fondamentaux:
-a) Le scheduler:
 
-The schedulers assimilates these tasks into its graph of all tasks to track, and as their dependencies become available it asks workers to run each of these tasks in turn.
+- Le scheduler: 
 
-b) Le client:
+Comme son nom l'indique, le rôle du scheduler est de planifier les taches de facon distribué. Ce dernier assimile les taches à effectuer sous la forme de graph (Task graph) crée par Dask au préalable, et va  demander ensuite aux workers de realiser ces taches.
 
-The Client is a primary entry point for users of dask.distributed.
+[scheduler.png]
 
-After we setup a cluster, we initialize a Client by pointing it to the address of a Scheduler. The Client registers itself as the default Dask scheduler, and so runs all dask collections like dask.array, dask.bag, dask.dataframe and dask.delayed
-c) Les Workers:
+- Le client:
 
-The worker receives information about how to run the task, communicates with its peer workers to collect data dependencies, and then runs the relevant function on the appropriate data. It reports back to the scheduler that it has finished, keeping the result stored in the worker where it was computed.
+Le client est tout simplement ce qui va nous permettre de nous connecter au cluster dask. Après avoir créer le cluster, on initialise le client en lui passant l'adresse du scheduler. Le client s'enregistre en tant que scheduler par défaut, et permet d'exécuter toutes les collections de dask (dask.array, dask.bag, dask.dataframe et dask.delayed).
 
-A dask.distributed network consists of one dask-scheduler process and several dask-worker processes that connect to that scheduler. These are normal Python processes that can be executed from the command line. We launch the dask-scheduler executable in one process and the dask-worker executable in several processes, possibly on different machines.
+- Les Workers:
+
+Si l'on décide d'utiliser dask sur une seule machine, les workers sont les coeurs du processeur tandis que dans un cluster ce sont les les différentes machines. Les workers recoivent les informations du scheduler et exécutent les tâches. Ils rapportent au scheduler lorsqu'ils ont terminé, tout en conservant les résultats stockés dans les workers où il ont été calculé.
+
+[photo dask distributed graph]
+
+- Dask Distributed Local:
+'''py
+from dask.distributed import Client
+client = Client(cluster)
+print('Dashboard:', client.dashboard_link)
+'''py
+
+- Dask Distributed cluster: 
 
 -Graph worker/ ( client/ workers/scheduler)
 -creat a cluster distribué (local and 
