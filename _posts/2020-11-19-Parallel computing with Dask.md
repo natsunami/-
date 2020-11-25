@@ -25,12 +25,6 @@ Comme son nom l'indique, le parallele computing consiste à travailler de facon 
 
 L'idée est relativement simple, répartir le travail entre plusieurs machines rendra la tache moins ardue. Ainsi, plusieurs machines vont se coordonner et se diviser la tâche pour la realiser.
 
-[photo graph paralelel computing]
-
-- workers
-- client
-- scheduler
-
 Ainsi, afin de travailler dans un environnement Big Data, des technologies ont été élaborée et certaines sont aujourd'hui très connue du public. On citera le plus célèbre, [Hadoop](https://fr.wikipedia.org/wiki/Hadoop) et son  modèle de programmation [MapReduce](https://fr.wikipedia.org/wiki/MapReduce), et bien entendu [Spark](https://fr.wikipedia.org/wiki/Apache_Spark). Initié en 2012, soit 6 ans après Hadoop, Spark (Apache Spark) tend aujourd'hui à etre de plus en plus utilisé que Hadoop dans la mesure où la où Hadoop lit et écrit les fichiers en HDFS (Hadoop Distributed File System)pour traiter la donnée, Spark est plus rapide en utilisant la mémoire vive (RAM) via son concept de RDD ( Resilient Distributed Dataset). Par ailleurs, Spark possède une riche librairie pour réaliser du machine learning (SparkML) de facon distribuée. Si vous désirez connaitre les principales caractéristiques/ différences entre Hadoop et Spark, je vous invite à consulter ce lien: [Difference Between Hadoop and Spark](https://www.geeksforgeeks.org/difference-between-hadoop-and-spark/). 
 
 Maintenant que nous avons en tete certaines notions/concepts propre au Big Data (Qu'est-ce que le Big Data, ses enjeux, comment cela fonctionne et les technologies associés), nous allons enfin pouvoir traiter de la techno au coeur de cet article, [Dask](https://dask.org).
@@ -69,7 +63,7 @@ Tout d'abord,il faut savoir de quoi est constitué un réseau distribué Dask. E
 
 Comme son nom l'indique, le rôle du scheduler est de planifier les taches de facon distribué. Ce dernier assimile les taches à effectuer sous la forme de graph (Task graph) crée par Dask au préalable, et va  demander ensuite aux workers de realiser ces taches.
 
-[scheduler.png]
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/scheduler.png
 
 - Le client:
 
@@ -79,7 +73,7 @@ Le client est tout simplement ce qui va nous permettre de nous connecter au clus
 
 Si l'on décide d'utiliser dask sur une seule machine, les workers sont les coeurs du processeur tandis que dans un cluster ce sont les les différentes machines. Les workers recoivent les informations du scheduler et exécutent les tâches. Ils rapportent au scheduler lorsqu'ils ont terminé, tout en conservant les résultats stockés dans les workers où il ont été calculé.
 
-[photo dask distributed graph]
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/parallel_computing_graph.png)
 
 - Dask Distributed Local:
 
@@ -88,8 +82,57 @@ from dask.distributed import Client
 client = Client(cluster)
 print('Dashboard:', client.dashboard_link)
 ```
+```py
+Client
+
+    Scheduler: tcp://127.0.0.1:39663
+    Dashboard: http://127.0.0.1:8787/status
+
+	
+Cluster
+
+    Workers: 4
+    Cores: 8
+    Memory: 16.51 GB
+```
 
 - Dask Distributed cluster: 
+
+```py
+import coiled
+coiled.create_software_environment(
+    name="ml-env",
+    conda="environment.yml",
+)
+
+coiled.create_cluster_configuration(
+    name="ml-env",
+    software="ml-env",
+    # there are other inputs here you can also adjust
+)
+```
+```py
+cluster = coiled.Cluster(n_workers=10,
+                         software="new_ml_env")
+
+from dask.distributed import Client
+client = Client(cluster)
+print('Dashboard:', client.dashboard_link)
+```
+```py
+Client
+
+    Scheduler: tls://ec2-18-218-215-162.us-east-2.compute.amazonaws.com:8786
+    Dashboard: http://ec2-18-218-215-162.us-east-2.compute.amazonaws.com:8787
+
+	
+Cluster
+
+    Workers: 10
+    Cores: 40
+    Memory: 171.80 GB
+```
+
 
 -Graph worker/ ( client/ workers/scheduler)
 -creat a cluster distribué (local and 
