@@ -211,10 +211,59 @@ Les Dask dataframes permettent de coordonner plusieurs dataframe Pandas partitio
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dataframe.jpg)
 
-Dask Dataframes coordinate many Pandas dataframes, partitioned along an index. They support a large subset of the Pandas API.
+```py
+import dask.dataframe as dd
 
+df = dask.datasets.timeseries()
+df
+```
+![]()
 
+```py
+df.head()
+```
+![]()
 
+```py
+x_mean_by_name = df.groupby('name')['x'].mean()
+x_mean_by_name
+```
+![]()
+
+```py
+x_mean_by_name.compute()
+```
+
+```
+name
+Alice      -0.000354
+Bob        -0.001484
+Charlie    -0.001285
+Dan         0.003877
+Edith      -0.000339
+Frank       0.000321
+George     -0.002556
+Hannah     -0.001059
+Ingrid     -0.000804
+Jerry      -0.002137
+Kevin       0.001354
+Laura       0.000851
+Michael    -0.000793
+Norbert     0.001598
+Oliver     -0.002574
+Patricia   -0.001985
+Quinn      -0.000443
+Ray        -0.000632
+Sarah      -0.002952
+Tim         0.000621
+Ursula      0.003599
+Victor      0.004504
+Wendy      -0.001640
+Xavier      0.001189
+Yvonne     -0.001253
+Zelda      -0.002810
+Name: x, dtype: float64
+```
 
 ## Difference avec Spark ? ##
 
