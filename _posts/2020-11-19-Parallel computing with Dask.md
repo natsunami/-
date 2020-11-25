@@ -158,17 +158,22 @@ Dans un premier temps il est nécessaire de creer une image docker qui contient 
 
 Vous l'aurez sous doute remarqué, Dask renvoit également l'adresse de ce qu'il appelle le dashboard. Le dashboard est un outil très utile puisqu'il permet notamment de comprendre et suivre comment Dask processe les tâches à réaliser, comment elles sont réparties, les capacités utilisées de chaque workers, et permet également d'avoir accès aux logs.
 
+
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dashboard.png)
 
-Pour comprendre plus en détail les différents éléments du dashboard, je vous invite à consulter la vidéo ci-dessous:
+
+
+Pour en savoir plus sur le dashboard, je vous invite à consulter la vidéo ci-dessous:
+
 
 [![](http://img.youtube.com/vi/nTMGbkS761Q/0.jpg)](http://www.youtube.com/watch?v=nTMGbkS761Q "Dask Dashboard")
+
 
 Dans la section suivante nous allons nous interesser aux API de Dask, avec un focus sur Dask.arrays et Dask.dataframes.
 
 ### Dask API ###
 
-Dask est composé de plusieurs API:
+Dans cette section  nous allons nous interesser aux API de Dask. Dask est composé de plusieurs API:
 - Arrays (S'appuye sur NumPy)
 - DataFrames (Repose sur Pandas)
 - Bag (Suit map/filter/groupby/reduce)
