@@ -217,18 +217,26 @@ import dask.dataframe as dd
 df = dask.datasets.timeseries()
 df
 ```
-![]()
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dataframe_lazy.png)
 
 ```py
 df.head()
 ```
-![]()
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dataframe_head.png)
 
 ```py
 x_mean_by_name = df.groupby('name')['x'].mean()
 x_mean_by_name
 ```
-![]()
+
+```
+Dask Series Structure:
+npartitions=1
+    float64
+        ...
+Name: x, dtype: float64
+Dask Name: truediv, 101 tasks
+```
 
 ```py
 x_mean_by_name.compute()
