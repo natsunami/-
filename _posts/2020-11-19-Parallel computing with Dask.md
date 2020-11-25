@@ -88,7 +88,7 @@ client = Client(processes=False)
 
 print('Dashboard:', client.dashboard_link)
 ```
-```py
+```
 Client
 
     Scheduler: tcp://127.0.0.1:39663
@@ -133,7 +133,7 @@ from dask.distributed import Client
 client = Client(cluster)
 print('Dashboard:', client.dashboard_link)
 ```
-```py
+```
 Client
 
     Scheduler: tls://ec2-18-218-215-162.us-east-2.compute.amazonaws.com:8786
