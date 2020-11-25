@@ -44,7 +44,7 @@ Si l'on regarde la 2020 Developer Survey de Stack Overflow, on peut constater qu
 
 
 
-[voir graph most used programming language]
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/most_uses_languages.png)
 
 Il est évident que la simplicité de sa syntaxe et le développement de nombreuses librairies (Numpy, Pandas, Matplotlib, Scikit-learn, Tensorflow/ Keras) en parallèle de l'engouement massif pour la data/machine learning/ A.I,  ont contribué à sa popularité. Si l'on travaille avec un volume de donnée "convenable", utiliser ces librairies ne pose aucun problème. Mais vient tot ou tard le moment où l'on cherche à travailler dans un environnement Big Data, la, ca ne fonctionne plus. La raison est que ces librairies n'ont pas été crée initialement pour etre scalable (i.e. Appliquer à une large quantité de données). La solution serait donc d'utiliser les frameworks (e.g Spark) pour réaliser du calcul distribué, mais cela implique au préalable de connaitre son fonctionnement, l'API et il se peut qu'il faille réecrire le code dans un autre language. Par exemple, si l'on veut tirer pleine performances de Spark il faudeait que le code soit écrit en Scala et non pas en python dans la mesure où Scala est 10x plus rapide que python pour le traitement et l'analyse de données. Ce processus pouvant etre fastidieux et frustrant, il serait préférable de travailler avec les librairies scalées propres à python. Et c'est exactement ce que nous permet Dask.
 
@@ -63,7 +63,7 @@ Tout d'abord,il faut savoir de quoi est constitué un réseau distribué Dask. E
 
 Comme son nom l'indique, le rôle du scheduler est de planifier les taches de facon distribué. Ce dernier assimile les taches à effectuer sous la forme de graph (Task graph) crée par Dask au préalable, et va  demander ensuite aux workers de realiser ces taches.
 
-![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/scheduler.png
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/scheduler.png)
 
 - Le client:
 
