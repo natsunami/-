@@ -377,8 +377,8 @@ Generally Dask is smaller and lighter weight than Spark. This means that it has 
 -scale
 
 
-    Langage | Ecosystème | Age | Design | Scale
-     --- | --- | --- | --- | ---|
+Langage | Ecosystème | Age | Design | Scale
+--- | --- | --- | --- | --- |
     
 
 Reasons you might choose Spark
