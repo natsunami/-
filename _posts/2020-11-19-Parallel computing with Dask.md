@@ -15,6 +15,7 @@ Selon l'édition 2019 du Statista Digital Economy Compass, 33 zettaoctets (Zo) d
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/data_volume_2018.jpg)
 
+
 _Fig 1. Volume de données stocké au cours de l'année 2018_
 _(Source: Statista Digital Economy Compass 2019)_
 
