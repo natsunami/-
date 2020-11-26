@@ -179,7 +179,10 @@ Dans la section suivante nous allons nous interesser aux API de Dask, avec un fo
 
 ### Dask API ###
 
-Dans cette section  nous allons nous interesser aux API de Dask. Dask est composé de plusieurs API:
+Dans cette section  nous allons nous interesser aux différentes API de Dask. 
+
+Dask est composé de:
+
 - Arrays (S'appuye sur NumPy)
 - DataFrames (Repose sur Pandas)
 - Bag (Suit map/filter/groupby/reduce)
@@ -187,7 +190,7 @@ Dans cette section  nous allons nous interesser aux API de Dask. Dask est compos
 - Delayed (Couvre de manière générale Python)
 - Futures follows concurrent.futures from the standard library for real-time computation.
 
-Nous allons voir plus en détails comment Dask.arrays et Dask.dataframes fonctionnent puisque ce sont les 2 API que nous sommes le plus susceptibles d'utiliser dans un contexte d'analyse de données.
+Nous allons voir brièvement comment utiliser Dask.arrays, Dask.dataframes et pour finir Dask.ml, avec quelques exemples de code puisque ce sont les 3 API que nous sommes le plus susceptibles d'utiliser dans un contexte d'analyse de données.
 
 #### Dask arrays ####
 
@@ -284,6 +287,19 @@ Yvonne     -0.001253
 Zelda      -0.002810
 Name: x, dtype: float64
 ```
+
+Pas de grand changement par rapport à Dask.arrays. Si l'on cherche à afficher un dataframe, Dask le renvoit sous format "lazy", donc sans les valeurs. On peut cependant afficher un partie du dataframe avec .head() ou encore .tail() et si l'on désir réaliser une computation, on utilise comme vu précédemment la méthode .compute() (Note:  Connaitre le nombre de partitions est important afin de realiser certaines opérations (e.g concat()) dans la mesure où les dataframes doivent etre partitionnés de la meme manière).
+
+### Dask ML ###
+
+Comme son nom l'indique, tout comme Spark ML, Dask ML permet de réaliser du machine learning distribué. L'API repose entre autre sur celle de scikit-learn et d'autres, tel que XGBoost. De manière générale, l'API peut etre utilisée pour le preprocessing, réaliser de la cross validation, faire des hyperparameters search, créer des pipelines et autres.
+
+Dask ML peut etre utilisé pour pallier à 2 types de contraintes. La première étant liée à la mémoire, et la deuxième étant computationelle.
+
+![](https://ml.dask.org/_images/dimensions_of_scale.svg)
+
+
+
 
 ## Difference avec Spark ? ##
 
