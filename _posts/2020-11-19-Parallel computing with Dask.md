@@ -46,7 +46,7 @@ Si l'on regarde la [2020 Developer Survey](https://insights.stackoverflow.com/su
 
 
 
-![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/most_uses_languages.png)
+![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/most_used_languages.png)
 
 _Fig 2. Langages de programmation les plus utilisés dans le monde en 2020
 _(Source: Stack Overflow 2020 Developer Survey)_
