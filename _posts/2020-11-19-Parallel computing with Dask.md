@@ -298,6 +298,49 @@ Dask ML peut etre utilisé pour pallier à 2 types de contraintes. La première 
 
 ![](https://ml.dask.org/_images/dimensions_of_scale.svg)
 
+#### Limite associée à la mémoire ####
+
+Ce problème se pose lorsque la taille du jeu de données est supérieur à la RAM. Dans ce contexte, utiliser Numpy ou Pandas ne fonctionnerait pas et il serait donc impossible de réaliser du machine learning en utilisant scikit-learn par exemple. Prenons un exemple concret pour comprendre le problème. Le dataset [Microsoft Malware Prediction](https://www.kaggle.com/c/microsoft-malware-prediction), challenge Kaggle d'il y a 2 ans, comporte approximativement 10M de lignes et 80 colonnes. Il est possible de lire le dataset avec pandas bien que cela soit beaucoup plus challenging qu'avec Dask, on risque tot ou tard de se heurter à un mur. En effet, une étape essentielle serait de preprocesser les données. Par exemple, utiliser un One-Hot Encoder sur les variables catégorielles ferait exploser la taille du jeu de données.
+
+```py
+import dask.array as da
+import dask.dataframe as dd
+
+from sklearn.pipeline import Pipeline
+
+from dask_ml.compose import ColumnTransformer
+from dask_ml.preprocessing import StandardScaler, OneHotEncoder
+from dask_ml.impute import SimpleImputer
+
+binary_processor = Pipeline(steps=[('imputer',SimpleImputer(strategy='most_frequent'))])
+
+numerical_processor = Pipeline(steps=[('imputer',SimpleImputer(strategy='median')),
+                                      ('scaler', StandardScaler())])
+
+categorical_processor = Pipeline(steps=[('encoder',OneHotEncoder())])
+
+#category_processor = Pipeline(steps=[('encoder',TargetEncoder(cols=category_columns))])
+
+preprocessor = ColumnTransformer(transformers=
+                                [('bin',binary_processor,binary_columns),
+                                ('num',numerical_processor,numerical_columns),
+                                ('cat',categorical_processor,category_columns)])
+				
+
+X_train_processed = preprocessor.fit_transform(X_train)
+```
+```
+CPU times: user 8.09 s, sys: 101 ms, total: 8.19 s
+Wall time: 3min 10s
+```
+
+The second type of scaling challenge people face is when their datasets grow larger than RAM (shown along the horizontal axis above). Under this scaling challenge, even loading the data into NumPy or pandas becomes impossible.
+
+To address these challenges, you’d use Dask’s one of Dask’s high-level collections like (Dask Array, Dask DataFrame or Dask Bag) combined with one of Dask-ML’s estimators that are designed to work with Dask collections. For example you might use Dask Array and one of our preprocessing estimators in dask_ml.preprocessing, or one of our ensemble methods in dask_ml.ensemble.
+
+
+#### Limite computationelles ####
+
 
 
 
