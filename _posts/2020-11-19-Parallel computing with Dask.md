@@ -366,16 +366,39 @@ search.best_params_
 ```
 
 
-## Difference avec Spark ? ##
+## Différences avec Spark  ##
 
-Parut en 2010, grâce à son efficacité et son intégration dans un écosystème riche ( Apache projects), Spark est aujourd'hui incontournable pour travailler dans un environnement Big Data. Développé plus tardivement, Dask est un projet plus léger que Spark. Grâce à son intégration dans l'écosystème Python (Numpy, Pandas, Scikit-Learn, ect...), Dask permet de réaliser des opérations plus complexes que Spark. Comparer Spark et Dask afin de déterminer lequel est meilleur n'aurait pas vraiment de sens puisque leur utilisation dépend avant tout de ce que l'on cherche à réaliser. Par ailleurs, Dask et Spark peuvent très bien être utilisés ensemble sur un même cluster.
+Parut en 2010, grâce à son efficacité et son intégration dans un écosystème riche ( Apache projects), Spark est aujourd'hui incontournable pour travailler dans un environnement Big Data. Développé plus tardivement, Dask est un projet plus léger que Spark. Grâce à son intégration dans l'écosystème Python (Numpy, Pandas, Scikit-Learn, ect...), Dask permet de réaliser des opérations plus complexes que Spark. Comparer Spark et Dask afin de déterminer lequel est meilleur n'aurait pas vraiment de sens puisque leur utilisation dépend avant tout de ce que l'on cherche à réaliser. Par ailleurs, Dask et Spark peuvent très bien être utilisés ensemble sur un même cluster. Nous allons toutefois dresser quelques différences notables entre les deux technologies.
 
 
--languages
--ecosysteme
--age
--design interne
--scale
+- Langage:  
+
+   - Comme nous l'avons mentionné plus haut, Spark est codé en Scala mais supporte également Python et R (Scala reste le langage offrant la meilleure synergie avec Spark). 
+   - Quant à Dask, il est codé en Python et ne supporte uniquement que ce langage. 
+ 
+- Ecosystème: 
+
+   - Spark fait partie de l'écosystème Apache et est de ce fait bien integré à de nombreux autres projets (e.g. Hadoop/Hive, HBase, Cassandra, etc...)
+   - Dask est integré dans l'ecosystème Python et a été crée pour scaler les librairies Data les plus connues (e.g. Numpy, Pandas, Scikit-Learn)
+
+- Age:
+
+   - Développé en 2010, Spark est aujourd'hui dominant dans le milieu Big Data.
+   - Plus jeune ( crée en 2014), Spark est en constante amélioration afin de rendre l'expérience la plus similaire aux librairies  Data Python.
+
+- Champ d'application:
+
+   - Spark se concentre davantage sur l'aspect business intelligence, analytics, en permettant de faire de la requête de données via SQL et du machine learning "léger".
+   - Dask est plus adapté pour des applications scientifiques ou business nécéssitant du machine learning plus poussé.
+
+-Design: 
+
+
+    Spark’s internal model is higher level, providing good high level optimizations on uniformly applied computations, but lacking flexibility for more complex algorithms or ad-hoc systems. It is fundamentally an extension of the Map-Shuffle-Reduce paradigm.
+    Dask’s internal model is lower level, and so lacks high level optimizations, but is able to implement more sophisticated algorithms and build more complex bespoke systems. It is fundamentally based on generic task scheduling.
+
+
+- Scaling: 
 
 
 
