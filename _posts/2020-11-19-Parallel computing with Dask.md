@@ -14,10 +14,11 @@ Considéré comme l'un des grands défis informatiques de notre décennie, l'ém
 Selon l'édition 2019 du Statista Digital Economy Compass, 33 zettaoctets (Zo) de données, soit 2.64e+14 gigabits(Gb), auraient été créées dans le monde l'année dernière. Si vous avez du mal à vous representer un tel volume, c'est tout à fait normal. Peut-être que l'infographie suivante pourrait vous éclairer.
 
 ![](https://cdn.statcdn.com/Infographic/images/normal/17793.jpeg)
-Fig 1. Volume de données stocké au cours de l'année 2018
+_Fig 1. Volume de données stocké au cours de l'année 2018_
+_(Source: Statista Digital Economy Compass 2019)_
 
 
-Le big data répond à cette question, comment traiter un tel volume de donnée ?
+Ainsi, le big data répond à la question de, comment traiter un tel volume de données ?
 
 Bien que nous ayons aujourd'hui à notre disposition des machines beaucoup plus puissantes en terme de CPU, RAM et GPU, les ressources requises pour traiter 
 
