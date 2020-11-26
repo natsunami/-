@@ -21,7 +21,7 @@ _Fig 1. Volume de données stocké au cours de l'année 2018_
 _(Source: Statista Digital Economy Compass 2019)_
 
 
-Ainsi, le big data répond à la question de, comment traiter un tel volume de données ?
+Le big data répond donc à la question suivante: *Comment traiter un tel volume de données ?*
 
 Bien que nous ayons aujourd'hui à notre disposition des machines dont la puissance en terme de CPU, RAM et GPU ne cesse de croître, la quantité de données évolue plus rapidement que les capacités des ordinateurs à traiter ces données. C'est pourquoi de nouvelles solutions ont dû émerger afin de répondre à cette problématique. La réponse fût le _"parallel computing"_. En effet, si une machine s'avère insuffisante pour faire face à ces données massives, alors plusieurs y parviendront. 
 
