@@ -62,7 +62,7 @@ Dask va donc scaler Numpy, Pandas et Sckikit-learn en clonant leur API afin de f
 
 Pour comprendre le parallel computing avec Dask, il faut savoir de quoi est constitué un réseau distribué Dask. Pour cela, 3 concepts fondamentaux sont à retenir:
 
-- Le scheduler: 
+- **Le scheduler**: 
 
 Comme son nom l'indique, le rôle du scheduler est de planifier, distribuer les tâches (C'est en quelque sorte le chef d'ochestre ou le manager). Ce dernier assimile les tâches à effectuer sous la forme de graph (Task graph) crée au préalable par Dask et va  ensuite demander ensuite aux workers de realiser ces tâches.
 
@@ -72,11 +72,11 @@ Comme son nom l'indique, le rôle du scheduler est de planifier, distribuer les 
 _Fig 3. Rôle du Scheduler
 
 
-- Le client:
+- **Le client**:
 
 Le client est ce qui va nous permettre de nous connecter au cau réseau distribué Dask. Après avoir créer le réseau, on initialise le client en lui passant l'adresse du scheduler. Le client s'enregistre en tant que scheduler par défaut et permet d'exécuter toutes les collections de Dask (dask.array, dask.bag, dask.dataframe et dask.delayed).
 
-- Les Workers:
+- **Les Workers**:
 
 Si l'on décide d'utiliser dask sur une seule machine (local), les workers sont les coeurs du processeur tandis que dans un cluster ce sont les différentes machines. Les workers recoivent les informations du scheduler et exécutent les tâches. Ils rapportent au scheduler lorsqu'ils ont terminé et stockent les computations réalisées.
 
@@ -86,10 +86,9 @@ Si l'on décide d'utiliser dask sur une seule machine (local), les workers sont 
 _Fig 4. Exemple de reseau distribué Dask ayant 3 clients et 5 workers ( Les lignes entre les workers indiquent qu'ils communiquent entre eux)_
 
 
-### Créer un un réseau distribué ###
-Maintenant que nous sommes familier avec les concepts de base, nous allons voir comment implémenter un réseau distribué avec Dask. 
-
-Tout d'abord, il faut savoir que Dask propose 2 possibilités pour réaliser du calcul distribué. La première étant bien entendu de scaler le travail entre plusieurs machines mais Dask permet également de distribuer les computations à l'echelle d'une seule machine. En effet, avec Dask il est tout à fait possible de scaler les taches entre les coeurs du processeur. Il est important de comprendre qu' un cluster de machines n'est pas forcément la meilleur décision pour travailler dans un envirnement Big Data. d'une part, les ordinateurs utilisant Dask et ayant des composants relativement récents ( CPU multi-coeurs dernière génération, GPU, RAM allant de 16 à 64gb, SSD) permettent de travailler avec des jeux de données de plus de 100gb sans grande difficulté. D'autre part, travailler en local évite bon nombre de contraintes telles que le fait d'etre limité par la bande passante ( dans un cluster les données doivent circuler dans le réseau), mais aussi le fait de devoir gérer des images docker plutot que de travailler avec un software environment local par exemple.
+### Implémenter un réseau distribué ###
+ 
+Il faut savoir que Dask propose 2 options pour réaliser du calcul distribué. La première étant bien évidemment de scaler le travail entre plusieurs machines, on parle alors de cluster. L'autre possibilité étant de rester dans un environnement local dans lequel Dask va distribuer les computations entre les coeurs du processeur au sein d'une seule machine. Il faut savoir qu'un cluster n'est pas forcément la meilleure décision pour travailler dans un environnement Big Data. D'une part, les ordinateurs actuels (CPU multi-coeurs dernière génération, GPU, RAM allant de 16 à 64gb, SSD) permettent avec Dask de travailler avec des jeux de données de plus de 100gb sans grande difficulté. D'autre part, travailler en local évite bon nombre de contraintes telles que le fait d'etre limité par la bande passante, mais aussi le fait de devoir gérer des images docker plutot que de travailler avec un software environment local par exemple.
 
 Comme nous l'avons énoncé précédemment, nous avons la possibilité de créer un réséau distribué en local ( une seule machine) et en cluster (plusieurs machines). Nous  allons voir brièvement les deux cas de figure:
 
