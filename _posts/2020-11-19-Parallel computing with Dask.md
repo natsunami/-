@@ -58,30 +58,32 @@ Dask va donc scaler Numpy, Pandas et Sckikit-learn en clonant leur API afin de f
 
 ## Comment Dask fonctionne ? ##
 
-Les présentations avec Dask étant faites,nous allons voir plus en détails son fonctionnement interne.
-
 ### Concepts ###
 
 Pour comprendre le parallel computing avec Dask, il faut savoir de quoi est constitué un réseau distribué Dask. Pour cela, 3 concepts fondamentaux sont à retenir:
 
 - Le scheduler: 
 
-Comme son nom l'indique, le rôle du scheduler est de planifier les taches de facon distribué. Ce dernier assimile les tâches à effectuer sous la forme de graph (Task graph) crée par Dask au préalable, et va  demander ensuite aux workers de realiser ces taches.
+Comme son nom l'indique, le rôle du scheduler est de planifier, distribuer les tâches (C'est en quelque sorte le chef d'ochestre ou le manager). Ce dernier assimile les tâches à effectuer sous la forme de graph (Task graph) crée au préalable par Dask et va  ensuite demander ensuite aux workers de realiser ces tâches.
 
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/scheduler.png)
 
+_Fig 3. Rôle du Scheduler
+
 
 - Le client:
 
-Le client est tout simplement ce qui va nous permettre de nous connecter au cluster dask. Après avoir créer le cluster, on initialise le client en lui passant l'adresse du scheduler. Le client s'enregistre en tant que scheduler par défaut, et permet d'exécuter toutes les collections de dask (dask.array, dask.bag, dask.dataframe et dask.delayed).
+Le client est ce qui va nous permettre de nous connecter au cau réseau distribué Dask. Après avoir créer le réseau, on initialise le client en lui passant l'adresse du scheduler. Le client s'enregistre en tant que scheduler par défaut et permet d'exécuter toutes les collections de Dask (dask.array, dask.bag, dask.dataframe et dask.delayed).
 
 - Les Workers:
 
-Si l'on décide d'utiliser dask sur une seule machine, les workers sont les coeurs du processeur tandis que dans un cluster ce sont les les différentes machines. Les workers recoivent les informations du scheduler et exécutent les tâches. Ils rapportent au scheduler lorsqu'ils ont terminé, tout en conservant les résultats stockés dans les workers où il ont été calculé.
+Si l'on décide d'utiliser dask sur une seule machine (local), les workers sont les coeurs du processeur tandis que dans un cluster ce sont les différentes machines. Les workers recoivent les informations du scheduler et exécutent les tâches. Ils rapportent au scheduler lorsqu'ils ont terminé et stockent les computations réalisées.
 
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/parallel_computing_graph.png)
+
+_Fig 4. Exemple de reseau distribué Dask ayant 3 clients et 5 workers ( Les lignes entre les workers indiquent qu'ils communiquent entre eux)_
 
 
 ### Créer un un réseau distribué ###
