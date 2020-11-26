@@ -290,7 +290,7 @@ Name: x, dtype: float64
 
 Pas de grand changement par rapport à Dask.arrays. Si l'on cherche à afficher un dataframe, Dask le renvoit sous format "lazy", donc sans les valeurs. On peut cependant afficher un partie du dataframe avec .head() ou encore .tail() et si l'on désir réaliser une computation, on utilise comme vu précédemment la méthode .compute() (Note:  Connaitre le nombre de partitions est important afin de realiser certaines opérations (e.g concat()) dans la mesure où les dataframes doivent etre partitionnés de la meme manière).
 
-### Dask ML ###
+#### Dask ML ####
 
 Comme son nom l'indique, tout comme Spark ML, Dask ML permet de réaliser du machine learning distribué. L'API repose entre autre sur celle de scikit-learn et d'autres, tel que XGBoost. De manière générale, l'API peut etre utilisée pour le preprocessing, réaliser de la cross validation, faire des hyperparameters search, créer des pipelines et autres.
 
@@ -298,7 +298,7 @@ Dask ML peut etre utilisé pour pallier à 2 types de contraintes. La première 
 
 ![](https://ml.dask.org/_images/dimensions_of_scale.svg)
 
-#### Memory-Bound ####
+##### Memory-Bound #####
 
 Ce problème se pose lorsque la taille du jeu de données est supérieur à la RAM. Dans ce contexte, utiliser Numpy ou Pandas ne fonctionnerait pas et il serait donc impossible de réaliser du machine learning en utilisant scikit-learn par exemple. Prenons un exemple concret pour comprendre le problème. Le dataset [Microsoft Malware Prediction](https://www.kaggle.com/c/microsoft-malware-prediction), challenge Kaggle d'il y a 2 ans, comporte approximativement 10M de lignes et 80 colonnes. Il est tout à fait possible de lire le dataset avec pandas, bien que cela soit beaucoup plus challenging qu'avec Dask, mais le problème étant que l'on risque de faire face à des difficultés plus importantes au moment du preprocessing. Par exemple, utiliser un One-Hot Encoder sur les variables catégorielles ferait exploser la taille du jeu de données. L'extrait de code ci-dessous permet de préprocesser le jeu de données sans grande difficultés gràce à dask-ml.
 
@@ -334,7 +334,7 @@ CPU times: user 8.09 s, sys: 101 ms, total: 8.19 s
 Wall time: 3min 10s
 ```
 
-#### CPU-Bound ####
+##### CPU-Bound #####
 
 Ce cas de figure apparait lorsque le modèle ML crée est si large/ complexe que cela à un impact sur le flux de travail (e.g.une tâche d'apprentissage, recherche d'hyperparamètre beaucoup trop longue). Dans ce contexte, paralléliser la tâche à effectuer en utilisant les estimateurs de dask-ml  permet de faire face à ces difficultés. L'extrait ci-dessous montre comment une hyperparameters search via Dask-ML et son estimateur HuperbandSearchCV.
 
