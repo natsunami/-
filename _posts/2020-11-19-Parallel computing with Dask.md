@@ -392,32 +392,31 @@ Parut en 2010, grâce à son efficacité et son intégration dans un écosystèm
    - Dask est plus adapté pour des applications scientifiques ou business nécéssitant du machine learning plus poussé.
 
 -Design: 
-
-
-    Spark’s internal model is higher level, providing good high level optimizations on uniformly applied computations, but lacking flexibility for more complex algorithms or ad-hoc systems. It is fundamentally an extension of the Map-Shuffle-Reduce paradigm.
-    Dask’s internal model is lower level, and so lacks high level optimizations, but is able to implement more sophisticated algorithms and build more complex bespoke systems. It is fundamentally based on generic task scheduling.
-
+ 
+   - Le modèle interne de Spark est de niveau supérieur, offrant de bonnes optimisations de haut niveau sur des calculs appliqués uniformément, mais manquant de flexibilité pour des algorithmes plus complexes ou des systèmes ad hoc. Il s'agit fondamentalement d'une extension du paradigme Map-Shuffle-Reduce.
+   - Le modèle interne de Dask est de niveau inférieur et manque donc d'optimisations de haut niveau, mais il est capable d'implémenter des algorithmes plus sophistiqués et de construire des systèmes sur mesure plus complexes. Il est fondamentalement basé sur une planification générique des tâches.
 
 - Scaling: 
+  
+   - Spark comme Dask permettent de créer des clusters composés jusqu'à mille machines.
 
+Si vous hésitez sur la technologie à choisir entre Spark et Dask, ceci devrait vous aider:
 
+- Les raisons pour lesquelles vous devriez choisir Spark:
 
-Reasons you might choose Spark
+   - Vous preferez utiliser Scala ou SQL.
+   - Vous disposez principalement d'une infrastructure JVM et de systèmes hérités.
+   - Vous voulez une solution de confiance, largement utilisée dans le milieu de l'entreprise.
+   - Vous faites de la business analytics ou vos applications nécéssitent du Machine learning peu complexe.
+   - Vous avez besoin d'une solution tout-en-un (Ecosystème Apache).
 
-    You prefer Scala or the SQL language
-    You have mostly JVM infrastructure and legacy systems
-    You want an established and trusted solution for business
-    You are mostly doing business analytics with some lightweight machine learning
-    You want an all-in-one solution
+- Les raisons pour lesquelles vous devriez choisir Dask:
 
-Reasons you might choose Dask
-
-    You prefer Python or native code, or have large legacy code bases that you do not want to entirely rewrite
-    Your use case is complex or does not cleanly fit the Spark computing model
-    You want a lighter-weight transition from local computing to cluster computing
-    You want to interoperate with other technologies and don’t mind installing multiple packages
-
-
+   - Vous preferrez utiliser Python et êtes deja familier avec ses librairies.
+   - Vous avez des projets plus complexes que ce que Spark permet de résoudre.
+   - Vous souhaitez une transition plus légère d'une utilisation locale à une utlisation en cluster.
+   - Vous voulez interagir avec d'autres technologies et installer plusieurs paquets ne vous dérange pas.
+ 
 
 ## Conclusion ##
 
