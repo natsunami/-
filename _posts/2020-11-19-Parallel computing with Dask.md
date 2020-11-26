@@ -30,11 +30,13 @@ Ainsi, afin de travailler dans un environnement Big Data, des technologies ont �
 Maintenant que nous avons en tete certaines notions/concepts propre au Big Data (Qu'est-ce que le Big Data, ses enjeux, comment cela fonctionne et les technologies associés), nous allons enfin pouvoir traiter de la techno au coeur de cet article, [Dask](https://dask.org).
 
 
-#Présentation de Dask
+# Présentation de Dask #
 
 ## Qu'est-ce que c'est ? ##
 
-Si vous deviez lire une chose dans cette article lisez le paragraphe suivant. Elaboré par Matthew Rocklin ([2015](https://conference.scipy.org/proceedings/scipy2015/pdfs/matthew_rocklin.pdf), Dask est une librairie écrite en python qui, comme Hadoop et Apache Spark, permet de traiter des données massives en exploitant le parallel computing. A ce stade,nous serions tenté de se demander quel est l'interet de Dask sachant qu'il existe deja des frameworks open source reconnues, validés et hautement utilisés. La réponse est relativement simple, Dask exploite le potentiel de librairies bien connues dans le milieu de la data science tels que Numpy, Pandas, Scikit-Learn. En reposant sur ce riche ecosysteme Dask permet de réaliser du traitement de données distribuée en utilisant des librairies largement connues, avec aucune, voir peu, de modifications à réaliser. Par ailleurs, Dask bénéficie en plus du soutien des communautés de cet écosystème ce qui permet d'enrichir, développer la librairie.
+Si vous deviez retenir une chose dans cette article cela serait sans doute le paragraphe suivant:
+
+Elaboré par Matthew Rocklin ([2015](https://conference.scipy.org/proceedings/scipy2015/pdfs/matthew_rocklin.pdf), Dask est une librairie écrite en python qui, comme Hadoop et Apache Spark, permet de traiter des données massives en exploitant le parallel computing. A ce stade,nous serions tenté de se demander quel est l'interet de Dask sachant qu'il existe deja des frameworks open source reconnues, validés et hautement utilisés. La réponse est relativement simple, Dask exploite le potentiel de librairies bien connues dans le milieu de la data science tels que Numpy, Pandas, Scikit-Learn. En reposant sur ce riche ecosysteme Dask permet de réaliser du traitement de données distribuée en utilisant des librairies largement connues, avec aucune, voir peu, de modifications à réaliser. Par ailleurs, Dask bénéficie en plus du soutien des communautés de cet écosystème ce qui permet d'enrichir, développer la librairie.
 
 Après cette rapide présentation, nous allons nous interesser plus en détail aux spécificités de dask et pourquoi l'utiliser pour vos projets Big Data.
 
@@ -419,6 +421,9 @@ Si vous hésitez sur la technologie à choisir entre Spark et Dask, ceci devrait
  
 
 ## Conclusion ##
+
+Cet article touche malheureusement à sa fin. Dask est une librairie très riche à parcourir, qui aux premiers abord peu sembler très facile d'accès mais qui nécessite beaucoup de temps à maitriser. L'objectif de cet article était avant tout de vous introduire à Dask, de comprendre à quoi cela pouvait etre utile, comment cette librairie fonctionne en vous présentant les concepts fondamentaux et les API les plus importantes pour traiter la data, et nous avons vu à la fin ses principales différences avec Spark. Je suis convaincu qu'avec le temps Dask sera ammené à se développer davantage mais aussi à être de plus en plus utilisé dans le monde de l'entreprise tant sa prise en main est simpliste ( si on est déja familier avec Python) car cela permettrait de rendre le Big Data plus accessible.
+
 
 
 
