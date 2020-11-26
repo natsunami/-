@@ -21,7 +21,7 @@ _Fig 1. Volume de données stocké au cours de l'année 2018_
 _(Source: Statista Digital Economy Compass 2019)_
 
 
-Le big data répond donc à la question suivante: *Comment traiter un tel volume de données ?*
+Le big data répond donc à la question suivante: **Comment traiter des données massives ?**
 
 Bien que nous ayons aujourd'hui à notre disposition des machines dont la puissance en terme de CPU, RAM et GPU ne cesse de croître, la quantité de données évolue plus rapidement que les capacités des ordinateurs à traiter ces données. C'est pourquoi de nouvelles solutions ont dû émerger afin de répondre à cette problématique. La réponse fût le _"parallel computing"_. En effet, si une machine s'avère insuffisante pour faire face à ces données massives, alors plusieurs y parviendront. 
 
@@ -29,26 +29,27 @@ Comme son nom l'indique, le "parallel computing" consiste à tout simplement à 
 
 De nouvelles technologies ont ainsi vu le jour afin de travailler dans un environnement Big Data. Aujourd'hui, certaines sont très connues du public. On citera notamment le précurseur,[Hadoop](https://fr.wikipedia.org/wiki/Hadoop) et son  modèle de programmation [MapReduce](https://fr.wikipedia.org/wiki/MapReduce), et bien entendu,[Spark](https://fr.wikipedia.org/wiki/Apache_Spark). Initié en 2010, soit 4 ans après Hadoop, Spark (Apache Spark) tend aujourd'hui à être le framework leader pour le traitement de données massives. Brièvement, cela s'explique dans la mesure où la où Hadoop lit et écrit les fichiers en HDFS (Hadoop Distributed File System) pour traiter la donnée, Spark est plus rapide en utilisant la mémoire vive (RAM) via son concept de RDD ( Resilient Distributed Dataset). Par ailleurs, Spark possède une riche librairie de machine learning (SparkML). Si vous désirez connaitre les principales caractéristiques/différences entre Hadoop et Spark, je vous invite à consulter ce lien: [Difference Between Hadoop and Spark](https://www.geeksforgeeks.org/difference-between-hadoop-and-spark/). 
 
-Maintenant que nous avons en tete certaines notions/concepts propre au Big Data (Qu'est-ce que le Big Data, ses enjeux, comment cela fonctionne et les technologies associés), nous allons enfin pouvoir traiter de la techno au coeur de cet article, [Dask](https://dask.org).
+Cette petite introduction sur le Big Data étant faite, nous allons pouvoir plonger au coeur du sujet de cet article, le parallel computing avec [Dask](https://dask.org).
 
 
 # Présentation de Dask #
 
 ## Qu'est-ce que c'est ? ##
 
-Si vous deviez retenir une chose dans cette article cela serait sans doute le paragraphe suivant:
+Si vous deviez retenir une chose sur le sujet de cet article, cela serait sans doute le paragraphe suivant:
 
-Elaboré par Matthew Rocklin ([2015](https://conference.scipy.org/proceedings/scipy2015/pdfs/matthew_rocklin.pdf), Dask est une librairie écrite en python qui, comme Hadoop et Apache Spark, permet de traiter des données massives en exploitant le parallel computing. A ce stade,nous serions tenté de se demander quel est l'interet de Dask sachant qu'il existe deja des frameworks open source reconnues, validés et hautement utilisés. La réponse est relativement simple, Dask exploite le potentiel de librairies bien connues dans le milieu de la data science tels que Numpy, Pandas, Scikit-Learn. En reposant sur ce riche ecosysteme Dask permet de réaliser du traitement de données distribuée en utilisant des librairies largement connues, avec aucune, voir peu, de modifications à réaliser. Par ailleurs, Dask bénéficie en plus du soutien des communautés de cet écosystème ce qui permet d'enrichir, développer la librairie.
-
-Après cette rapide présentation, nous allons nous interesser plus en détail aux spécificités de dask et pourquoi l'utiliser pour vos projets Big Data.
+Elaboré par Matthew Rocklin ([2015](https://conference.scipy.org/proceedings/scipy2015/pdfs/matthew_rocklin.pdf), Dask est une librairie écrite en Python qui, comme Hadoop et Apache Spark, permet de traiter des données massives en exploitant le parallel computing. À ce stade, vous seriez tenté de vous demander quel serait l'intêret d'utiliser Dask sachant qu'il existe deja des frameworks open source reconnues, validés par une large communauté et utilisés dans le monde. La réponse est relativement simple, Dask exploite le potentiel de librairies bien connues dans le milieu de la data tels que Numpy, Pandas, Scikit-Learn. En s'appuyant sur ce riche écosystème Dask permet de réaliser du traitement de données distribué en copiant des librairies connues, avec aucune, voir peu de modifications de code à réaliser. Qui plus est, Dask bénéficie du soutien des communautés de cet écosystème, ce qui contribue fortement à son développement.
 
 ## Pourquoi Dask ? ##
 
-Si l'on regarde la 2020 Developer Survey de Stack Overflow, on peut constater que Python est l'un des languages de programmation les plus utilisé dans le monde chez les developpeurs (44.1 %) juste derriere JavaScript (Web), HTML/CSS (Web) et SQL (base de données), ce qui en fait le language dominant en matière de programmation générale et à destination de la data.
+Si l'on regarde la [2020 Developer Survey](https://insights.stackoverflow.com/survey/2020) de Stack Overflow, on peut constater que Python est l'un des langages de programmation les plus utilisés dans le monde chez les developpeurs (44.1 %) juste derriere JavaScript (Web), HTML/CSS (Web) et SQL (base de données). De ce fait, Python est le langage dominant en matière de programmation générale et à destination de la data.
 
 
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/most_uses_languages.png)
+
+_Fig 2. Langages de programmation les plus utilisés dans le monde en 2020
+_(Source: Stack Overflow 2020 Developer Survey)_
 
 
 Il est évident que la simplicité de sa syntaxe et le développement de nombreuses librairies (Numpy, Pandas, Matplotlib, Scikit-learn, Tensorflow/ Keras) en parallèle de l'engouement massif pour la data/machine learning/ A.I,  ont contribué à sa popularité. Si l'on travaille avec un volume de donnée "convenable", utiliser ces librairies ne pose aucun problème. Mais vient tot ou tard le moment où l'on cherche à travailler dans un environnement Big Data, la, ca ne fonctionne plus. La raison est que ces librairies n'ont pas été crée initialement pour etre scalable (i.e. Appliquer à une large quantité de données). La solution serait donc d'utiliser les frameworks (e.g Spark) pour réaliser du calcul distribué, mais cela implique au préalable de connaitre son fonctionnement, l'API et il se peut qu'il faille réecrire le code dans un autre language. Par exemple, si l'on veut tirer pleine performances de Spark il faudeait que le code soit écrit en Scala et non pas en python dans la mesure où Scala est 10x plus rapide que python pour le traitement et l'analyse de données. Ce processus pouvant etre fastidieux et frustrant, il serait préférable de travailler avec les librairies scalées propres à python. Et c'est exactement ce que nous permet Dask.
