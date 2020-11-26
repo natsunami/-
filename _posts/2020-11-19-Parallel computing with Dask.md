@@ -294,13 +294,13 @@ Pas de grand changement par rapport à Dask.arrays. Si l'on cherche à afficher 
 
 Comme son nom l'indique, tout comme Spark ML, Dask ML permet de réaliser du machine learning distribué. L'API repose entre autre sur celle de scikit-learn et d'autres, tel que XGBoost. De manière générale, l'API peut etre utilisée pour le preprocessing, réaliser de la cross validation, faire des hyperparameters search, créer des pipelines et autres.
 
-Dask ML peut etre utilisé pour pallier à 2 types de contraintes. La première étant liée à la mémoire, et la deuxième étant computationelle.
+Dask ML peut etre utilisé pour pallier à 2 types de contraintes. La première étant liée à la mémoire (Memory-Bound), et la deuxième étant computationelle (CPU-Bound).
 
 ![](https://ml.dask.org/_images/dimensions_of_scale.svg)
 
-#### Limite associée à la mémoire ####
+#### Memory-Bound ####
 
-Ce problème se pose lorsque la taille du jeu de données est supérieur à la RAM. Dans ce contexte, utiliser Numpy ou Pandas ne fonctionnerait pas et il serait donc impossible de réaliser du machine learning en utilisant scikit-learn par exemple. Prenons un exemple concret pour comprendre le problème. Le dataset [Microsoft Malware Prediction](https://www.kaggle.com/c/microsoft-malware-prediction), challenge Kaggle d'il y a 2 ans, comporte approximativement 10M de lignes et 80 colonnes. Il est possible de lire le dataset avec pandas bien que cela soit beaucoup plus challenging qu'avec Dask, on risque tot ou tard de se heurter à un mur. En effet, une étape essentielle serait de preprocesser les données. Par exemple, utiliser un One-Hot Encoder sur les variables catégorielles ferait exploser la taille du jeu de données.
+Ce problème se pose lorsque la taille du jeu de données est supérieur à la RAM. Dans ce contexte, utiliser Numpy ou Pandas ne fonctionnerait pas et il serait donc impossible de réaliser du machine learning en utilisant scikit-learn par exemple. Prenons un exemple concret pour comprendre le problème. Le dataset [Microsoft Malware Prediction](https://www.kaggle.com/c/microsoft-malware-prediction), challenge Kaggle d'il y a 2 ans, comporte approximativement 10M de lignes et 80 colonnes. Il est tout à fait possible de lire le dataset avec pandas, bien que cela soit beaucoup plus challenging qu'avec Dask, mais le problème étant que l'on risque de faire face à des difficultés plus importantes au moment du preprocessing. Par exemple, utiliser un One-Hot Encoder sur les variables catégorielles ferait exploser la taille du jeu de données. L'extrait de code ci-dessous permet de préprocesser le jeu de données sans grande difficultés gràce à dask-ml.
 
 ```py
 import dask.array as da
@@ -334,12 +334,36 @@ CPU times: user 8.09 s, sys: 101 ms, total: 8.19 s
 Wall time: 3min 10s
 ```
 
-The second type of scaling challenge people face is when their datasets grow larger than RAM (shown along the horizontal axis above). Under this scaling challenge, even loading the data into NumPy or pandas becomes impossible.
+#### CPU-Bound ####
 
-To address these challenges, you’d use Dask’s one of Dask’s high-level collections like (Dask Array, Dask DataFrame or Dask Bag) combined with one of Dask-ML’s estimators that are designed to work with Dask collections. For example you might use Dask Array and one of our preprocessing estimators in dask_ml.preprocessing, or one of our ensemble methods in dask_ml.ensemble.
+Ce cas de figure apparait lorsque le modèle ML crée est si large/ complexe que cela à un impact sur le flux de travail (e.g.une tâche d'apprentissage, recherche d'hyperparamètre beaucoup trop longue). Dans ce contexte, paralléliser la tâche à effectuer en utilisant les estimateurs de dask-ml  permet de faire face à ces difficultés. L'extrait ci-dessous montre comment une hyperparameters search via Dask-ML et son estimateur HuperbandSearchCV.
 
+```py
+import numpy as np
 
-#### Limite computationelles ####
+from dask_ml.model_selection import HyperbandSearchCV
+from dask_ml.datasets import make_classification
+from sklearn.linear_model import SGDClassifier
+
+X, y = make_classification(chunks=20)
+
+est = SGDClassifier(tol=1e-3)
+
+param_dist = {'alpha': np.logspace(-4, 0, num=1000),
+
+              'loss': ['hinge', 'log', 'modified_huber', 'squared_hinge'],
+
+              'average': [True, False]}
+
+search = HyperbandSearchCV(est, param_dist)
+
+search.fit(X, y, classes=np.unique(y))
+
+search.best_params_
+```
+```
+{'loss': 'log', 'average': False, 'alpha': 0.0080502}
+```
 
 
 
