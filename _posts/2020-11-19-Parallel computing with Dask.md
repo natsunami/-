@@ -11,7 +11,12 @@ tags: [Dask,Big Data,Cloud, Cluster, Parallel,Coiled]
 # Introduction #
 
 Considéré comme l'un des grands défis informatiques de notre décennie, l'émergence du Big Data est souvent estimée comme l'une des innovations technologiques les plus significatives. 
-Chaque jour, tout secteurs confondus, une quantité astronomique de donnée est crée et jusqu'à récemment, les ressources étaient insuffisantes pour traiter de tels volumes de données. Ainsi, le Big Data répond à la question de "comment traitrer des données massives ?"
+Selon l'édition 2019 du Statista Digital Economy Compass, 33 zettaoctets (Zo) de données, soit 2.64e+14 gigabits(Gb), auraient été créées dans le monde l'année dernière. L'infographie suivante vous montre à quoi cela correspond:
+
+![](https://cdn.statcdn.com/Infographic/images/normal/17793.jpeg)
+
+
+Le big data répond à cette question, comment traiter un tel volume de donnée ?
 
 Bien que nous ayons aujourd'hui à notre disposition des machines beaucoup plus puissantes en terme de CPU, RAM et GPU, les ressources requises pour traiter 
 
