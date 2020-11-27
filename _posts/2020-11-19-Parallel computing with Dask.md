@@ -88,14 +88,18 @@ _Fig 4. Exemple de reseau distribué Dask avec 3 clients et 5 workers ( Les lign
 
 ### Implémenter un réseau distribué ###
  
-Il faut savoir que Dask propose 2 options pour réaliser du calcul distribué. La première étant bien évidemment de scaler le travail entre plusieurs machines, on parle alors de cluster. L'autre possibilité étant de rester dans un environnement local dans lequel Dask va distribuer les computations entre les coeurs du processeur d'une seule machine. Créer un cluster n'est pas forcément la meilleure décision pour traiter des données massives. D'une part, les ordinateurs actuels permettent avec Dask de travailler avec des jeux de données de plus de 100gb. D'autre part, travailler en local évite bon nombre de contraintes telles que le fait d'etre limité par la bande passante, mais aussi le fait de devoir gérer des images docker plutôt que de travailler avec un software environment local par exemple.
+Dask propose 2 options pour réaliser du calcul distribué. La première étant de scaler le travail entre plusieurs machines, on parle de cluster. L'autre possibilité étant de rester dans un environnement local dans lequel Dask va distribuer les computations entre les coeurs du processeur d'une seule machine. Créer un cluster n'est pas forcément la meilleure décision pour traiter des données massives. D'une part, les ordinateurs actuels permettent avec Dask de travailler avec des jeux de données de plus de 100gb. D'autre part, travailler en local évite bon nombre de contraintes telles que le fait d'etre limité par la bande passante, mais aussi le fait de devoir gérer des images docker plutôt que de travailler avec un software environment local par exemple.
 
 Nous allons maintenant voir comment implémenter simplement les deux cas de figure cités précedemment:
 
 - Dask Distributed Local:
 
 ```py
+# We import Dask Client
+
 from dask.distributed import Client
+
+# Initializing the Client without parameters
 
 client = Client()
 # or
@@ -118,7 +122,7 @@ Cluster
     Memory: 16.51 GB
 ```
 
-Dans cet extrait nous avons initialisé le client sans paramètres afin de se connecter à un réseau distribué local. Dask renvoit l'adresse du scheduler ainsi que les caractéristiques du réseau (_Note: Il est tout à fait possible de faire varier le nombre de workers_).
+ Et voila, nous venons de créer un réseau distribué local ! On notera le fait que Dask renvoit l'adresse du scheduler ainsi que les caractéristiques du réseau (_Note: Il est tout à fait possible de faire varier le nombre de workers_).
 
 - Dask Distributed cluster: 
 
@@ -169,14 +173,16 @@ Cluster
     Memory: 171.80 GB
 ```
 
-Le code présenté ci-dessus permet de créer un cluster dans le cloud. Pour etre plus précis nous avons utilisé [Coiled Cloud](https://docs.coiled.io/user_guide/getting_started.html) qui permet de scaler très simplement dans le cloud AWS. 
-Dans un premier temps, il est nécessaire de creer une image docker qui contient l'ensemble des packages nécessaires qui sera ensuite runner sur chaque workers ( Chaque workers, ainsi que le client doivent posséder les memes dépendances sous risque de poser des problèmes par la suite). Une fois le software environment crée, on peut créer le cluster et initialiser le client avec. Comme indiqué précedemment, Dask renvoit l'adresse du scheduler ainsi que les caractéristiques du cluster.  
+Le code présenté ci-dessus permet de créer un cluster dans le cloud. Pour y parvenir nous avons utilisé [Coiled Cloud](https://docs.coiled.io/user_guide/getting_started.html) qui permet de scaler très simplement dans le cloud AWS en évitant de se soucier de la configuration du cluster. Actuellement en Beta, Coiled est gratuit. Très prometteur, je vous invite grandement à l'essayer.
 
-Vous l'aurez sous doute remarqué, Dask renvoit également l'adresse de ce qu'il appelle le dashboard. Le dashboard est un outil très utile puisqu'il permet notamment de comprendre et suivre comment Dask processe les tâches à réaliser, comment elles sont réparties, les capacités utilisées de chaque workers, et permet également d'avoir accès aux logs.
+Petites précisions concernant le cluster, il faut tout d'abord créer une image docker qui contient l'ensemble des packages nécessaires pour le projet. L'image sera ensuite runnée sur chaque workers au moment de la creation du cluster (_Note: Chaque workers, ainsi que le client doivent posséder les memes dépendances sous risque de poser des problèmes par la suite_).  Dès lors que le cluster est créer le cluster, on initialise le client en lui passant le cluster en paramètre. Comme indiqué précedemment, Dask renvoit l'adresse du scheduler ainsi que les caractéristiques du cluster.  
+
+Vous l'aurez sous doute remarqué, Dask renvoit également l'adresse du "dashboard". Le dashboard est un outil très utile puisqu'il permet notamment de comprendre et suivre comment Dask processe les computations, comment elles sont réparties, mais aussi connaître les capacités utilisées de chaque workers.
 
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dashboard.png)
 
+_Fig 5. Dask Dashboard_
 
 
 Pour en savoir plus sur le dashboard, je vous invite à consulter la vidéo ci-dessous:
@@ -185,11 +191,9 @@ Pour en savoir plus sur le dashboard, je vous invite à consulter la vidéo ci-d
 [![](http://img.youtube.com/vi/nTMGbkS761Q/0.jpg)](http://www.youtube.com/watch?v=nTMGbkS761Q "Dask Dashboard")
 
 
-Dans la section suivante nous allons nous interesser aux API de Dask, avec un focus sur Dask.arrays et Dask.dataframes.
-
 ### Dask API ###
 
-Dask est composé de multiples API:
+Dask est composé de plusieurs API:
 
 - Arrays (S'appuye sur NumPy)
 - DataFrames (Repose sur Pandas)
@@ -197,13 +201,17 @@ Dask est composé de multiples API:
 - Dask-ML (Suit entre autre Scikit-Learn)
 - Delayed (Couvre de manière générale Python)
 
-Nous allons couvrir brièvement Dask.arrays, Dask.dataframes et pour finir Dask.ml, avec quelques exemples de code puisque ce sont les 3 API que nous sommes le plus susceptible d'être ammené à utiliser dans un projet data.
+Puisque ce sont les API que nous sommes le plus suceptible d'utiliser pour la data science, voyons plus en détails Dask.array, Dask.dataframe et pour finir Dask.ml.
 
 #### Dask arrays ####
 
 Les Dask arrays coordonnent de nombreux Numpy arrays, disposés en "chunks" (morceaux) à l'intérieur d'une grille. L'API de Dask prend en charge un large partie de l'API Numpy.
 
 ![](https://raw.githubusercontent.com/natsunami/website/9a0d72b882e33755b4b1de778588e746b7c8da3b/assets/img/dask/dask-array-1.svg)
+
+_Fig 6.Repésentation d'un Dask array_
+
+- Dask.array en action:
 
 ```py
 import dask.array as da
@@ -227,11 +235,15 @@ y.compute()
 Si vous etes familier avec Numpy vous aurez constaté que la seule différence réside uniquement dans le fait d'importer dask.array (da) plutot que Numpy (np). Si l'on cherche à afficher l'objet x on peut voir cependant qu'il n'apparait pas comme si l'on utilisait Numpy mais au lieu de ca, affiche les propriétés de l'objet. L'explication est la suivante, Dask ne réalise pas la computation tant qu'elle n'est pas explicitement demandé via la méthode .compute(). En effet, Dask est par défault "Lazy" (_Note: Utiliser la methode .compute() va stocker la computation en mémoire. La méthode doit donc etre appelée uniquement si la computation à suffisemment de place sous peine de voir l'erreur **KilledWorker**_).
 
 
-#### Dask dataframes #####
+#### Dask dataframe #####
 
-Les Dask dataframes permettent de coordonner plusieurs dataframe Pandas partitionnés selon l'index. De meme que l'API Dask.arrays, l'API Dask.dataframes possèdent une grande partie des fonctionnalités de l'API Pandas.
+Les Dask dataframes permettent de coordonner plusieurs dataframe Pandas partitionnés selon l'index. De meme que l'API Dask.array, l'API Dask.dataframe possèdent une grande partie des fonctionnalités de l'API Pandas.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dataframe.jpg)
+
+_Fig 7. Repésentation d'un Dask dataframe_
+
+- Dask.dataframe en action:
 
 ```py
 import dask.dataframe as dd
