@@ -69,7 +69,7 @@ Comme son nom l'indique, le rôle du scheduler est de planifier, distribuer les 
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/scheduler.png)
 
-_Fig 3. Rôle du Scheduler
+_Fig 3. Rôle du Scheduler_
 
 
 - **Le client**:
@@ -232,12 +232,12 @@ y.compute()
 ```
 49.99919512
 ```
-Si vous etes familier avec Numpy vous aurez constaté que la seule différence réside uniquement dans le fait d'importer dask.array (da) plutot que Numpy (np). Si l'on cherche à afficher l'objet x on peut voir cependant qu'il n'apparait pas comme si l'on utilisait Numpy mais au lieu de ca, affiche les propriétés de l'objet. L'explication est la suivante, Dask ne réalise pas la computation tant qu'elle n'est pas explicitement demandé via la méthode .compute(). En effet, Dask est par défault "Lazy" (_Note: Utiliser la methode .compute() va stocker la computation en mémoire. La méthode doit donc etre appelée uniquement si la computation à suffisemment de place sous peine de voir l'erreur **KilledWorker**_).
+Si vous etes familier avec Numpy vous aurez constaté que la seule différence réside uniquement dans l'importation de dask.array plutot que celle de Numpy. Si l'on cherche à afficher l'objet x on constate qu'il ne s'affiche pas comme le ferait Numpy, mais au lieu de ca, va afficher les propriétés de l'objet. Dask étant par défault "lazy", il ne réalise pas la computation tant qu'elle n'est pas explicitement demandé via la méthode .compute() (_Note: Utiliser la methode .compute() va stocker la computation en mémoire. La méthode doit être appelée si la computation à suffisamment de place sous peine de voir l'erreur **KilledWorker**_).
 
 
 #### Dask dataframe #####
 
-Les Dask dataframes permettent de coordonner plusieurs dataframe Pandas partitionnés selon l'index. De meme que l'API Dask.array, l'API Dask.dataframe possèdent une grande partie des fonctionnalités de l'API Pandas.
+Les Dask dataframes permettent de coordonner plusieurs dataframe Pandas partitionnés selon l'index. De meme que l'API Dask.array, Dask.dataframe possèdent une grande partie des fonctionnalités de l'API Pandas.
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/dask_dataframe.jpg)
 
@@ -307,19 +307,21 @@ Zelda      -0.002810
 Name: x, dtype: float64
 ```
 
-Pas de grand changement par rapport à Dask.arrays. Si l'on cherche à afficher un dataframe, Dask le renvoit sous format "lazy", donc sans les valeurs. On peut cependant afficher un partie du dataframe avec .head() ou encore .tail() et si l'on désir réaliser une computation, on utilise comme vu précédemment la méthode .compute() (Note:  Connaitre le nombre de partitions est important afin de realiser certaines opérations (e.g concat()) dans la mesure où les dataframes doivent etre partitionnés de la meme manière).
+Pas de grand changement par rapport à Dask.array. Si l'on cherche à afficher un dataframe, Dask le renvoit sous format "lazy", donc sans les valeurs. On peut cependant afficher un partie du dataframe avec .head() et si l'on désire réaliser une computation, on utilise comme vu précédemment la méthode .compute() (_Note: Connaitre le nombre de partitions est important pour bon nombre d'opérations (e.g .concat()) dans la mesure où les dataframes doivent avoir le même partitionnage_).
 
-#### Dask ML ####
+#### Dask-ML ####
 
-Comme son nom l'indique, tout comme Spark ML, Dask ML permet de réaliser du machine learning distribué. L'API repose entre autre sur celle de scikit-learn et d'autres, tel que XGBoost. De manière générale, l'API peut etre utilisée pour le preprocessing, réaliser de la cross validation, faire des hyperparameters search, créer des pipelines et autres.
+Comme son homologue Spark ML, Dask-ML permet de réaliser du machine learning distribué. L'API repose entre autre sur celle de scikit-learn et d'autres, tel que XGBoost. De manière générale, l'API peut etre utilisée pour le preprocessing, réaliser de la cross validation, faire de l'hyperparameters search, créer des pipelines et autres.
 
-Dask ML peut etre utilisé pour pallier à 2 types de contraintes. La première étant liée à la mémoire (Memory-Bound), et la deuxième étant computationelle (CPU-Bound).
+Dask-ML peut etre utilisé pour pallier à 2 types de contraintes. La première étant celle de la mémoire (Memory-Bound), et la deuxième étant computationelle (CPU-Bound).
 
 ![](https://ml.dask.org/_images/dimensions_of_scale.svg)
 
+_Fig 8.Dimensions of scale_
+
 ##### Memory-Bound #####
 
-Ce problème se pose lorsque la taille du jeu de données est supérieur à la RAM. Dans ce contexte, utiliser Numpy ou Pandas ne fonctionnerait pas et il serait donc impossible de réaliser du machine learning en utilisant scikit-learn par exemple. Prenons un exemple concret pour comprendre le problème. Le dataset [Microsoft Malware Prediction](https://www.kaggle.com/c/microsoft-malware-prediction), challenge Kaggle d'il y a 2 ans, comporte approximativement 10M de lignes et 80 colonnes. Il est tout à fait possible de lire le dataset avec pandas, bien que cela soit beaucoup plus challenging qu'avec Dask, mais le problème étant que l'on risque de faire face à des difficultés plus importantes au moment du preprocessing. Par exemple, utiliser un One-Hot Encoder sur les variables catégorielles ferait exploser la taille du jeu de données. L'extrait de code ci-dessous permet de préprocesser le jeu de données sans grande difficultés gràce à dask-ml.
+Ce problème se pose lorsque la taille du jeu de données est supérieure à la RAM. Prenons un exemple concret pour comprendre le problème. Le dataset [Microsoft Malware Prediction](https://www.kaggle.com/c/microsoft-malware-prediction), challenge Kaggle d'il y a 2 ans, comporte approximativement 10M de lignes et 80 colonnes. Il est tout à fait possible de lire le dataset avec Pandas bien que cela soit beaucoup plus "challenging" qu'avec Dask, mais imaginons que l'on veuille preprocesser les données...là, ca risque de coincer. Par exemple, utiliser un One-Hot Encoder sur les variables catégorielles ferait exploser la taille du jeu de données et ne tiendrait certainement pas dans la RAM (sauf si vous avez un super-ordinateur). L'extrait de code ci-dessous permet de preprocesser le jeu de données sans grande difficultés gràce à Dask-ML (_Note: Vous remarquerez que le code est identique à celui de Scikit-Learn_).
 
 ```py
 import dask.array as da
@@ -353,10 +355,9 @@ CPU times: user 8.09 s, sys: 101 ms, total: 8.19 s
 Wall time: 3min 10s
 ```
 
-
 ##### CPU-Bound #####
 
-Ce cas de figure apparait lorsque le modèle ML crée est si large/ complexe que cela à un impact sur le flux de travail (e.g.une tâche d'apprentissage, recherche d'hyperparamètre beaucoup trop longue). Dans ce contexte, paralléliser la tâche à effectuer en utilisant les estimateurs de dask-ml  permet de faire face à ces difficultés. L'extrait ci-dessous montre comment une hyperparameters search via Dask-ML et son estimateur HuperbandSearchCV.
+Ce cas de figure apparait lorsque le modèle ML crée est si large,complexe que cela à un impact sur le flux de travail (e.g.une tâche d'apprentissage, recherche d'hyperparamètres beaucoup trop longue). Dans ce contexte, paralléliser la tâche à effectuer en utilisant les estimateurs de Dask-ML permet de faire face à ces difficultés. L'extrait ci-dessous montre comment mener une hyperparameters search via Dask-ML et son estimateur HyperbandSearchCV.
 
 ```py
 import numpy as np
@@ -385,10 +386,9 @@ search.best_params_
 {'loss': 'log', 'average': False, 'alpha': 0.0080502}
 ```
 
-
 ## Différences avec Spark  ##
 
-Parut en 2010, grâce à son efficacité et son intégration dans un écosystème riche ( Apache projects), Spark est aujourd'hui incontournable pour travailler dans un environnement Big Data. Développé plus tardivement, Dask est un projet plus léger que Spark. Grâce à son intégration dans l'écosystème Python (Numpy, Pandas, Scikit-Learn, ect...), Dask permet de réaliser des opérations plus complexes que Spark. Comparer Spark et Dask afin de déterminer lequel est meilleur n'aurait pas vraiment de sens puisque leur utilisation dépend avant tout de ce que l'on cherche à réaliser. Par ailleurs, Dask et Spark peuvent très bien être utilisés ensemble sur un même cluster. Nous allons toutefois dresser quelques différences notables entre les deux technologies.
+Parut en 2010, grâce à son efficacité et son intégration dans un écosystème riche (Apache projects), Spark est aujourd'hui incontournable pour travailler dans un environnement Big Data. Développé plus tardivement, Dask est un projet plus léger que Spark. Grâce à son intégration dans l'écosystème Python (Numpy, Pandas, Scikit-Learn, ect...), Dask permet de réaliser des opérations plus complexes que Spark. Comparer Spark et Dask afin de déterminer lequel est meilleur n'aurait pas vraiment de sens puisque leur utilisation dépend avant tout de ce que l'on cherche à réaliser. Par ailleurs, Dask et Spark peuvent très bien être utilisés ensemble sur un même cluster. Nous allons toutefois dresser quelques différences notables entre les deux technologies.
 
 
 - Langage:  
@@ -399,12 +399,12 @@ Parut en 2010, grâce à son efficacité et son intégration dans un écosystèm
 - Ecosystème: 
 
    - Spark fait partie de l'écosystème Apache et est de ce fait bien integré à de nombreux autres projets (e.g. Hadoop/Hive, HBase, Cassandra, etc...).
-   - Dask est integré dans l'ecosystème Python et a été crée pour scaler les librairies Data les plus connues (e.g. Numpy, Pandas, Scikit-Learn).
+   - Dask est integré dans l'ecosystème Python et a été crée pour scaler les librairies data les plus connues (e.g. Numpy, Pandas, Scikit-Learn).
 
 - Age:
 
    - Développé en 2010, Spark est aujourd'hui dominant dans le milieu Big Data.
-   - Plus jeune ( crée en 2014), Spark est en constante amélioration afin de rendre l'expérience la plus similaire aux librairies  Data Python.
+   - Plus jeune (crée en 2014), Spark est en constante amélioration afin de rendre l'expérience la plus similaire aux librairies  data sous Python.
 
 - Champ d'application:
 
@@ -420,7 +420,7 @@ Parut en 2010, grâce à son efficacité et son intégration dans un écosystèm
   
    - Spark comme Dask permettent de créer des clusters composés jusqu'à mille machines.
 
-Si vous hésitez sur la technologie à choisir entre Spark et Dask, ceci devrait vous aider:
+Si vous hésitez entre Spark et Dask, ceci devrait vous aider:
 
 - Les raisons pour lesquelles vous devriez choisir Spark:
 
@@ -428,7 +428,7 @@ Si vous hésitez sur la technologie à choisir entre Spark et Dask, ceci devrait
    - Vous disposez principalement d'une infrastructure JVM et de systèmes hérités.
    - Vous voulez une solution de confiance, largement utilisée dans le milieu de l'entreprise.
    - Vous faites de la business analytics ou vos applications nécéssitent du Machine learning peu complexe.
-   - Vous avez besoin d'une solution tout-en-un (Ecosystème Apache).
+   - Vous avez besoin d'une solution tout-en-un (ecosystème Apache).
 
 - Les raisons pour lesquelles vous devriez choisir Dask:
 
@@ -440,7 +440,7 @@ Si vous hésitez sur la technologie à choisir entre Spark et Dask, ceci devrait
 
 ## Conclusion ##
 
-Cet article touche malheureusement à sa fin. Dask est une librairie très riche à parcourir, qui aux premiers abord peu sembler très facile d'accès mais qui nécessite beaucoup de temps à maitriser. L'objectif de cet article était avant tout de vous introduire à Dask, de comprendre à quoi cela pouvait etre utile, comment cette librairie fonctionne en vous présentant les concepts fondamentaux et les API les plus importantes pour traiter la data, et nous avons vu à la fin ses principales différences avec Spark. Je suis convaincu qu'avec le temps Dask sera ammené à se développer davantage mais aussi à être de plus en plus utilisé dans le monde de l'entreprise tant sa prise en main est simpliste ( si on est déja familier avec Python) car cela permettrait de rendre le Big Data plus accessible.
+Cet article touche malheureusement à sa fin. Dask est une librairie très riche à parcourir, qui aux premiers abords semble très facile d'accès mais qui nécessite du temps pour être maitrisée. L'objectif de cet article était avant tout de vous introduire au parallel computing avec Dask, de comprendre à quoi cela pouvait etre utile, comment cette librairie fonctionne ainsi que les API les plus importantes pour traiter la data. Pour finir, nous avons également vu les principales différences entre Dask et Spark. Je suis convaincu qu'avec le temps Dask sera ammené à se développer davantage et à être de plus en plus utilisé dans le monde de l'entreprise tant cette librairie se dinstingue par sa simplicité. Par ailleurs, développer des outils tel que Dask est fondamental afin de rendre le Big Data plus accessible tant sa place est considérable dans nos sociétés contemporaines. 
 
 
 
