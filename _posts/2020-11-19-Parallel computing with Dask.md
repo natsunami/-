@@ -316,7 +316,6 @@ Comme son homologue Spark ML, Dask-ML permet de réaliser du machine learning di
 Dask-ML peut etre utilisée pour pallier à 2 types de contraintes. La première étant celle de la mémoire (Memory-Bound), et la deuxième étant d'origine computationelle (CPU-Bound).
 
 ![](https://ml.dask.org/_images/dimensions_of_scale.svg)
-
 _Fig 8.Dimensions of scale_
 
 ##### Memory-Bound #####
@@ -354,6 +353,7 @@ X_train_processed = preprocessor.fit_transform(X_train)
 CPU times: user 8.09 s, sys: 101 ms, total: 8.19 s
 Wall time: 3min 10s
 ```
+
 
 ##### CPU-Bound #####
 
