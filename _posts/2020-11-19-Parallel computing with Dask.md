@@ -395,26 +395,31 @@ Parut en 2010, grâce à son efficacité et son intégration dans un riche écos
 
    - Comme nous l'avons mentionné plus haut, Spark est codé en Scala mais supporte également Python et R (Scala reste le langage offrant la meilleure synergie avec Spark). 
    - Quant à Dask, il est codé en Python et ne supporte uniquement que ce langage. 
-
+  
+  
 - Ecosystème: 
 
    - Spark fait partie de l'écosystème Apache et est de ce fait bien intégré à de nombreux autres projets (e.g. Hadoop/Hive, HBase, Cassandra, etc...).
    - Dask est intégré dans l'écosystème Python et a été crée pour scaler les librairies data les plus connues (e.g. Numpy, Pandas, Scikit-Learn).
+   
 
 - Âge:
 
    - Développé en 2010, Spark est aujourd'hui dominant dans le milieu Big Data.
    - Plus jeune (crée en 2014), Spark est en constante amélioration afin de rendre l'expérience la plus similaire aux librairies  data sous Python.
+   
 
 - Champ d'application:
 
    - Spark se concentre davantage sur l'aspect business intelligence, analytics, en permettant de faire de la requête de données via SQL et du machine learning "léger".
    - Dask est plus adapté pour des applications scientifiques ou business nécéssitant du machine learning plus poussé.
+   
 
 - Design: 
  
    - Le modèle interne de Spark est de niveau supérieur, offrant de bonnes optimisations de haut niveau sur des calculs appliqués uniformément, mais manquant de flexibilité pour des algorithmes plus complexes ou des systèmes ad hoc. Il s'agit fondamentalement d'une extension du paradigme Map-Shuffle-Reduce.
    - Le modèle interne de Dask est de niveau inférieur et manque donc d'optimisations de haut niveau, mais il est capable d'implémenter des algorithmes plus sophistiqués et de construire des systèmes sur mesure plus complexes. Il est fondamentalement basé sur une planification générique des tâches.
+   
 
 - Scaling: 
   
@@ -429,6 +434,7 @@ Si vous hésitez entre Spark et Dask, ceci devrait vous aider:
    - Vous voulez une solution de confiance, largement utilisée dans le milieu de l'entreprise.
    - Vous faites de la business analytics ou vos applications nécéssitent du Machine learning peu complexe.
    - Vous avez besoin d'une solution tout-en-un (ecosystème Apache).
+   
 
 - Les raisons pour lesquelles vous devriez choisir Dask:
 
@@ -436,6 +442,7 @@ Si vous hésitez entre Spark et Dask, ceci devrait vous aider:
    - Vous avez des projets plus complexes que ce que Spark permet de résoudre.
    - Vous souhaitez une transition plus légère d'une utilisation locale à une utilisation en cluster.
    - Vous voulez interagir avec d'autres technologies et installer plusieurs paquets ne vous dérange pas.
+   
  
 
 ## Conclusion ##
