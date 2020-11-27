@@ -83,14 +83,14 @@ Si l'on décide d'utiliser dask sur une seule machine (local), les workers sont 
 
 ![](https://raw.githubusercontent.com/natsunami/website/master/assets/img/dask/parallel_computing_graph.png)
 
-_Fig 4. Exemple de reseau distribué Dask ayant 3 clients et 5 workers ( Les lignes entre les workers indiquent qu'ils communiquent entre eux)_
+_Fig 4. Exemple de reseau distribué Dask avec 3 clients et 5 workers ( Les lignes entre les workers indiquent qu'ils communiquent entre eux)_
 
 
 ### Implémenter un réseau distribué ###
  
-Il faut savoir que Dask propose 2 options pour réaliser du calcul distribué. La première étant bien évidemment de scaler le travail entre plusieurs machines, on parle alors de cluster. L'autre possibilité étant de rester dans un environnement local dans lequel Dask va distribuer les computations entre les coeurs du processeur au sein d'une seule machine. Il faut savoir qu'un cluster n'est pas forcément la meilleure décision pour travailler dans un environnement Big Data. D'une part, les ordinateurs actuels (CPU multi-coeurs dernière génération, GPU, RAM allant de 16 à 64gb, SSD) permettent avec Dask de travailler avec des jeux de données de plus de 100gb sans grande difficulté. D'autre part, travailler en local évite bon nombre de contraintes telles que le fait d'etre limité par la bande passante, mais aussi le fait de devoir gérer des images docker plutot que de travailler avec un software environment local par exemple.
+Il faut savoir que Dask propose 2 options pour réaliser du calcul distribué. La première étant bien évidemment de scaler le travail entre plusieurs machines, on parle alors de cluster. L'autre possibilité étant de rester dans un environnement local dans lequel Dask va distribuer les computations entre les coeurs du processeur d'une seule machine. Créer un cluster n'est pas forcément la meilleure décision pour traiter des données massives. D'une part, les ordinateurs actuels permettent avec Dask de travailler avec des jeux de données de plus de 100gb. D'autre part, travailler en local évite bon nombre de contraintes telles que le fait d'etre limité par la bande passante, mais aussi le fait de devoir gérer des images docker plutôt que de travailler avec un software environment local par exemple.
 
-Comme nous l'avons énoncé précédemment, nous avons la possibilité de créer un réséau distribué en local (une seule machine) et en cluster (plusieurs machines). Nous  allons voir brièvement les deux cas de figure:
+Nous allons maintenant voir comment implémenter simplement les deux cas de figure cités précedemment:
 
 - Dask Distributed Local:
 
@@ -118,8 +118,7 @@ Cluster
     Memory: 16.51 GB
 ```
 
-Ici, nous venons tout simplement d'initialiser le client sans paramètres pour lui indiquer que l'on veut se connecter à un réseau distribué local. Dask renvoit par ailleurs l'adresse du scheduler ainsi que les caractéristiques du cluster (celles de ma machine) (_Note: Il est tout à fait possible de faire varier le nombre de workers_).
-
+Dans cet extrait nous avons initialisé le client sans paramètres afin de se connecter à un réseau distribué local. Dask renvoit l'adresse du scheduler ainsi que les caractéristiques du réseau (_Note: Il est tout à fait possible de faire varier le nombre de workers_).
 
 - Dask Distributed cluster: 
 
@@ -127,7 +126,10 @@ Ici, nous venons tout simplement d'initialiser le client sans paramètres pour l
 # We have to creat a software environment that's gonna be run as a docker image on all workers in the cloud
 # Workers and Client NEED to have same packages versions
 
-import coiled
+import coiled # We import coiled which makes it easy to scale on the cloud
+
+# I created a software environment made up of all the packages I need (e.g: scikit-learn, XGBoost, Dask-ML,...)
+# A docker image is created and can be reused
 
 coiled.create_software_environment(
     name="ml-env",
@@ -140,7 +142,7 @@ coiled.create_cluster_configuration(
     # there are other inputs here you can also adjust
 )
 ```
-
+  
 ```py
 #Using our previous software environment on a docker image, we creat a cluster with 10 workers and initialize the client
 
