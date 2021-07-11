@@ -26,7 +26,11 @@ Pour débuter, vous aurez besoin :
 
 Non, plus sérieusement, voici ce dont nous allons vraiment avoir besoin:
 
-### Transformers ### de Hugging Face. ( Vous pouvez consulter la doc d'installation juste [ici](https://huggingface.co/transformers/installation.html) !
+### Transformers ### 
+Comme mentionné auparavant, nous allons utilisé la librairie *Transformers* de Hugging Face. Pour l'installation, si vous avez deja Tensorflow 2.0 et/ou PyTorch, vous pouvez directement l'installer avec pip:
+```console
+pip install transformers
+```
 
 
 
