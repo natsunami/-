@@ -27,10 +27,19 @@ Pour débuter, vous aurez besoin :
 Non, plus sérieusement, voici ce dont nous allons vraiment avoir besoin:
 
 ### Transformers ### 
-Comme mentionné auparavant, nous allons utilisé la librairie *Transformers* de Hugging Face. Pour l'installation, si vous avez deja Tensorflow 2.0 et/ou PyTorch, vous pouvez directement l'installer avec pip:
+Comme mentionné auparavant, nous allons utilisé la librairie *Transformers* de Hugging Face. La librairie est indispensable puisqu'elle contient les modèles pré-entrainés que nous allons utiliser pour la traduction du francais en SQL.. Pour l'installation, si vous avez deja Tensorflow 2.0 et/ou PyTorch, vous pouvez directement l'installer avec pip (Pour plus de précisions, la doc d'installation est consultable [ici](https://huggingface.co/transformers/installation.html):
 ```console
 pip install transformers
 ```
+Pour vérifier que l'installation s'est bien passé, vous pouvez runner la commande suivante dans votre terminal bash:
+```console
+python -c "from transformers import pipeline; print(pipeline('sentiment-analysis')('we love you'))"
+```
+Vous devriez voir apparaître ceci:
+```console
+[{'label': 'POSITIVE', 'score': 0.9998704791069031}]
+```
+
 
 
 
