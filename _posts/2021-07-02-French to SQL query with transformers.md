@@ -27,7 +27,7 @@ Pour débuter, vous aurez besoin :
 Non, plus sérieusement, voici ce dont nous allons vraiment avoir besoin:
 
 ### Transformers ### 
-Comme mentionné auparavant, nous allons utilisé la librairie *Transformers* de Hugging Face. La librairie est indispensable puisqu'elle contient les modèles pré-entrainés que nous allons utiliser pour la traduction du francais en SQL.. Pour l'installation, si vous avez deja Tensorflow 2.0 et/ou PyTorch, vous pouvez directement l'installer avec pip (Pour plus de précisions, la doc d'installation est consultable [ici](https://huggingface.co/transformers/installation.html):
+Comme mentionné auparavant, nous allons utilisé la librairie **Transformers** de Hugging Face. La librairie est indispensable puisqu'elle contient les modèles pré-entrainés que nous allons utiliser pour la traduction du francais en SQL.. Pour l'installation, si vous avez deja Tensorflow 2.0 et/ou PyTorch, vous pouvez directement l'installer avec pip (Pour plus de précisions, la doc d'installation est consultable [ici](https://huggingface.co/transformers/installation.html):
 ```console
 pip install transformers
 ```
@@ -40,6 +40,9 @@ Vous devriez voir apparaître ceci:
 [{'label': 'POSITIVE', 'score': 0.9998704791069031}]
 ```
 
+### FastApi ###
+
+ FastApi est un framework web crée par très similaire à Flask qui, comme son nom l'indique, va nous permettre de créer rapidement des API ultra-performante. En trois mots, FastApi est: Rapide, simple et robuste. Cela est possible car 
 
 
 
