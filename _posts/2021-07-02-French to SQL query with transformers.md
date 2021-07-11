@@ -16,7 +16,23 @@ Depuis la publication, les découvertes et avancées dans l'étude des transform
 
 Un jour, après avoir scrollé de nombreuses minutes sur Linkedin, je me retrouva devant un post de Hugging Face qui faisait état des capacités du modèle GPT-Neo, cousin open-source de GPT-3. Ce post m'intrigua fortement, d'autant plus qu'il était mention de la possibilité de traduire du texte en requetes SQL. En tant que Data Analyst, le language SQL tient une place fondamentale dans mon métier. Le SQL étant partout, il m'est déja arrivé d'imaginer un monde où il serait possible de requeter ses données directement (e.g: "Quels sont les 10 magasins ayant le chiffre d'affaire le plus elevé dans l'ordre décroissant ?") sans passer par le language SQL. Et bien je crois qu'aujourd'hui ce monde est à porté de main et que de plus en plus de solution permettant de requeter des données de facon textuelles ( = no SQL) seront amenées à etre developpées. En effet, même si le SQL est un language extremement répandu, utilisé non pas seulement par des individus dans la data, il existe bien des personnes n'ayant pas de notions en SQL ( ou qui haissent le language type code) qui pourraient être amenées à réaliser des requetes. Ddans ce contexte, 
 
-Bon, trêve de bavardage, il est temps de passer à l'action et je crois que vous voyez ou je veux en venir...L'API pour traduire du texte en SQL existe déja
+Bon, trêve de bavardage, il est temps de passer à l'action et je crois que vous voyez ou je veux en venir...L'API pour traduire du texte en anglais en SQL existe déja (Testez la [ici](https://huggingface.co/mrm8488/t5-base-finetuned-wikiSQL) !), l'idée n'est pas de la recréer, cela n'aurait aucun interet. Mais...en bon francais que je suis, je me suis dit: "Hey ! Mais ca serait vraiment cool de pouvoir directement ecrire en francais 🇫🇷!". Cocorico, j'ai décidé de créer une API toute simple qui prend en input du texte francais pour la convertir en requete SQL et de la déployer. Voyons tout de suite comment nous allons nous y prendre !
+
+## La recette de cuisine pour l'API ##
+
+Pour débuter, vous aurez besoin :
+1. 3 oeufs
+2. 100 g de fa....Ah désolé, c'est la recette du gateau au chocolat marmiton ca...
+
+Non, plus sérieusement, voici ce dont nous allons vraiment avoir besoin:
+
+### Transformers ### de Hugging Face. ( Vous pouvez consulter la doc d'installation juste [ici](https://huggingface.co/transformers/installation.html) !
+
+
+
+### Fast Api ###
+
+### Docker ###
 
 ```py
 import uvicorn
