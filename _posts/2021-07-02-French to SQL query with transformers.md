@@ -27,6 +27,9 @@ Pour débuter, vous aurez besoin :
 Non, plus sérieusement, voici ce dont nous allons vraiment avoir besoin:
 
 ### Transformers ### 
+
+![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1200%2F1*Bp8K-_PJrG2NQxLlzk7hlw.png&f=1&nofb=1)
+
 Comme mentionné auparavant, nous allons utilisé la librairie **Transformers** de Hugging Face. La librairie est indispensable puisqu'elle contient les modèles pré-entrainés que nous allons utiliser pour la traduction du francais en SQL.. Pour l'installation, si vous avez deja Tensorflow 2.0 et/ou PyTorch, vous pouvez directement l'installer avec pip (Pour plus de précisions, la doc d'installation est consultable [ici](https://huggingface.co/transformers/installation.html):
 ```console
 pip install transformers
@@ -42,7 +45,7 @@ Vous devriez voir apparaître ceci:
 
 ### FastApi ###
 
-![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1023%2F1*du7p50wS_fIsaC_lR18qsg.png&f=1&nofb=1)
+![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi2.wp.com%2Frubikscode.net%2Fwp-content%2Fuploads%2F2020%2F11%2F92388600-8d1c-11ea-9993-a726466b5099.png%3Fw%3D1080%26ssl%3D1&f=1&nofb=1)
 
 [FastApi](https://fastapi.tiangolo.com/) est un framework web qui, comme son nom l'indique, va nous permettre de créer rapidement des API ultra-performante. En trois mots, FastApi c'est: Rapide, simple et robuste. La rapidité de FastAPI est possible grâce à Pydantic, Starlette et Uvicorn. Pydantic est utilisé pour la validation des données et Starlette pour l'outillage, ce qui le rend extrêmement rapide par rapport à Flask et lui confère des performances comparables à celles des API Web à haut débit en Node ou Go. Il s'agit d'un cadre innovant construit sur Starlette et Uvicorn. Starlette est un framework/toolkit ASGI léger, idéal pour créer des services asynchrones à haute performance. Uvicorn est un serveur ASGI rapide comme l'éclair, construit sur uvloop et httptools. 
 
