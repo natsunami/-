@@ -42,8 +42,12 @@ Vous devriez voir apparaître ceci:
 
 ### FastApi ###
 
- FastApi est un framework web crée par très similaire à Flask qui, comme son nom l'indique, va nous permettre de créer rapidement des API ultra-performante. En trois mots, FastApi est: Rapide, simple et robuste. Cela est possible car 
+![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1023%2F1*du7p50wS_fIsaC_lR18qsg.png&f=1&nofb=1)
 
+[FastApi](https://fastapi.tiangolo.com/) est un framework web qui, comme son nom l'indique, va nous permettre de créer rapidement des API ultra-performante. En trois mots, FastApi c'est: Rapide, simple et robuste. La rapidité de FastAPI est possible grâce à Pydantic, Starlette et Uvicorn. Pydantic est utilisé pour la validation des données et Starlette pour l'outillage, ce qui le rend extrêmement rapide par rapport à Flask et lui confère des performances comparables à celles des API Web à haut débit en Node ou Go. Il s'agit d'un cadre innovant construit sur Starlette et Uvicorn. Starlette est un framework/toolkit ASGI léger, idéal pour créer des services asynchrones à haute performance. Uvicorn est un serveur ASGI rapide comme l'éclair, construit sur uvloop et httptools. 
+
+Pour installer FastApi, rien de plus simple:
+```console
 
 
 ### Fast Api ###
