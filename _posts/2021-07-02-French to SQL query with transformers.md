@@ -122,8 +122,10 @@ def get_root():
 
     return {'Message': 'Welcome to the french SQL query translator !'}
 ```
-Le ```py @app.get('/')``` dit à FastApi que la fonction juste en dessous est chargée de traiter les requetes qui vont vers le chemin '/' et qui utilisent la méthode GET, ce qui renverra le dict ```{'Message': 'Welcome to the french SQL query translator !'}```
+Le ``` @app.get('/')``` dit à FastApi que la fonction juste en dessous est chargée de traiter les requetes qui vont vers le chemin ```/``` et qui utilisent la méthode GET, ce qui renverra le dict ```{'Message': 'Welcome to the french SQL query translator !'}```
 
+Maintenant que nous comprenons mieux comment réaliser des opérations, nous allons pouvoir écrire la fonction qui va traduire le texte en francais en SQL: 
+```py
 @app.get('/get_query/{query}', tags=['query'])
 async def text_to_sql_query(query:str):
     
