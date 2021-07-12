@@ -227,8 +227,10 @@ if __name__ == '__main__':
 ```
 Une fois tout ceci réalisé, notre script est enfin terminé et nous n'avons plus qu'à le faire tourner. Dès que le script s'exécutera, vous devriez voir apparaitre dans votre terminal, ceci:
 ```console
-INFO:     Started server process [27903]
+INFO:     Started server process [31847]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:33262 - "GET / HTTP/1.1" 200 OK
 ```
+**Attention**: L'execution peut prendre un peu de temps selon votre connexion internet car il faut dans un premier temps télécharger les modèles.
