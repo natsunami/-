@@ -102,8 +102,6 @@ Cette étape est la plus importante dans le script puisque c'est ici que nous al
 - AutoModelWithLMHead: Classe de modèle qui sera instanciée lorsque l'on utilisera la méthode de classe AutoModelWithLMHead.from_pretrained(pretrained_model_name_or_path). Il existe une très grande variété de modèles qui peuvent etre télécharger, chacun ayant des spécificités et permettant de résourdre des problématiques différentes. La liste des modèles est consultable [ici](https://huggingface.co/transformers/v3.0.2/model_summary.html) !
 
 - AutoTokenizer: Classe de tokenizer qui sera instanciée lorsque l'on utilisera la méthode de classe AutoTokenizer.from_pretrained(pretrained_model_name_or_path). Le tokenizer utilisé est celui mentionné par l'utilisateur dans la méthode from_pretrained ( e.g. distillert, roberta, t5,...) Petit rappel conernant la tokenization,l'objectif du tokenizer est tout simplement de prétraiter le texte. Il va diviser le texte en mots (ou parties de mots, symboles de ponctuation, etc.) que l'on appelle **tokens**. Lors de l'utilisation d'un modèle, il faut s'assurer que le tokenizer instancié correspond au tokenizer ayant été utilisé pour entrainer le modèle.
-
-The from_pretrained() method takes care of returning the correct tokenizer class instance based on the model_type property of the config object, or when it’s missing, falling back to using pattern matching on the pretrained_model_name_or_path string:
 ```py
 #Download and instanciate vocabulary and Fr-to-En model :
 model_trad_fr_to_eng = AutoModelWithLMHead.from_pretrained("Helsinki-NLP/opus-mt-fr-en")
@@ -113,12 +111,18 @@ tokenizer_translation = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-fr-e
 tokenizer_sql = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-wikiSQL")
 model_sql = AutoModelWithLMHead.from_pretrained("mrm8488/t5-base-finetuned-wikiSQL")
 ```
+Le code ci-dessus nous permet donc de telecharger et instancier dans un premier temps le modèle [opus-mt-fr-en](https://huggingface.co/Helsinki-NLP/opus-mt-fr-en). Ce modèle va tout simplement nous permettre de convertir du francais en anglais. Puis on télécharge et instancie le modèle [t5-base-finetuned-wikiSQL](https://huggingface.co/mrm8488/t5-base-finetuned-wikiSQL qui va convertire le texte anglais en SQL.
 
+4.Définir le *path operation decorator*:
 
+Cette étape va faire en sorte que l'API puisse réaliser certaines actions ( dans notre cas, traduire le texte en SQL) en communiquant avec elle via des méthodes de requetes HTTP. Pour parvenir à notre fin, on va renseigner à FastApi le type de méthode (e.g. POST, GET, DELETE, PUT,...) et le chemin ( L'endroit/endpoint où se fait la requete).
+```py
 @app.get('/')
 def get_root():
 
     return {'Message': 'Welcome to the french SQL query translator !'}
+```
+
 
 @app.get('/get_query/{query}', tags=['query'])
 async def text_to_sql_query(query:str):
@@ -140,7 +144,9 @@ async def text_to_sql_query(query:str):
     sql_query = tokenizer_sql.decode(output_sql[0]).replace('<pad>','').replace('</s>','')
 
     return { 'SQL QUERY' : sql_query} 
+```
 
+```py
 if __name__ == '__main__':    
     uvicorn.run(app, host='127.0.0.1', port=8000)
 ```
