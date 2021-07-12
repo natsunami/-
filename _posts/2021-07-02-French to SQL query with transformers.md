@@ -150,14 +150,17 @@ async def text_to_sql_query(query:str):
 
     return { 'SQL QUERY' : sql_query} 
 ```
-Ce que l'on fait ici est relativement simple à comprendre. Comme nous l'avons dit précédemment, on convertit le texte francais en anglais puis de l'anglais vers le SQL, et la procédure à réaliser est la meme :
+Ce que l'on fait ici est relativement simple à comprendre. Comme nous l'avons dit précédemment, on convertit le texte francais en anglais puis de l'anglais vers le SQL, et la procédure à réaliser est la même :
 - Encodage: On encode le texte avec la methode ```encode```. La ```string``` est convertit en dictionnaire de la forme suivante au sein duquel la list d'integer représente les index des tokens:
 ```py
 {'input_ids': [101, 2057, 2024, 2200, 3407, 2000, 2265, 2017, 1996, 100, 19081, 3075, 1012, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
 ```
-- Generation: A partir des index 
-- Décodage: Renvoie
+- Generation: Génère les index des tokens pour la séquence que l'on cherche à obtenir à partir des index obtenus par le Tokenizer et l'utilisation du modèle pré-entrainé.
+- Décodage: Décode les index des tokens en une nouvelle string.
 
+Pour conclure cette partie j'insiste sur le fait que la fonction doit renvoyer un ```dict```.
+
+5. Runner l'API
 
 On arrive  enfin à l'étape finale qui va tout simplement consister à faire tourner en local notre API sur un serveur Uvicorn. Pour cela, il existe deux possibilités.
 Vous pouvez rajouter dans le script ces 2 lignes de code:
@@ -171,7 +174,7 @@ Ou bien, vous pouvez directement lancer le serveur dans le terminal:
 ```console
 uvicorn french_text_to_sql_query:app --reload
 ```
-Le script dans son ensemble:
+Au passage,voici le script au complet:
 ```py
 # Import packages 
 import uvicorn
@@ -179,7 +182,6 @@ import logging
 from fastapi import FastAPI
 from transformers import AutoModelWithLMHead, AutoTokenizer
 
-# A
 app = FastAPI(title='French to SQL translation API 🤗', description='API for SQL query translation from french text using Hugging Face transformers')
 
 my_logger = logging.getLogger()
@@ -223,8 +225,7 @@ async def text_to_sql_query(query:str):
 if __name__ == '__main__':    
     uvicorn.run(app, host='127.0.0.1', port=8000)
 ```
-
-Et voilà ! Nous avons fini de rédiger le script pour notre API que nous avons plus qu'à faire tourner. Dès le script exécuté, vous devriez voir apparaitre dans le terminal, ceci:
+Une fois tout ceci réalisé, notre script est enfin terminé et nous n'avons plus qu'à le faire tourner. Dès que le script s'exécutera, vous devriez voir apparaitre dans votre terminal, ceci:
 ```console
 INFO:     Started server process [27903]
 INFO:     Waiting for application startup.
