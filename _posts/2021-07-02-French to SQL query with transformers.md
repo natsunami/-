@@ -70,7 +70,7 @@ Maintenant que nous avons passé en revu tout ce dont nous avions besoin pour cr
 
 Dans cette partie nous allons montrer comment créer l'API étape par étape. 
 
-1.Importer les librairies
+1. Importer les librairies
 
 importer dans notre petit script python les librairies dont nous avons besoin pour notre API. Dans l'ordre, on import tout d'abord FastApi et uvicorn, puis les auto classes  **AutoModelWithLMHead** et **AutoTokenizer** de la librairie transformers que nous utiliserons juste après et que j'expliquerai plus en détails. La librairie logging n'est pas essentielle ici, elle permet juste d'émettre des messages suites à des évenèments et ainsi résoudre des anomalies.
 ```py
@@ -81,6 +81,8 @@ import uvicorn
 from transformers import AutoModelWithLMHead, AutoTokenizer
 #import logging
 ```
+2. Créer l'instance FastApi
+
 Une fois les librairies importées, la première chose à faire est d'instancier notre application. Pour cela, rien de plus simple :
 ```py
 # Instanciate the app:
@@ -93,15 +95,25 @@ app = FastAPI(title='French to SQL translation API 🤗', description='API for S
 ```
 FastApi est une classe python qui contient l'ensemble des fonctionnalités pour l'API. De plus, par convention on appellera la variable 'app' mais vous pouvez l'appeler comme bon vous semble. Pour finir, il est possible de renseigner dans les paramètres le titre ainsi qu'une brève description de l'application, ce qui permettra aux utilisateurs de savoir à quoi sert l'API.
 
+3. Instanciate transformers models
 
+Cette étape est la plus importante dans le script puisque c'est ici que nous allons telecharger les modèles pré-entrainés et les tokenizers associés et les instancier. Pour cela, on utilise les deux classes importées précédemment:
 
+- AutoModelWithLMHead: Classe de modèle qui sera instanciée lorsque l'on utilisera la méthode de classe AutoModelWithLMHead.from_pretrained(pretrained_model_name_or_path). Il existe une très grande variété de modèles qui peuvent etre télécharger, chacun ayant des spécificités et permettant de résourdre des problématiques différentes. La liste des modèles est consultable [ici](https://huggingface.co/transformers/v3.0.2/model_summary.html) !
+
+- AutoTokenizer: Classe de tokenizer qui sera instanciée lorsque l'on utilisera la méthode de classe AutoTokenizer.from_pretrained(pretrained_model_name_or_path). Le tokenizer utilisé est celui mentionné par l'utilisateur dans la méthode from_pretrained ( e.g. distillert, roberta, t5,...) Petit rappel conernant la tokenization,l'objectif du tokenizer est tout simplement de prétraiter le texte. Il va diviser le texte en mots (ou parties de mots, symboles de ponctuation, etc.) que l'on appelle **tokens**. Lors de l'utilisation d'un modèle, il faut s'assurer que le tokenizer instancié correspond au tokenizer ayant été utilisé pour entrainer le modèle.
+
+The from_pretrained() method takes care of returning the correct tokenizer class instance based on the model_type property of the config object, or when it’s missing, falling back to using pattern matching on the pretrained_model_name_or_path string:
+```py
+#Download and instanciate vocabulary and Fr-to-En model :
 model_trad_fr_to_eng = AutoModelWithLMHead.from_pretrained("Helsinki-NLP/opus-mt-fr-en")
-
 tokenizer_translation = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-fr-en")
 
+#Download and instanciate vocabulary and En-to-SQL model :
 tokenizer_sql = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-wikiSQL")
-
 model_sql = AutoModelWithLMHead.from_pretrained("mrm8488/t5-base-finetuned-wikiSQL")
+```
+
 
 @app.get('/')
 def get_root():
