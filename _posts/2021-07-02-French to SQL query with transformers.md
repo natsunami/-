@@ -54,9 +54,9 @@ Pour installer FastApi, rien de plus simple:
 pip install fastapi uvicorn[standard]
 ```
 
-### Fast Api ###
-
 ### Docker ###
+
+![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.geeek.org%2Fpublic%2Flogiciels%2Fdocker-logo.png&f=1&nofb=1)
 
 ```py
 import uvicorn
