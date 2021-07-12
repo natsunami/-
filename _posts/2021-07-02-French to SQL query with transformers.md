@@ -115,14 +115,14 @@ Le code ci-dessus nous permet donc de telecharger et instancier dans un premier 
 
 4.Définir le *path operation decorator*:
 
-Cette étape va faire en sorte que l'API puisse réaliser certaines actions ( dans notre cas, traduire le texte en SQL) en communiquant avec elle via des méthodes de requetes HTTP. Pour parvenir à notre fin, on va renseigner à FastApi le type de méthode (e.g. POST, GET, DELETE, PUT,...) et le chemin ( L'endroit/endpoint où se fait la requete).
+Cette étape va faire en sorte que l'API puisse réaliser certaines actions ( dans notre cas, traduire le texte en SQL) en communiquant avec elle via des méthodes de requetes HTTP. Pour parvenir à notre fin, on va renseigner à FastApi le type de méthode (e.g. POST, GET, DELETE, PUT,...) et le chemin ( L'endroit/endpoint où se fait la requete). Voici un exemple d'operation que l'on pourait réaliser:
 ```py
 @app.get('/')
 def get_root():
 
     return {'Message': 'Welcome to the french SQL query translator !'}
 ```
-
+Le ```py @app.get('/')``` dit à FastApi que la fonction juste en dessous est chargée de traiter les requetes qui vont vers le chemin '/' et qui utilisent la méthode GET, ce qui renverra le dict ```{'Message': 'Welcome to the french SQL query translator !'}```
 
 @app.get('/get_query/{query}', tags=['query'])
 async def text_to_sql_query(query:str):
