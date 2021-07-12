@@ -58,11 +58,22 @@ pip install fastapi uvicorn[standard]
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.1min30.com%2Fwp-content%2Fuploads%2F2018%2F04%2FLogo-Docker.jpg&f=1&nofb=1)
 
+Bon, je pense que je n'ai pas besoin de présenter Docker en long et en large. Pour faire court, Docker va nous permettre de  "containeriser"  notre code ainsi que ses dépendances (e.g. Transformers, FastApi) afin notre API puisse etre executé sur n'importe quel serveur. Pour cela, nous allons créer un DOCKERFILE et builder l'image DOCKER.
+
+Si Docker n'est pas déja installé, je vous renvoie à la doc, qui est très bien ecrite : [Get Docker](https://docs.docker.com/get-docker/) 
+ 
+## Création de l'API ##
+
+Maintenant que nous avons passé en revu tout ce dont nous avions besoin pour créer notre API et in fine, la déployer, il est temps de passer à l'action! Vous allez voir qu'en quelques lignes de code la magie va opérer. 🧙🏻‍♀️  
+
+Pour commencer, nous allons dans notre petit script python importer les packages dont nous avons besoin pour notre API:
 ```py
+from fastapi import FastAPI
 import uvicorn
 import logging
-from fastapi import FastAPI
 from transformers import AutoModelWithLMHead, AutoTokenizer
+```
+
 
 
 app = FastAPI(title='French to SQL translation API 🤗', description='API for SQL query translation from french text using Hugging Face transformers')
