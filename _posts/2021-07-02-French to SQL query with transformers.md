@@ -132,13 +132,12 @@ async def text_to_sql_query(query:str):
     '''This function allows to convert french text to a SQL query using opus-mt-fr-en transformer for text translation and a t5 base finedtuned on wikiSQL for english to SQL traduction'''
     
     # Encoding: Converts a string to a sequence of ids (integer), using the tokenizer and vocabulary.
-    # DecodingConverts a sequence of ids in a string, using the tokenizer and vocabulary with options to remove special tokens and clean up tokenization spaces.
+    # Decoding: Converts a sequence of ids in a string, using the tokenizer and vocabulary with options to remove special tokens and clean up tokenization spaces.
    
     
     inputs_trad = tokenizer_translation.encode(query, return_tensors="pt")
     outputs_trad = model_trad_fr_to_eng.generate(inputs_trad, max_length=600, num_beams=4, early_stopping=True)
     
-   
     text_trad = tokenizer_translation.decode(outputs_trad[0]).replace('<pad>','')
 
     text_to_convert_query = "translate English to SQL: %s </s>" % text_trad
@@ -152,11 +151,31 @@ async def text_to_sql_query(query:str):
     return { 'SQL QUERY' : sql_query} 
 ```
 Ce que l'on fait ici est relativement simple à comprendre. Comme nous l'avons dit précédemment, on convertit le texte francais en anglais puis de l'anglais vers le SQL, et la procédure à réaliser est la meme :
-- Encodage : On encode le texte avec la methode ```encode```. La ```string``` est convertit en dictionnaire de la forme suivante:
-```{'input_ids': [101, 2057, 2024, 2200, 3407, 2000, 2265, 2017, 1996, 100, 19081, 3075, 1012, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
-```
-
+- Encodage: On encode le texte avec la methode ```encode```. La ```string``` est convertit en dictionnaire de la forme suivante au sein duquel la list d'integer représente les index des tokens:
 ```py
+{'input_ids': [101, 2057, 2024, 2200, 3407, 2000, 2265, 2017, 1996, 100, 19081, 3075, 1012, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
+```
+- Generation: A partir des index 
+- Décodage: Renvoie
+
+
+On arrive  enfin à l'étape finale qui va tout simplement consister à faire tourner en local notre API sur un serveur Uvicorn. Pour cela, il existe deux possibilités.
+Vous pouvez rajouter dans le script ces 2 lignes de code:
+```py
+# Running the API on our local network:
+
 if __name__ == '__main__':    
     uvicorn.run(app, host='127.0.0.1', port=8000)
+```
+Ou bien, vous pouvez directement lancer le serveur dans le terminal:
+```console
+uvicorn french_text_to_sql_query:app --reload
+```
+
+
+```console
+INFO:     Started server process [27903]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
