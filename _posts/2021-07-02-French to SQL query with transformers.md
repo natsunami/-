@@ -56,7 +56,7 @@ pip install fastapi uvicorn[standard]
 
 ### Docker ###
 
-![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.geeek.org%2Fpublic%2Flogiciels%2Fdocker-logo.png&f=1&nofb=1)
+![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.1min30.com%2Fwp-content%2Fuploads%2F2018%2F04%2FLogo-Docker.jpg&f=1&nofb=1)
 
 ```py
 import uvicorn
