@@ -130,11 +130,15 @@ Maintenant que nous comprenons mieux comment réaliser des opérations, nous all
 async def text_to_sql_query(query:str):
     
     '''This function allows to convert french text to a SQL query using opus-mt-fr-en transformer for text translation and a t5 base finedtuned on wikiSQL for english to SQL traduction'''
+    
+    # Encoding: Converts a string to a sequence of ids (integer), using the tokenizer and vocabulary.
+    # DecodingConverts a sequence of ids in a string, using the tokenizer and vocabulary with options to remove special tokens and clean up tokenization spaces.
    
-
+    
     inputs_trad = tokenizer_translation.encode(query, return_tensors="pt")
     outputs_trad = model_trad_fr_to_eng.generate(inputs_trad, max_length=600, num_beams=4, early_stopping=True)
-
+    
+   
     text_trad = tokenizer_translation.decode(outputs_trad[0]).replace('<pad>','')
 
     text_to_convert_query = "translate English to SQL: %s </s>" % text_trad
@@ -146,6 +150,10 @@ async def text_to_sql_query(query:str):
     sql_query = tokenizer_sql.decode(output_sql[0]).replace('<pad>','').replace('</s>','')
 
     return { 'SQL QUERY' : sql_query} 
+```
+Ce que l'on fait ici est relativement simple à comprendre. Comme nous l'avons dit précédemment, on convertit le texte francais en anglais puis de l'anglais vers le SQL, et la procédure à réaliser est la meme :
+- Encodage : On encode le texte avec la methode ```encode```. La ```string``` est convertit en dictionnaire de la forme suivante:
+```{'input_ids': [101, 2057, 2024, 2200, 3407, 2000, 2265, 2017, 1996, 100, 19081, 3075, 1012, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
 ```
 
 ```py
