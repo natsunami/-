@@ -66,21 +66,24 @@ Si Docker n'est pas déja installé, je vous renvoie à la doc, qui est très bi
 
 Maintenant que nous avons passé en revu tout ce dont nous avions besoin pour créer notre API et in fine, la déployer, il est temps de passer à l'action! Vous allez voir qu'en quelques lignes de code la magie va opérer. 🧙🏻‍♀️  
 
-Pour commencer, nous allons dans notre petit script python importer les packages dont nous avons besoin pour notre API:
+### 
+Pour commencer, nous allons importer dans notre petit script python les librairies dont nous avons besoin pour notre API. Dans l'ordre, on import tout d'abord FastApi et uvicorn, puis les auto classes  **AutoModelWithLMHead** et **AutoTokenizer** de la librairie transformers que nous utiliserons juste après et que j'expliquerai plus en détails. La librairie logging n'est pas essentielle ici, elle permet juste d'émettre des messages suites à des évenèments et ainsi résoudre des anomalies.
 ```py
+# Import packages:
+
 from fastapi import FastAPI
 import uvicorn
-import logging
 from transformers import AutoModelWithLMHead, AutoTokenizer
+#import logging
 ```
-
-
-
+Une fois les librairies importées, la première chose à faire est d'instancier notre application. Pour cela, rien de plus simple :
+```py
 app = FastAPI(title='French to SQL translation API 🤗', description='API for SQL query translation from french text using Hugging Face transformers')
 
-my_logger = logging.getLogger()
-my_logger.setLevel(logging.DEBUG)
-logging.basicConfig(level=logging.DEBUG, filename='logs.log')
+#my_logger = logging.getLogger()
+#my_logger.setLevel(logging.DEBUG)
+#logging.basicConfig(level=logging.DEBUG, filename='logs.log')
+```
 
 model_trad_fr_to_eng = AutoModelWithLMHead.from_pretrained("Helsinki-NLP/opus-mt-fr-en")
 
