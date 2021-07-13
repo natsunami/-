@@ -1,6 +1,6 @@
 ---
 layout: post
-title: French to SQL query API using transformers | Fast-Api | Docker 
+title: French to SQL query API using transformers | FastApi | Docker 
 subtitle: Fatigué d'écrire des requêtes SQL ? Flemme d'apprendre le SQL ? Cet article peut vous interesser...
 cover-img: /assets/img/background_api_sql_query.png
 thumbnail-img: /assets/img/french_sql_api_logo.png
