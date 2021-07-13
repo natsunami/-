@@ -256,7 +256,7 @@ Comme vous le voyez, j'ai directement executé la requête dans le dashboard de 
 Bon, on peut dire que le résultat est pas trop mal non ? 🥳
 Après, comme je vous l'ai dit, ne vous attendez pas à ce que l'API puisse résoudre des query complexes. Dans l'idée, si l'on voudrait obtenir de meilleures performances il faudrait non pas passer par la traduction francais-anglais mais directement entrainés un modèle sur des phrases écrites en francais.
 
-## Tout le monde dans le conteneur ! ## 
+## Tout le monde dans le conteneur 🐳 ## 
 
 L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable par tous. Afin de rendre cela possible, nous allons devoir utiliser Docker. Plus précisement il va falloir convertir notre application en image Docker. Pour cela, nous allons créer un Dockerfile qui prendra la forme suivante:
 ```
@@ -273,9 +273,13 @@ CMD ["python","french_text_to_sql_query.py"]
 ```
 Pour faire simple, le Dockerfile va donner plusieurs instructions à Docker. Docker va créer un fichier /app dans l'image base ```uvicorn-gunicorn-fastapi:python3.7``` (Notes: Cette image permet d'utiliser FastApi dans un conteneur Docker) puis va copier dans ce fichier tout ce qui se trouve dans mon répertoire actif ( mon script python), et installer les différents packages nécessaires. Enfin, on demande à Docker de runner notre script python sur le port 8000 , et tout ca dans un conteneur Docker. 
 
-Désormais, on a plus qu'à runner deux commandes dans notre terminal: 
+Désormais, nous n'avons  plus qu'à runner deux commandes dans notre terminal: 
 ```console
 docker build -t french_sql_query
 docker run french_sql_query
 ```
-Comme tout à l'heure, on se rends à l'adresse 127.0.0.1:8000/docs#/
+Comme tout à l'heure, on se rends à l'adresse [127.0.0.1:8000/docs#/](127.0.0.1:8000/docs#/) pour voir si tout fonctionne correctement. Si vous voyez le dashboard FastApi, c'est que nous avons bien deployé notre API dans un conteneur Docker 👌🏼.
+
+## We made it ##
+
+Yeaaaaah ! Nous avons reussi à deployer une API qui permet de traduire du francais en une requete SQL ! Si c'est pas cool ca !? Merci d'avoir suivi cet article/tutoriel jusqu'au bout. Si besoin, vous pouvez directement télécharger l'image Docker du projet sur [mon repo Dockerhub](https://hub.docker.com/repository/docker/natsunami/content) 👈🏽
