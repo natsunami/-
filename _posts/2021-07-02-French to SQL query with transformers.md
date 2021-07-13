@@ -114,20 +114,24 @@ tokenizer_translation = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-fr-e
 tokenizer_sql = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-wikiSQL")
 model_sql = AutoModelWithLMHead.from_pretrained("mrm8488/t5-base-finetuned-wikiSQL")
 ```
+
 Le code ci-dessus nous permet donc de télécharger et instancier dans un premier temps le modèle [opus-mt-fr-en](https://huggingface.co/Helsinki-NLP/opus-mt-fr-en). Ce modèle va tout simplement nous permettre de convertir du francais en anglais. Puis on télécharge et instancie le modèle [t5-base-finetuned-wikiSQL](https://huggingface.co/mrm8488/t5-base-finetuned-wikiSQL qui va convertir le texte anglais en SQL.
 
 4.Définir le *path operation decorator*:
 
 Cette étape va faire en sorte que l'API puisse réaliser certaines actions (dans notre cas, traduire le texte en SQL) en communiquant avec elle via des méthodes de requêtes HTTP. Pour parvenir à notre fin, on va renseigner à FastApi le type de méthode (ex. : POST, GET, DELETE, PUT,) et le chemin (L’endroit/endpoint où se fait la requête). Voici un exemple d'opération que l'on pourrait réaliser:
+
 ```py
 @app.get('/')
 def get_root():
 
     return {'Message': 'Welcome to the french SQL query translator !'}
 ```
+
 Le ``` @app.get('/')``` dit à FastApi que la fonction juste en dessous est chargée de traiter les requêtes qui vont vers le chemin ```/``` et qui utilisent la méthode GET, ce qui renverra le dict ```{'Message': 'Welcome to the french SQL query translator !'}```
 
 Maintenant que nous comprenons mieux comment réaliser des opérations, nous allons pouvoir écrire la fonction qui va traduire le texte français en SQL:
+
 ```py
 @app.get('/get_query/{query}', tags=['query'])
 async def text_to_sql_query(query:str):
@@ -152,6 +156,7 @@ async def text_to_sql_query(query:str):
 
     return { 'SQL QUERY' : sql_query} 
 ```
+
 Ce que l'on fait ici est relativement simple à comprendre. Concernant la fonction en elle-même, cette dernière prend en argument le texte français, que j'ai désigné ici par ```query```.Au passage vous pouvez noter que dans le path de la méthode get on retrouve notre ```query``` entre ```{}``` pour indiquer à l'utilisateur qu'il a directement la possibilité de rentrer directement sa requête version texte français dans l'url.
 
 Comme nous l'avons dit précédemment, on cherche à convertir le texte français en anglais puis de l'anglais vers le SQL. La procédure à réaliser est la même dans les deux cas :
