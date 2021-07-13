@@ -169,7 +169,7 @@ Comme nous l'avons dit précédemment, on cherche à convertir le texte françai
 
 Pour conclure cette partie j'insiste sur le fait que la fonction doit renvoyer un ```dict```.
 
-5. Runner l'API
+5. Lancer l'API
 
 On arrive enfin à l'étape finale qui va tout simplement consister à faire tourner en local notre API sur un serveur Uvicorn. Pour cela, il existe deux possibilités.
 Vous pouvez rajouter dans le script ces 2 lignes de code :
@@ -250,7 +250,7 @@ Il est désormais temps de se rendre sur notre API et de la tester ! Pour cela n
 ![](https://user-images.githubusercontent.com/52154100/125428785-3cd376b1-667b-49ad-a92b-e4a53f97365b.png)
 
 6. Test de l'API
-7. 
+ 
 Le moment de vérité est arrivé ! Pour vérifier que l'API fonctionne correctement nous allons exécuter une requête relativement simple du type ```Sélectionner les magasins ayant un chiffre d'affaire supérieur à 100000``` ce qui se traduirait en SQL par la query ```SELECT shops FROM table WHERE turnover > 100 000```. Tout ce que nous faisons reste  expérimental donc ne soyez pas surpris si la query renvoyée n'est pas exactement ce dont vous vous attendiez. Mais tout cela reste quand même assez prometteur pour la suite et amusant (enfin c'est mon avis).
 
 ![](https://user-images.githubusercontent.com/52154100/125434336-c806462e-b4bc-4b04-a433-41588483c5e2.png)
