@@ -150,7 +150,9 @@ async def text_to_sql_query(query:str):
 
     return { 'SQL QUERY' : sql_query} 
 ```
-Ce que l'on fait ici est relativement simple à comprendre. Comme nous l'avons dit précédemment, on convertit le texte francais en anglais puis de l'anglais vers le SQL, et la procédure à réaliser est la même :
+Ce que l'on fait ici est relativement simple à comprendre. Concernant la fonction en elle-meme, cette dernière prend en argument le texte francais, que j'ai désigné ici par ```query```.Au passage vous pouvez noter que dans le path de la méthode get on retrouve notre ```query``` entre ```{}``` pour indiquer à l'utilisateur qu'il a directement la possibilité de rentrer directement sa requête version texte francais dans l'url.
+
+Comme nous l'avons dit précédemment, on cherche à convertir le texte francais en anglais puis de l'anglais vers le SQL. La procédure à réaliser est la même dans les deux cas:
 - Encodage: On encode le texte avec la methode ```encode```. La ```string``` est convertit en dictionnaire de la forme suivante au sein duquel la list d'integer représente les index des tokens:
 ```py
 {'input_ids': [101, 2057, 2024, 2200, 3407, 2000, 2265, 2017, 1996, 100, 19081, 3075, 1012, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
