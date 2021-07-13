@@ -12,7 +12,7 @@ tags: [SQL, Transformers, Hugging face, query, fast-api, docker]
 
 Il y a quatre ans, un papier scientifique entraîna une petite révolution dans le milieu de l'IA. Considéré comme une véritable avancée, le papier [Attention is all you need (2017)](https://papers.nips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf) de Vaswani, et al., développa le concept d'**attention**. Entrainant dans son sillage une amélioration des performances des réseaux de neurones utilisés pour le NLP (Naturel Language Processing) (les RNN), naquirent à la suite les Transformers. Non, je ne parle pas des auto-bots et decepticons se livrant à une lutte sans merci, mais bel et bien de neural networks reposant sur le concept d'attention, et étant particulièrement efficaces pour le NLP. Petite anecdote, si vous avez remarquez une amélioration dans la traduction générée par Google trad au cours de cette même période, vous savez désormais que les transformers sont à l'œuvre !
 
-Depuis cette fameuse publication, les avancées sur les transformers n'ont cessées de s'enrichir, contribuant ainsi à l'apparition d'un nombre incroyable de modèles impliqués dans la résolution de tâches NLP aussi diverses que variées. On donnera comme exemple la classification de phrases, l'analyse de sentiments, la traduction mais aussi la génération de texte (Essayez [AI Dungeon](https://play.aidungeon.io/main/landing) pour voir la puissance des modèles GPT-2 & 3 et surtout quelques heures de fun) et autres. Grâce à [Hugging Face] 🤗, société francaise 🇫🇷 fondé en 2016 par *Clément Delangue* et *Julien Chaumond*, il est désormais d’accéder à la pleine puissance des transformers, et ceci en toute simplicité. En effet, avec la librairie [transformers](https://huggingface.co/transformers/), de nombreux modèles pré-entrainés sont mis à disposition. 
+Depuis cette fameuse publication, les avancées sur les transformers n'ont cessées de s'enrichir, contribuant ainsi à l'apparition d'un nombre incroyable de modèles impliqués dans la résolution de tâches NLP aussi diverses que variées. On donnera comme exemple la classification de phrases, l'analyse de sentiments, la traduction mais aussi la génération de texte (Essayez [AI Dungeon](https://play.aidungeon.io/main/landing) pour voir la puissance des modèles GPT-2 & 3 et surtout quelques heures de fun) et autres. Grâce à [Hugging Face] 🤗, société française 🇫🇷 fondé en 2016 par *Clément Delangue* et *Julien Chaumond*, il est désormais d’accéder à la pleine puissance des transformers, et ceci en toute simplicité. En effet, avec la librairie [transformers](https://huggingface.co/transformers/), de nombreux modèles pré-entrainés sont mis à disposition. 
 
 ## Contexte ##
 
@@ -23,50 +23,51 @@ Vous l’auriez compris en lisant le titre de cet article, ce post m’a donné 
 ## La recette de cuisine pour l'API ##
 
 Pour débuter, vous aurez besoin :
-1. 3 oeufs
-2. 100 g de fa....Ah désolé, c'est la recette du gateau au chocolat marmiton ca...
+1. 3 œufs
+2. 100 g de fa....Ah désolé, c'est la recette du gâteau au chocolat marmiton ça...
 
-Non, plus sérieusement, voici ce dont nous allons vraiment avoir besoin:
+Non, plus sérieusement, voici ce dont nous allons vraiment avoir besoin :
 
-### Transformers ### 
+### Transformers 🤗 ### 
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1200%2F1*Bp8K-_PJrG2NQxLlzk7hlw.png&f=1&nofb=1)
 
-Comme mentionné auparavant, nous allons utilisé la librairie **Transformers** de Hugging Face. La librairie est indispensable puisqu'elle contient les modèles pré-entrainés que nous allons utiliser pour la traduction du francais en SQL.. Pour l'installation, si vous avez deja Tensorflow 2.0 et/ou PyTorch, vous pouvez directement l'installer avec pip (Pour plus de précisions, la doc d'installation est consultable [ici](https://huggingface.co/transformers/installation.html):
+Comme mentionné au dessus, nous allons utiliser la librairie **Transformers** de Hugging Face. La librairie est indispensable puisqu'elle contient les modèles pré-entrainés que nous allons utiliser pour la traduction du français en SQL. Pour l'installation, si vous avez déjà Tensorflow 2.0 et/ou PyTorch, vous pouvez directement l'installer avec pip (Pour plus de précisions, la doc d'installation est consultable [ici](https://huggingface.co/transformers/installation.html):
 ```console
 pip install transformers
 ```
-Pour vérifier que l'installation s'est bien passé, vous pouvez runner la commande suivante dans votre terminal bash:
+Pour vérifier que l'installation s'est bien passé, vous pouvez lancer la commande suivante dans votre terminal bash:
 ```console
 python -c "from transformers import pipeline; print(pipeline('sentiment-analysis')('we love you'))"
 ```
-Vous devriez voir apparaître ceci:
+Vous devriez voir apparaître ceci :
 ```console
 [{'label': 'POSITIVE', 'score': 0.9998704791069031}]
 ```
 
-### FastApi ###
+### FastApi ⚡️ ###
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1023%2F1*du7p50wS_fIsaC_lR18qsg.png&f=1&nofb=1)
 
-[FastApi](https://fastapi.tiangolo.com/) est un framework web qui, comme son nom l'indique, va nous permettre de créer rapidement des API ultra-performante. En trois mots, FastApi c'est: Rapide, simple et robuste. La rapidité de FastAPI est possible grâce à Pydantic, Starlette et Uvicorn. Pydantic est utilisé pour la validation des données et Starlette pour l'outillage, ce qui le rend extrêmement rapide par rapport à Flask et lui confère des performances comparables à celles des API Web à haut débit en Node ou Go. Il s'agit d'un cadre innovant construit sur Starlette et Uvicorn. Starlette est un framework/toolkit ASGI léger, idéal pour créer des services asynchrones à haute performance. Uvicorn est un serveur ASGI rapide comme l'éclair, construit sur uvloop et httptools. 
+[FastApi](https://fastapi.tiangolo.com/) est un framework web qui, comme son nom l'indique, va nous permettre de créer rapidement des API ultra-performante. En trois mots, FastApi c’est : **Rapide**, **simple** et **robuste**. La rapidité de FastAPI est possible grâce à Pydantic, Starlette et Uvicorn. Pydantic est utilisé pour la validation des données et Starlette pour l'outillage, ce qui le rend extrêmement rapide par rapport à Flask et qui lui confère des performances comparables à celles des API Web à haut débit en Node ou Go. Starlette est un framework/toolkit ASGI léger, idéal pour créer des services asynchrones à haute performance. Uvicorn est un serveur ASGI rapide comme l'éclair, construit sur uvloop et httptools. 
 
-Pour installer FastApi, rien de plus simple:
+Pour installer FastApi, rien de plus simple :
 ```console
 pip install fastapi uvicorn[standard]
 ```
 
-### Docker ###
+### Docker  🐋  ###
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.1min30.com%2Fwp-content%2Fuploads%2F2018%2F04%2FLogo-Docker.jpg&f=1&nofb=1)
 
-Bon, je pense que je n'ai pas besoin de présenter Docker en long et en large. Pour faire court, Docker va nous permettre de  "containeriser"  notre code ainsi que ses dépendances (e.g. Transformers, FastApi) afin notre API puisse etre executé sur n'importe quel serveur. Pour cela, nous allons créer un DOCKERFILE et builder l'image DOCKER.
+Je pense que je n'ai pas vraiment besoin de présenter Docker tant il est populaire. Pour rappel, Docker va nous permettre de « containeriser »  notre code ainsi que ses dépendances (ex . : Transformers, FastApi) afin notre API puisse être exécutée sur n'importe quel serveur. 
 
-Si Docker n'est pas déja installé, je vous renvoie à la doc, qui est très bien ecrite : [Get Docker](https://docs.docker.com/get-docker/) 
+Si vous n’avez pas Docker installé, je vous renvoie à la doc, très bien écrite : [Get Docker](https://docs.docker.com/get-docker/) 
  
 ## Création de l'API ##
 
-Maintenant que nous avons passé en revu tout ce dont nous avions besoin pour créer notre API et in fine, la déployer, il est temps de passer à l'action! Vous allez voir qu'en quelques lignes de code la magie va opérer. 🧙🏻‍♀️  
+Maintenant que nous avons passé en revu tout ce dont nous avions besoin pour créer notre API et in fine, la déployer, nous allons pouvoir rentrer dans le vif du sujet ! Vous allez voir qu'en quelques lignes de code la magie va opérer. 🧙🏻‍♀️  
+
 
 ### Création du script ###
 
@@ -74,7 +75,7 @@ Dans cette partie nous allons montrer comment créer l'API étape par étape.
 
 1. Importer les librairies
 
-importer dans notre petit script python les librairies dont nous avons besoin pour notre API. Dans l'ordre, on import tout d'abord FastApi et uvicorn, puis les auto classes  **AutoModelWithLMHead** et **AutoTokenizer** de la librairie transformers que nous utiliserons juste après et que j'expliquerai plus en détails. La librairie logging n'est pas essentielle ici, elle permet juste d'émettre des messages suites à des évenèments et ainsi résoudre des anomalies.
+Pour commencer, il faut Importer les librairies dont nous avons besoin. Dans l'ordre, on importe tout d'abord **FastApi** et **uvicorn**, puis les auto classes **AutoModelWithLMHead** et **AutoTokenizer** de la librairie transformers que nous utiliserons juste après, et que j'expliquerai plus en détails. La librairie logging n'est pas essentielle ici, elle permet juste d'émettre des messages en cas d’anomalies.
 ```py
 # Import packages:
 
@@ -85,7 +86,7 @@ from transformers import AutoModelWithLMHead, AutoTokenizer
 ```
 2. Créer l'instance FastApi
 
-Une fois les librairies importées, la première chose à faire est d'instancier notre application. Pour cela, rien de plus simple :
+Une fois les librairies importées, on instancie notre application. Pour cela, rien de plus simple :
 ```py
 # Instanciate the app:
 
