@@ -259,6 +259,15 @@ Après, comme je vous l'ai dit, ne vous attendez pas à ce que l'API puisse rés
 ## Tout le monde dans le conteneur ! ## 
 
 L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable par tous.
+```
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
 
-<script src="http://gist-it.appspot.com/https://gist.github.com/natsunami/7a22ce36ef3bdb15ed16fe9b9629762f.js"></script>
+WORKDIR /app/
 
+COPY . /app/
+
+RUN pip install torch==1.9.0+cpu -f https://download.pytorch.org/whl/torch_stable.html \
+&& pip install transformers[sentencepiece] 
+```
+
+CMD ["python","french_text_to_sql_query.py"]
