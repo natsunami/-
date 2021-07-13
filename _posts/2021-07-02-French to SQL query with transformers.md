@@ -259,4 +259,6 @@ Après, comme je vous l'ai dit, ne vous attendez pas à ce que l'API puisse rés
 ## Tout le monde dans le conteneur ! ## 
 
 L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable par tous.
-![](https://gist.github.com/natsunami/7a22ce36ef3bdb15ed16fe9b9629762f)
+```
+https://gist.github.com/natsunami/7a22ce36ef3bdb15ed16fe9b9629762f
+```
