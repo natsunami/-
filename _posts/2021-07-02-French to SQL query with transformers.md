@@ -237,7 +237,7 @@ INFO:     127.0.0.1:33262 - "GET / HTTP/1.1" 200 OK
 ```
 **Attention**: L'execution peut prendre un peu de temps selon votre connexion internet car il faut dans un premier temps télécharger les modèles.
 
-Il est désormais temps de se rendre sur notre API et de la tester ! Pour cela nous allons nous rendre à la page: http://127.0.0.1:8000/docs#/ 
+Il est désormais temps de se rendre sur notre API et de la tester ! Pour cela nous allons nous rendre à la page: [http://127.0.0.1:8000/docs#/](http://127.0.0.1:8000/docs#/)
 
 ![](https://user-images.githubusercontent.com/52154100/125428785-3cd376b1-667b-49ad-a92b-e4a53f97365b.png)
 
