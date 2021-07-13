@@ -258,9 +258,9 @@ Après, comme je vous l'ai dit, ne vous attendez pas à ce que l'API puisse rés
 
 ## Tout le monde dans le conteneur ! ## 
 
-L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable par tous.
+L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable par tous. Afin de rendre cela possible, nous allons devoir utiliser Docker. Plus précisement il va falloir convertir notre application en image Docker. Pour cela, nous allons créer un Dockerfile qui prendra la forme suivante:
 ```
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7 
 
 WORKDIR /app/
 
@@ -268,6 +268,14 @@ COPY . /app/
 
 RUN pip install torch==1.9.0+cpu -f https://download.pytorch.org/whl/torch_stable.html \
 && pip install transformers[sentencepiece] 
-```
 
 CMD ["python","french_text_to_sql_query.py"]
+```
+Pour faire simple, le Dockerfile va donner plusieurs instructions à Docker. Docker va créer un fichier /app dans l'image base ```uvicorn-gunicorn-fastapi:python3.7``` (Notes: Cette image permet d'utiliser FastApi dans un conteneur Docker) puis va copier dans ce fichier tout ce qui se trouve dans mon répertoire actif ( mon script python), et installer les différents packages nécessaires. Enfin, on demande à Docker de runner notre script python sur le port 8000 , et tout ca dans un conteneur Docker. 
+
+Désormais, on a plus qu'à runner deux commandes dans notre terminal: 
+```console
+docker build -t french_sql_query
+docker run french_sql_query
+```
+
