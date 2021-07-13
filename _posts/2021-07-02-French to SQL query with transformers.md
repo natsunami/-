@@ -44,7 +44,6 @@ Vous devriez voir apparaître ceci :
 ```console
 [{'label': 'POSITIVE', 'score': 0.9998704791069031}]
 ```
-
 ### FastApi ⚡️ ###
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1023%2F1*du7p50wS_fIsaC_lR18qsg.png&f=1&nofb=1)
@@ -98,13 +97,14 @@ app = FastAPI(title='French to SQL translation API 🤗', description='API for S
 ```
 FastApi est une classe python qui contient l'ensemble des fonctionnalités pour l'API. De plus, par convention on appellera la variable 'app' mais vous pouvez l'appeler comme bon vous semble. Pour finir, il est possible de renseigner dans les paramètres le titre ainsi qu'une brève description de l'application, ce qui permettra aux utilisateurs de savoir à quoi sert l'API.
 
-3. Instanciate transformers models
+3. Télécharger et instancier les modèles transformers 
 
-Cette étape est la plus importante dans le script puisque c'est ici que nous allons telecharger les modèles pré-entrainés et les tokenizers associés et les instancier. Pour cela, on utilise les deux classes importées précédemment:
+Cette étape est très importante dans le script puisque c'est ici que nous allons télécharger les modèles pré-entrainés et les tokenizers associés et les instancier. Pour cela, on utilise les deux classes précédemment importées :
 
-- AutoModelWithLMHead: Classe de modèle qui sera instanciée lorsque l'on utilisera la méthode de classe AutoModelWithLMHead.from_pretrained(pretrained_model_name_or_path). Il existe une très grande variété de modèles qui peuvent etre télécharger, chacun ayant des spécificités et permettant de résourdre des problématiques différentes. La liste des modèles est consultable [ici](https://huggingface.co/transformers/v3.0.2/model_summary.html) !
+- **AutoModelWithLMHead**: Classe de modèle qui sera instanciée lorsque l'on utilisera la méthode de classe AutoModelWithLMHead.from_pretrained(pretrained_model_name_or_path). Il existe une très grande variété de modèles qui peuvent être téléchargés, chacun ayant des spécificités et permettant de résoudre des problématiques différentes. La liste des modèles est consultable [ici](https://huggingface.co/transformers/v3.0.2/model_summary.html).
 
-- AutoTokenizer: Classe de tokenizer qui sera instanciée lorsque l'on utilisera la méthode de classe AutoTokenizer.from_pretrained(pretrained_model_name_or_path). Le tokenizer utilisé est celui mentionné par l'utilisateur dans la méthode from_pretrained ( e.g. distillert, roberta, t5,...) Petit rappel conernant la tokenization,l'objectif du tokenizer est tout simplement de prétraiter le texte. Il va diviser le texte en mots (ou parties de mots, symboles de ponctuation, etc.) que l'on appelle **tokens**. Lors de l'utilisation d'un modèle, il faut s'assurer que le tokenizer instancié correspond au tokenizer ayant été utilisé pour entrainer le modèle.
+- **AutoTokenizer**: Classe de tokenizer qui sera instanciée lorsque l'on utilisera la méthode de classe AutoTokenizer.from_pretrained(pretrained_model_name_or_path). Le tokenizer utilisé est celui mentionné par l'utilisateur dans la méthode from_pretrained (ex. : distillert, roberta, t5,...) Petit rappel concernant la tokenization, l'objectif du tokenizer est tout simplement de prétraiter le texte. Il va diviser le texte en mots (ou parties de mots, symboles de ponctuation, etc.) que l'on appelle **tokens**. A retenir, lors de l'utilisation d'un modèle il faut s'assurer que le tokenizer instancié correspond au tokenizer ayant été utilisé pour entrainer le modèle.
+
 ```py
 #Download and instanciate vocabulary and Fr-to-En model :
 model_trad_fr_to_eng = AutoModelWithLMHead.from_pretrained("Helsinki-NLP/opus-mt-fr-en")
@@ -114,20 +114,20 @@ tokenizer_translation = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-fr-e
 tokenizer_sql = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-wikiSQL")
 model_sql = AutoModelWithLMHead.from_pretrained("mrm8488/t5-base-finetuned-wikiSQL")
 ```
-Le code ci-dessus nous permet donc de telecharger et instancier dans un premier temps le modèle [opus-mt-fr-en](https://huggingface.co/Helsinki-NLP/opus-mt-fr-en). Ce modèle va tout simplement nous permettre de convertir du francais en anglais. Puis on télécharge et instancie le modèle [t5-base-finetuned-wikiSQL](https://huggingface.co/mrm8488/t5-base-finetuned-wikiSQL qui va convertire le texte anglais en SQL.
+Le code ci-dessus nous permet donc de télécharger et instancier dans un premier temps le modèle [opus-mt-fr-en](https://huggingface.co/Helsinki-NLP/opus-mt-fr-en). Ce modèle va tout simplement nous permettre de convertir du francais en anglais. Puis on télécharge et instancie le modèle [t5-base-finetuned-wikiSQL](https://huggingface.co/mrm8488/t5-base-finetuned-wikiSQL qui va convertir le texte anglais en SQL.
 
 4.Définir le *path operation decorator*:
 
-Cette étape va faire en sorte que l'API puisse réaliser certaines actions ( dans notre cas, traduire le texte en SQL) en communiquant avec elle via des méthodes de requetes HTTP. Pour parvenir à notre fin, on va renseigner à FastApi le type de méthode (e.g. POST, GET, DELETE, PUT,...) et le chemin ( L'endroit/endpoint où se fait la requete). Voici un exemple d'operation que l'on pourait réaliser:
+Cette étape va faire en sorte que l'API puisse réaliser certaines actions (dans notre cas, traduire le texte en SQL) en communiquant avec elle via des méthodes de requêtes HTTP. Pour parvenir à notre fin, on va renseigner à FastApi le type de méthode (ex. : POST, GET, DELETE, PUT,) et le chemin (L’endroit/endpoint où se fait la requête). Voici un exemple d'opération que l'on pourrait réaliser:
 ```py
 @app.get('/')
 def get_root():
 
     return {'Message': 'Welcome to the french SQL query translator !'}
 ```
-Le ``` @app.get('/')``` dit à FastApi que la fonction juste en dessous est chargée de traiter les requetes qui vont vers le chemin ```/``` et qui utilisent la méthode GET, ce qui renverra le dict ```{'Message': 'Welcome to the french SQL query translator !'}```
+Le ``` @app.get('/')``` dit à FastApi que la fonction juste en dessous est chargée de traiter les requêtes qui vont vers le chemin ```/``` et qui utilisent la méthode GET, ce qui renverra le dict ```{'Message': 'Welcome to the french SQL query translator !'}```
 
-Maintenant que nous comprenons mieux comment réaliser des opérations, nous allons pouvoir écrire la fonction qui va traduire le texte en francais en SQL: 
+Maintenant que nous comprenons mieux comment réaliser des opérations, nous allons pouvoir écrire la fonction qui va traduire le texte français en SQL:
 ```py
 @app.get('/get_query/{query}', tags=['query'])
 async def text_to_sql_query(query:str):
@@ -137,7 +137,6 @@ async def text_to_sql_query(query:str):
     # Encoding: Converts a string to a sequence of ids (integer), using the tokenizer and vocabulary.
     # Decoding: Converts a sequence of ids in a string, using the tokenizer and vocabulary with options to remove special tokens and clean up tokenization spaces.
    
-    
     inputs_trad = tokenizer_translation.encode(query, return_tensors="pt")
     outputs_trad = model_trad_fr_to_eng.generate(inputs_trad, max_length=600, num_beams=4, early_stopping=True)
     
@@ -153,33 +152,34 @@ async def text_to_sql_query(query:str):
 
     return { 'SQL QUERY' : sql_query} 
 ```
-Ce que l'on fait ici est relativement simple à comprendre. Concernant la fonction en elle-meme, cette dernière prend en argument le texte francais, que j'ai désigné ici par ```query```.Au passage vous pouvez noter que dans le path de la méthode get on retrouve notre ```query``` entre ```{}``` pour indiquer à l'utilisateur qu'il a directement la possibilité de rentrer directement sa requête version texte francais dans l'url.
+Ce que l'on fait ici est relativement simple à comprendre. Concernant la fonction en elle-même, cette dernière prend en argument le texte français, que j'ai désigné ici par ```query```.Au passage vous pouvez noter que dans le path de la méthode get on retrouve notre ```query``` entre ```{}``` pour indiquer à l'utilisateur qu'il a directement la possibilité de rentrer directement sa requête version texte français dans l'url.
 
-Comme nous l'avons dit précédemment, on cherche à convertir le texte francais en anglais puis de l'anglais vers le SQL. La procédure à réaliser est la même dans les deux cas:
-- Encodage: On encode le texte avec la methode ```encode```. La ```string``` est convertit en dictionnaire de la forme suivante au sein duquel la list d'integer représente les index des tokens:
+Comme nous l'avons dit précédemment, on cherche à convertir le texte français en anglais puis de l'anglais vers le SQL. La procédure à réaliser est la même dans les deux cas :
+- Encodage : On encode le texte avec la méthode ```encode```. La ```string``` est convertit en dictionnaire de la forme suivante au sein duquel la liste d’Integer représente les index des tokens:
 ```py
 {'input_ids': [101, 2057, 2024, 2200, 3407, 2000, 2265, 2017, 1996, 100, 19081, 3075, 1012, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
 ```
-- Generation: Génère les index des tokens pour la séquence que l'on cherche à obtenir à partir des index obtenus par le Tokenizer et l'utilisation du modèle pré-entrainé.
-- Décodage: Décode les index des tokens en une nouvelle string.
+- Génération : Génère les index des tokens de la séquence que l'on cherche à obtenir à partir des index obtenus par le Tokenizer et l'utilisation du modèle pré-entrainé.
+- Décodage : Décode les index des tokens en une nouvelle string.
 
 Pour conclure cette partie j'insiste sur le fait que la fonction doit renvoyer un ```dict```.
 
 5. Runner l'API
 
-On arrive  enfin à l'étape finale qui va tout simplement consister à faire tourner en local notre API sur un serveur Uvicorn. Pour cela, il existe deux possibilités.
-Vous pouvez rajouter dans le script ces 2 lignes de code:
+On arrive enfin à l'étape finale qui va tout simplement consister à faire tourner en local notre API sur un serveur Uvicorn. Pour cela, il existe deux possibilités.
+Vous pouvez rajouter dans le script ces 2 lignes de code :
 ```py
 # Running the API on our local network:
 
 if __name__ == '__main__':    
     uvicorn.run(app, host='127.0.0.1', port=8000)
 ```
-Ou bien, vous pouvez directement lancer le serveur dans le terminal:
+Ou bien, vous pouvez directement lancer le serveur dans le terminal :
 ```console
 uvicorn french_text_to_sql_query:app --reload
 ```
-Au passage,voici le script au complet:
+Au passage, voici le script au complet :
+
 ```py
 # Import packages 
 import uvicorn
@@ -230,7 +230,7 @@ async def text_to_sql_query(query:str):
 if __name__ == '__main__':    
     uvicorn.run(app, host='127.0.0.1', port=8000)
 ```
-Une fois tout ceci réalisé, notre script est terminé et nous n'avons plus qu'à le faire tourner. Si tout fonctionne correctement, vous devriez voir apparaitre ceci dans votre terminal :
+Une fois tout ceci réalisé, notre script est terminé et nous n'avons plus qu'à le faire tourner. Si tout fonctionne correctement, vous devriez voir apparaitre ceci dans le terminal :
 ```console
 INFO:     Started server process [31847]
 INFO:     Waiting for application startup.
@@ -238,30 +238,30 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 INFO:     127.0.0.1:33262 - "GET / HTTP/1.1" 200 OK
 ```
-**Attention**: L'execution peut prendre un peu de temps selon votre connexion internet car il faut dans un premier temps télécharger les modèles.
+**Attention**: L'exécution peut prendre un peu de temps selon votre connexion internet car il faut dans un premier temps télécharger les modèles.
 
-Il est désormais temps de se rendre sur notre API et de la tester ! Pour cela nous allons nous rendre au dashboard FastApi qui va nous permettre d'envoyer des requêtes à l'API: [http://127.0.0.1:8000/docs#/](http://127.0.0.1:8000/docs#/)
+Il est désormais temps de se rendre sur notre API et de la tester ! Pour cela nous allons nous rendre au dashboard FastApi qui va nous permettre d'envoyer des requêtes à l’API : [http://127.0.0.1:8000/docs#/](http://127.0.0.1:8000/docs#/)
 
 ![](https://user-images.githubusercontent.com/52154100/125428785-3cd376b1-667b-49ad-a92b-e4a53f97365b.png)
 
 6. Test de l'API
-
-Le moment de verité est enfin arrivé ! Pour vérifier que l'API fonctionne nous allons essayer avec une requete relativement simple du type ```selectionner les magasins ayant un chiffre d'affaire supérieur à 100000``` ce qui se traduirait en SQL par la query ```SELECT shops FROM table WHERE turnover > 100 000```. En effet, tout cela reste relativement expérimental donc ne soyez pas surpris si la query renvoyée n'est pas exactement se dont vous vous attendiez. Mais tout cela reste quand meme assez prometteur pour la suite et amusant(enfin c'est mon avis).
+7. 
+Le moment de vérité est arrivé ! Pour vérifier que l'API fonctionne correctement nous allons exécuter une requête relativement simple du type ```Sélectionner les magasins ayant un chiffre d'affaire supérieur à 100000``` ce qui se traduirait en SQL par la query ```SELECT shops FROM table WHERE turnover > 100 000```. Tout ce que nous faisons reste  expérimental donc ne soyez pas surpris si la query renvoyée n'est pas exactement ce dont vous vous attendiez. Mais tout cela reste quand même assez prometteur pour la suite et amusant (enfin c'est mon avis).
 
 ![](https://user-images.githubusercontent.com/52154100/125434336-c806462e-b4bc-4b04-a433-41588483c5e2.png)
 
-Comme vous le voyez, j'ai directement executé la requête dans le dashboard de FastApi (mais vous pouvez très bien l'exécuter dans le terminal) qui nous renvoie ceci:
+Comme vous le voyez, j'ai directement exécuté la requête dans le dashboard de FastApi (mais vous pouvez très bien l'exécuter dans le terminal) qui nous renverrai ceci :
 ```console
 {
   "SQL QUERY": " SELECT Stores FROM table WHERE Turnover > 100000"
 }
 ```
-Bon, on peut dire que le résultat est pas trop mal non ? 🥳
-Après, comme je vous l'ai dit, ne vous attendez pas à ce que l'API puisse résoudre des query complexes. Dans l'idée, si l'on voudrait obtenir de meilleures performances il faudrait non pas passer par la traduction francais-anglais mais directement entrainés un modèle sur des phrases écrites en francais.
+Le résultat n’est pas trop mal non ? 🥳
+Après, comme je vous l'ai dit, ne vous attendez pas à ce que l'API puisse résoudre des query complexes. Dans l'idée, si l'on voulait obtenir de meilleures performances il faudrait non pas passer par la traduction français-anglais mais directement entrainés un modèle sur des phrases écrites en français.
 
 ## Tout le monde dans le conteneur 🐳 ## 
 
-L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable par tous. Afin de rendre cela possible, nous allons devoir utiliser Docker. Plus précisement il va falloir convertir notre application en image Docker. Pour cela, nous allons créer un Dockerfile qui prendra la forme suivante:
+L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable par tous. Afin de rendre cela possible, nous allons devoir utiliser Docker. Plus précisément il va falloir convertir notre application en image Docker. Pour cela, nous allons créer un Dockerfile qui prendra la forme suivante :
 ```
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7 
 
@@ -274,15 +274,18 @@ RUN pip install torch==1.9.0+cpu -f https://download.pytorch.org/whl/torch_stabl
 
 CMD ["python","french_text_to_sql_query.py"]
 ```
-Pour faire simple, le Dockerfile va donner plusieurs instructions à Docker. Docker va créer un fichier /app dans l'image base ```uvicorn-gunicorn-fastapi:python3.7``` (Notes: Cette image permet d'utiliser FastApi dans un conteneur Docker) puis va copier dans ce fichier tout ce qui se trouve dans mon répertoire actif ( mon script python), et installer les différents packages nécessaires. Enfin, on demande à Docker de runner notre script python sur le port 8000 , et tout ca dans un conteneur Docker. 
+Pour faire simple, le Dockerfile va donner plusieurs instructions à Docker. Docker va créer un fichier /app dans l'image base ```uvicorn-gunicorn-fastapi:python3.7``` (Notes: Cette image permet d'utiliser FastApi dans un conteneur Docker) puis va copier dans ce fichier tout ce qui se trouve dans le répertoire actif, et installer les différents packages nécessaires. Enfin, on demande à Docker de lancer notre script python sur le port 8000, et tout ça dans un conteneur Docker. 
 
-Désormais, nous n'avons  plus qu'à runner deux commandes dans notre terminal: 
+Désormais, nous n’avons plus qu'à lancer deux commandes dans notre terminal: 
 ```console
 docker build -t french_sql_query
 docker run french_sql_query
 ```
-Comme tout à l'heure, on se rends à l'adresse [127.0.0.1:8000/docs#/](127.0.0.1:8000/docs#/) pour voir si tout fonctionne correctement. Si vous voyez le dashboard FastApi, c'est que nous avons bien deployé notre API dans un conteneur Docker 👌🏼.
+Comme tout à l'heure, on se rends à l'adresse [127.0.0.1:8000/docs#/](127.0.0.1:8000/docs#/) pour voir si tout fonctionne correctement. Si vous voyez le dashboard FastApi, c'est que nous avons réussi à déployer notre API dans un conteneur Docker 👌🏼.
 
 ## We made it ##
 
-Yeaaaaah ! Nous avons reussi à deployer une API qui permet de traduire du francais en une requete SQL ! Si c'est pas cool ca !? Merci d'avoir suivi cet article/tutoriel jusqu'au bout. Si besoin, vous pouvez directement télécharger l'image Docker du projet sur [mon repo Dockerhub](https://hub.docker.com/repository/docker/natsunami/content) 👈🏽
+Yeaaaaah ! Nous avons déployé une API qui permet de traduire du française en une requête SQL ! Si ce n’est pas cool ça !? Merci d'avoir suivi cet article/tutoriel jusqu'au bout. Si besoin, vous pouvez directement télécharger l'image Docker du projet sur [mon repo Dockerhub](https://hub.docker.com/repository/docker/natsunami/content) 👈🏽
+
+On se retrouve bientôt pour un nouvel article ! 🖖
+
