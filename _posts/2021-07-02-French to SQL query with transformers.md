@@ -261,14 +261,7 @@ Après, comme je vous l'ai dit, ne vous attendez pas à ce que l'API puisse rés
 L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable par tous.
 <!DOCTYPE html>
 
-<html>
-  <head>
-    <title>To do list</title>
-  </head>
-
-  <body>
-    <h1>To do list</h1>
-    <script src="https://gist.github.com/natsunami/7a22ce36ef3bdb15ed16fe9b9629762f.js"></script>
-  </body>
-</html>
+<script 
+  src="https://gist.github.com/natsunami/7a22ce36ef3bdb15ed16fe9b9629762f.js">
+</script>
 
