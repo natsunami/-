@@ -245,7 +245,7 @@ Il est désormais temps de se rendre sur notre API et de la tester ! Pour cela n
 
 Le moment de verité est enfin arrivé ! Pour vérifier que l'API fonctionne nous allons essayer avec une requete relativement simple du type ```selectionner les magasins ayant un chiffre d'affaire supérieur à 100000``` ce qui se traduirait en SQL par la query ```SELECT shops FROM table WHERE turnover > 100 000```. En effet, tout cela reste relativement expérimental donc ne soyez pas surpris si la query renvoyée n'est pas exactement se dont vous vous attendiez. Mais tout cela reste quand meme assez prometteur pour la suite et amusant(enfin c'est mon avis).
 
-![](https://user-images.githubusercontent.com/52154100/125432056-2a2ef1cd-2e27-4200-b17f-eb928c313555.png)
+![](https://user-images.githubusercontent.com/52154100/125434336-c806462e-b4bc-4b04-a433-41588483c5e2.png)
 
 Comme vous le voyez, j'ai directement executé la requête dans le dashboard de FastApi (mais vous pouvez très bien l'exécuter dans le terminal) qui nous renvoie ceci:
 ```console
@@ -253,5 +253,13 @@ Comme vous le voyez, j'ai directement executé la requête dans le dashboard de 
   "SQL QUERY": " SELECT Stores FROM table WHERE Turnover > 100000"
 }
 ```
+Bon, on peut dire que le résultat est pas trop mal non ? 🥳
+Après, comme je vous l'ai dit, ne vous attendez pas à ce que l'API puisse résoudre des query complexes. Dans l'idée, si l'on voudrait obtenir de meilleures performances il faudrait non pas passer par la traduction francais-anglais mais directement entrainés un modèle sur des phrases écrites en francais.
+
+## Tout le monde dans le conteneur ! ## 
+
+L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable par tous.
+
+<script src="https://gist.github.com/natsunami/7a22ce36ef3bdb15ed16fe9b9629762f.js"></script>
 
 
