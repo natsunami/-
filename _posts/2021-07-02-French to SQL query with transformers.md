@@ -237,5 +237,5 @@ INFO:     127.0.0.1:33262 - "GET / HTTP/1.1" 200 OK
 ```
 **Attention**: L'execution peut prendre un peu de temps selon votre connexion internet car il faut dans un premier temps télécharger les modèles.!
 
-[API_SQL](https://user-images.githubusercontent.com/52154100/125428387-3bcead57-2c28-46d8-a04f-ca8f347f9041.png)
+![](https://user-images.githubusercontent.com/52154100/125428387-3bcead57-2c28-46d8-a04f-ca8f347f9041.png)
 
