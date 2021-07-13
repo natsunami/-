@@ -262,6 +262,6 @@ L'API étant fonctionnelle, nous allons faire en sorte de la rendre utilisable p
 <!DOCTYPE html>
 
 <script 
-  src="https://gist.github.com/natsunami/7a22ce36ef3bdb15ed16fe9b9629762f.js">
+  src="http://gist-it.appspot.com/https://gist.github.com/natsunami/7a22ce36ef3bdb15ed16fe9b9629762f.js">
 </script>
 
