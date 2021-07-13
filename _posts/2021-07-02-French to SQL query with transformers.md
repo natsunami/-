@@ -278,4 +278,4 @@ Désormais, on a plus qu'à runner deux commandes dans notre terminal:
 docker build -t french_sql_query
 docker run french_sql_query
 ```
-
+Comme tout à l'heure, on se rends à l'adresse 127.0.0.1:8000/docs#/
