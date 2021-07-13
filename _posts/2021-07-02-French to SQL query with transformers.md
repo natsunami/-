@@ -227,7 +227,7 @@ async def text_to_sql_query(query:str):
 if __name__ == '__main__':    
     uvicorn.run(app, host='127.0.0.1', port=8000)
 ```
-Une fois tout ceci réalisé, notre script est enfin terminé et nous n'avons plus qu'à le faire tourner. Si tout fonctionne correctement, vous devriez voir apparaitre ceci dans votre terminal :
+Une fois tout ceci réalisé, notre script est terminé et nous n'avons plus qu'à le faire tourner. Si tout fonctionne correctement, vous devriez voir apparaitre ceci dans votre terminal :
 ```console
 INFO:     Started server process [31847]
 INFO:     Waiting for application startup.
@@ -237,8 +237,21 @@ INFO:     127.0.0.1:33262 - "GET / HTTP/1.1" 200 OK
 ```
 **Attention**: L'execution peut prendre un peu de temps selon votre connexion internet car il faut dans un premier temps télécharger les modèles.
 
-Il est désormais temps de se rendre sur notre API et de la tester ! Pour cela nous allons nous rendre à la page: [http://127.0.0.1:8000/docs#/](http://127.0.0.1:8000/docs#/)
+Il est désormais temps de se rendre sur notre API et de la tester ! Pour cela nous allons nous rendre au dashboard FastApi qui va nous permettre d'envoyer des requêtes à l'API: [http://127.0.0.1:8000/docs#/](http://127.0.0.1:8000/docs#/)
 
 ![](https://user-images.githubusercontent.com/52154100/125428785-3cd376b1-667b-49ad-a92b-e4a53f97365b.png)
+
+6. Test de l'API
+
+Le moment de verité est enfin arrivé ! Pour vérifier que l'API fonctionne nous allons essayer avec une requete relativement simple du type ```selectionner les magasins ayant un chiffre d'affaire supérieur à 100000``` ce qui se traduirait en SQL par la query ```SELECT shops FROM table WHERE turnover > 100 000```. En effet, tout cela reste relativement expérimental donc ne soyez pas surpris si la query renvoyée n'est pas exactement se dont vous vous attendiez. Mais tout cela reste quand meme assez prometteur pour la suite et amusant(enfin c'est mon avis).
+
+![](https://user-images.githubusercontent.com/52154100/125432056-2a2ef1cd-2e27-4200-b17f-eb928c313555.png)
+
+Comme vous le voyez, j'ai directement executé la requête dans le dashboard de FastApi (mais vous pouvez très bien l'exécuter dans le terminal) qui nous renvoie ceci:
+```console
+{
+  "SQL QUERY": " SELECT Stores FROM table WHERE Turnover > 100000"
+}
+```
 
 
