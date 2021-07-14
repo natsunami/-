@@ -48,7 +48,7 @@ Vous devriez voir apparaître ceci :
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1023%2F1*du7p50wS_fIsaC_lR18qsg.png&f=1&nofb=1)
 
-[FastApi](https://fastapi.tiangolo.com/) est un framework web qui, comme son nom l'indique, va nous permettre de créer rapidement des API ultra-performante. En trois mots, FastApi c’est : **Rapide**, **simple** et **robuste**. La rapidité de FastAPI est possible grâce à Pydantic, Starlette et Uvicorn. Pydantic est utilisé pour la validation des données et Starlette pour l'outillage, ce qui le rend extrêmement rapide par rapport à Flask et qui lui confère des performances comparables à celles des API Web à haut débit en Node ou Go. Starlette est un framework/toolkit ASGI léger, idéal pour créer des services asynchrones à haute performance. Uvicorn est un serveur ASGI rapide comme l'éclair, construit sur uvloop et httptools. 
+[FastApi](https://fastapi.tiangolo.com/) est un framework web, qui, comme son nom l'indique, va nous permettre de créer rapidement des API ultra-performantes. En trois mots, FastApi c’est : **Rapide**, **simple** et **robuste**. La rapidité de FastAPI est possible grâce à Pydantic, Starlette et Uvicorn. Pydantic est utilisé pour la validation des données et Starlette pour l'outillage, ce qui le rend extrêmement rapide par rapport à Flask et qui lui confère des performances comparables à celles des API Web à haut débit en Node ou Go. Starlette est un framework/toolkit ASGI léger, idéal pour créer des services asynchrones à haute performance. Uvicorn est un serveur ASGI rapide comme l'éclair, construit sur uvloop et httptools. 
 
 Pour installer FastApi, rien de plus simple :
 ```console
@@ -59,7 +59,7 @@ pip install fastapi uvicorn[standard]
 
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.1min30.com%2Fwp-content%2Fuploads%2F2018%2F04%2FLogo-Docker.jpg&f=1&nofb=1)
 
-Je pense que je n'ai pas vraiment besoin de présenter Docker tant il est populaire. Pour rappel, Docker va nous permettre de « containeriser »  notre code ainsi que ses dépendances (ex . : Transformers, FastApi) afin notre API puisse être exécutée sur n'importe quel serveur. 
+Je pense que je n'ai pas vraiment besoin de présenter Docker tant il est populaire. Pour rappel, Docker va nous permettre de « containeriser »  notre code ainsi que ses dépendances (ex : Transformers, FastApi) afin notre API puisse être exécutée sur n'importe quel serveur. 
 
 Si vous n’avez pas Docker installé, je vous renvoie à la doc, très bien écrite : [Get Docker](https://docs.docker.com/get-docker/) 
  
@@ -74,7 +74,7 @@ Dans cette partie nous allons montrer comment créer l'API étape par étape.
 
 1. Importer les librairies
 
-Pour commencer, il faut Importer les librairies dont nous avons besoin. Dans l'ordre, on importe tout d'abord **FastApi** et **uvicorn**, puis les auto classes **AutoModelWithLMHead** et **AutoTokenizer** de la librairie transformers que nous utiliserons juste après, et que j'expliquerai plus en détails. La librairie logging n'est pas essentielle ici, elle permet juste d'émettre des messages en cas d’anomalies.
+Pour commencer, il faut importer les librairies dont nous avons besoin. Dans l'ordre, on importe tout d'abord **FastApi** et **uvicorn**, puis les auto classes **AutoModelWithLMHead** et **AutoTokenizer** de la librairie transformers que nous utiliserons juste après et que j'expliquerai plus en détails. La librairie logging n'est pas essentielle ici, elle permet juste d'émettre des messages en cas d’anomalies.
 ```py
 # Import packages:
 
